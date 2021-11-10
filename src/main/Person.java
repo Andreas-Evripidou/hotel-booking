@@ -5,17 +5,23 @@ public class Person {
 	private String forename;
 	private String surname;
 	private String emailAddress;
-	private String phoneNumber;
+	private int phoneNumber;
+	private int host;
+	private int guest;
+	private String password;
 	
 	public Person() {}
 	
 	public Person(String title, String forename, String surname,
-			String emailAddress, String phoneNumber) {
+			String emailAddress, int phoneNumber, int host, int guest, String password) {
 		this.title = title;
 		this.forename = forename;
 		this.surname = surname;
 		this.emailAddress = emailAddress;
 		this.phoneNumber = phoneNumber;
+		this.host = host;
+		this.guest = guest;
+		this.password = password;
 	}
 	
 	private void setTitle(String title) {
@@ -46,11 +52,32 @@ public class Person {
 		return emailAddress;
 	}
 	
-	private void setPhoneNumber(String phoneNumber) {
+	private void setPhoneNumber(int phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public String getPhoneNumber() {
+	public int getPhoneNumber() {
 		return phoneNumber;
+	}
+	
+	private void setHost(int host) {
+		this.host = host;
+	}
+	public int getHost() {
+		return host;
+	}
+	
+	private void setGuest(int guest) {
+		this.guest = guest;
+	}
+	public int getGuest() {
+		return guest;
+	}
+	
+	private void setPassword(String password) {
+		this.password = password;
+	}
+	public String getPassword() {
+		return password;
 	}
 	
 }
