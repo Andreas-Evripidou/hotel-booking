@@ -24,7 +24,7 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 import javax.swing.JComboBox;
 
-public class newLoginPage {
+public class RegistrationPage {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -44,7 +44,7 @@ public class newLoginPage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					newLoginPage window = new newLoginPage();
+					RegistrationPage window = new RegistrationPage();
 					window.frame.setVisible(true);
 					window.frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
@@ -57,7 +57,7 @@ public class newLoginPage {
 	/**
 	 * Create the application.
 	 */
-	public newLoginPage() {
+	public RegistrationPage() {
 		initialize();
 	}
 	
