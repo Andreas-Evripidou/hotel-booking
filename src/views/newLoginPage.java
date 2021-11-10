@@ -1,33 +1,32 @@
 package views;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
-import javax.swing.JLayeredPane;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
-import javax.swing.JPasswordField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JLabel;
 import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class RegistrationPage extends JFrame {
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.JCheckBox;
+import javax.swing.JButton;
+import java.awt.Dimension;
+import javax.swing.JComboBox;
 
-	private JPanel contentPane;
+public class newLoginPage {
+
+	private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -45,9 +44,9 @@ public class RegistrationPage extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RegistrationPage frame = new RegistrationPage();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);
+					newLoginPage window = new newLoginPage();
+					window.frame.setVisible(true);
+					window.frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,24 +55,29 @@ public class RegistrationPage extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the application.
 	 */
-	public RegistrationPage() {
-		setMinimumSize(new Dimension(1200, 850));
-		setBackground(Color.WHITE);
-		setForeground(Color.BLACK);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1200, 850);
-		contentPane = new JPanel();
-		contentPane.setBackground(Color.DARK_GRAY);
-		contentPane.setForeground(Color.GRAY);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
+	public newLoginPage() {
+		initialize();
+	}
+	
+	public JFrame getFrame() {
+		return frame;
+	}
+	
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 1200, 850);
+		frame.setMinimumSize(new Dimension(1200, 850));
+		frame.setTitle("Registration Page");
+		frame.setBounds(100, 100, 1200, 850);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
-		panel.setForeground(Color.RED);
-		contentPane.add(panel);
+		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -104,7 +108,7 @@ public class RegistrationPage extends JFrame {
 				window.getFrame().setVisible(true);
 				window.getFrame().pack();
 				window.getFrame().setLocationRelativeTo(null);
-				
+				frame.dispose();
 			}
 		});
 		btnRedirectToLogin.setPreferredSize(new Dimension(100, 40));
@@ -316,4 +320,3 @@ public class RegistrationPage extends JFrame {
 		panel_1.setLayout(gl_panel_1);
 	}
 }
-

@@ -65,7 +65,8 @@ public class LoginPage {
 					LoginPage window = new LoginPage();
 					Toolkit toolkit = Toolkit.getDefaultToolkit();
 					Dimension screenDimensions = toolkit.getScreenSize();
-					window.frmLogInPage.setLocation(new Point((screenDimensions.width - 510)/4, (screenDimensions.height - 350)/4));
+					window.frmLogInPage.setLocationRelativeTo(null);
+//					window.frmLogInPage.setLocation(new Point((screenDimensions.width - 510)/4, (screenDimensions.height - 350)/4));
 					window.frmLogInPage.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -80,23 +81,30 @@ public class LoginPage {
 	public LoginPage() {
 		initialize();
 	}
-
+	
+	public JFrame getFrame() {
+		return frmLogInPage;
+	}
+	
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frmLogInPage = new JFrame();
-		frmLogInPage.setMinimumSize(new Dimension(1100, 700));
+		frmLogInPage.getContentPane().setBackground(Color.LIGHT_GRAY);
+		frmLogInPage.setBackground(Color.LIGHT_GRAY);
+		frmLogInPage.setMinimumSize(new Dimension(1200, 850));
 		frmLogInPage.setTitle("Log In Page");
-		frmLogInPage.setBounds(100, 100, 1191, 712);
+		frmLogInPage.setBounds(100, 100, 1200, 850);
 		frmLogInPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.CYAN);
+		panel.setBackground(Color.LIGHT_GRAY);
 		frmLogInPage.getContentPane().add(panel, BorderLayout.CENTER);
 		
 		JPanel userIDPanel = new JPanel();
-		userIDPanel.setBackground(Color.CYAN);
+		userIDPanel.setBackground(Color.LIGHT_GRAY);
 		userIDPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel userID = new JLabel("UserID:");
@@ -110,7 +118,7 @@ public class LoginPage {
 		userIDField.setColumns(25);
 		
 		JPanel passwordPanel = new JPanel();
-		passwordPanel.setBackground(Color.CYAN);
+		passwordPanel.setBackground(Color.LIGHT_GRAY);
 		passwordPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel password = new JLabel("Password:");
@@ -118,23 +126,24 @@ public class LoginPage {
 		passwordPanel.add(password);
 		
 		JPanel chooseUserPanel = new JPanel();
-		chooseUserPanel.setBackground(Color.CYAN);
+		chooseUserPanel.setBackground(Color.LIGHT_GRAY);
 		chooseUserPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JPanel logInButtonPanel = new JPanel();
-		logInButtonPanel.setBackground(Color.CYAN);
+		logInButtonPanel.setBackground(Color.LIGHT_GRAY);
 		logInButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JPanel logInButtonPanel_1 = new JPanel();
-		logInButtonPanel_1.setBackground(Color.CYAN);
+		logInButtonPanel_1.setBackground(Color.LIGHT_GRAY);
 		logInButtonPanel_1.setLayout(new BoxLayout(logInButtonPanel_1, BoxLayout.X_AXIS));
 		
 		JButton backToHomeScreen = new JButton("Home");
+		backToHomeScreen.setBackground(Color.LIGHT_GRAY);
 		backToHomeScreen.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
 		logInButtonPanel_1.add(backToHomeScreen);
 		
 		JPanel logInTitlePanel = new JPanel();
-		logInTitlePanel.setBackground(Color.CYAN);
+		logInTitlePanel.setBackground(Color.LIGHT_GRAY);
 		logInTitlePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel titleLabel = new JLabel("Please enter your Log In details");
@@ -186,6 +195,7 @@ public class LoginPage {
 		);
 		
 		JButton btnLogIn = new JButton("Log In");
+		btnLogIn.setBackground(Color.LIGHT_GRAY);
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String textFielduserID = userIDField.getText();
@@ -215,16 +225,28 @@ public class LoginPage {
 		logInButtonPanel.add(btnLogIn);
 		
 		JButton btnSignUp = new JButton("Sign Up");
+		btnSignUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newLoginPage window = new newLoginPage();
+				window.getFrame().setVisible(true);
+				window.getFrame().pack();
+				window.getFrame().setLocationRelativeTo(null);
+				frmLogInPage.dispose();
+			}
+		});
+		btnSignUp.setBackground(Color.LIGHT_GRAY);
 		btnSignUp.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
 		logInButtonPanel.add(btnSignUp);
 		
 		JRadioButton radioHost = new JRadioButton("Host");
+		radioHost.setBackground(Color.LIGHT_GRAY);
 		radioHost.setActionCommand("Host");
 		radioHost.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		buttonGroup.add(radioHost);
 		chooseUserPanel.add(radioHost);
 		
 		JRadioButton radioGuest = new JRadioButton("Guest");
+		radioGuest.setBackground(Color.LIGHT_GRAY);
 		radioGuest.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		radioGuest.setActionCommand("Guest");
 		buttonGroup.add(radioGuest);
@@ -235,17 +257,5 @@ public class LoginPage {
 		passwordField.setColumns(24);
 		passwordPanel.add(passwordField);
 		panel.setLayout(gl_panel);
-		
-		JMenuBar menuBar = new JMenuBar();
-		frmLogInPage.setJMenuBar(menuBar);
-		
-		JMenu mnMenu = new JMenu("Menu");
-		menuBar.add(mnMenu);
-		
-		JMenuItem homePage = new JMenuItem("Home Page");
-		mnMenu.add(homePage);
-		
-		JMenuItem logInPage = new JMenuItem("Log In Page");
-		mnMenu.add(logInPage);
 	}
 }

@@ -33,8 +33,8 @@ public class DatabaseCommunication {
 //		System.out.println(v.validateUser("malakas@email.com", "123456", "Host"));
 //		db.closeAll(db.res, db.stmt, db.pstmt, db.con);
 		
-		Person m = new Person("am", "am", "am", "am", 12343, 1, 0, "am");
-		Address a = new Address("am", "am", "am", "am");
+		Person m = new Person("am", "am", "am", "envlakas", 12343, 1, 0, "am");
+		Address a = new Address("mddd", "am", "am", "am");
 		
 		if (!v.alreadyExcists(m.getEmail())) {
 			v.validateUserRegistration(m, a);

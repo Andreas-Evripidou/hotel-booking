@@ -8,6 +8,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
 	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
-	<classpathentry kind="lib" path="/Users/andreasmatoli/University/2nd Year/COM2008 - System Design and Security/mysql-connector-java-8.0.27.jar"/>
+	<classpathentry kind="lib" path="H:/My Drive/Uni Work/Year 2/COM2008+COM3008-Systems Design and Security/mysql-connector-java-8.0.27.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
