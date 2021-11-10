@@ -10,6 +10,9 @@ import javax.swing.SpringLayout;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+
+import main.Validation;
+
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -28,6 +31,8 @@ import java.awt.CardLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Point;
+
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
@@ -36,12 +41,17 @@ import java.awt.Font;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LoginPage {
 
 	private JFrame frmLogInPage;
-	private JTextField textField;
+	private JTextField userIDField;
 	private JPasswordField passwordField;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
@@ -53,6 +63,9 @@ public class LoginPage {
 			public void run() {
 				try {
 					LoginPage window = new LoginPage();
+					Toolkit toolkit = Toolkit.getDefaultToolkit();
+					Dimension screenDimensions = toolkit.getScreenSize();
+					window.frmLogInPage.setLocation(new Point((screenDimensions.width - 510)/4, (screenDimensions.height - 350)/4));
 					window.frmLogInPage.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -74,7 +87,6 @@ public class LoginPage {
 	private void initialize() {
 		frmLogInPage = new JFrame();
 		frmLogInPage.setMinimumSize(new Dimension(1100, 700));
-		frmLogInPage.setMaximizedBounds(new Rectangle(0, 0, 0, 0));
 		frmLogInPage.setTitle("Log In Page");
 		frmLogInPage.setBounds(100, 100, 1191, 712);
 		frmLogInPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,10 +104,10 @@ public class LoginPage {
 		userID.setHorizontalAlignment(SwingConstants.LEFT);
 		userIDPanel.add(userID);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		userIDPanel.add(textField);
-		textField.setColumns(25);
+		userIDField = new JTextField();
+		userIDField.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		userIDPanel.add(userIDField);
+		userIDField.setColumns(25);
 		
 		JPanel passwordPanel = new JPanel();
 		passwordPanel.setBackground(Color.CYAN);
@@ -174,6 +186,31 @@ public class LoginPage {
 		);
 		
 		JButton btnLogIn = new JButton("Log In");
+		btnLogIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String textFielduserID = userIDField.getText();
+				String textFieldpassword = passwordField.getText();
+				String userType = null;
+				
+				try {
+					userType = buttonGroup.getSelection().getActionCommand();
+				}
+				catch (Exception ex) {
+				}
+				
+				if(textFielduserID.length() != 0 && textFieldpassword.length() != 0 && userType != null) {		
+					Validation v = new Validation();
+					boolean bool = v.validateUser(textFielduserID, textFieldpassword, userType);
+					if (!bool) {
+						JOptionPane.showMessageDialog(null, "Try again! Something you provided is incorrect!", "Errors", JOptionPane.WARNING_MESSAGE);
+					}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Please fill all the fields!", "Errors", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+				
+		});
 		btnLogIn.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
 		logInButtonPanel.add(btnLogIn);
 		
@@ -182,12 +219,14 @@ public class LoginPage {
 		logInButtonPanel.add(btnSignUp);
 		
 		JRadioButton radioHost = new JRadioButton("Host");
+		radioHost.setActionCommand("Host");
 		radioHost.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		buttonGroup.add(radioHost);
 		chooseUserPanel.add(radioHost);
 		
 		JRadioButton radioGuest = new JRadioButton("Guest");
 		radioGuest.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		radioGuest.setActionCommand("Guest");
 		buttonGroup.add(radioGuest);
 		chooseUserPanel.add(radioGuest);
 		
