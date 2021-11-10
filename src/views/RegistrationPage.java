@@ -73,7 +73,6 @@ public class RegistrationPage {
 		frame.setBounds(100, 100, 1200, 850);
 		frame.setMinimumSize(new Dimension(1200, 850));
 		frame.setTitle("Registration Page");
-		frame.setBounds(100, 100, 1200, 850);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();

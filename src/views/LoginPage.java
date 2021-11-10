@@ -227,7 +227,7 @@ public class LoginPage {
 		JButton btnSignUp = new JButton("Sign Up");
 		btnSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				newLoginPage window = new newLoginPage();
+				RegistrationPage window = new RegistrationPage();
 				window.getFrame().setVisible(true);
 				window.getFrame().pack();
 				window.getFrame().setLocationRelativeTo(null);
