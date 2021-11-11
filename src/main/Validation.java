@@ -58,4 +58,15 @@ public class Validation {
 			}
 		return n > 0;
 	}
+	
+	public Boolean validEmail(String emailAddress) {
+	    String eimailPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" 
+	            + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+	    return emailAddress.matches(eimailPattern);
+	}
+	
+	public Boolean validPassword(String password) {
+		String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\\\S+$).{8, 20}$";
+		return password.matches(passwordPattern);
+	}
 }

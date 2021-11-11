@@ -281,10 +281,20 @@ public class RegistrationPage {
 					Person m = new Person(title, forename, surname, userId, Integer.parseInt(contact), isHost, isGuest, password);
 					Address a = new Address( houseNumber, postcode, streetName, placeName);
 					
-					if (!v.alreadyExcists(m.getEmail())) {
+					if (!v.validEmail(userId)) {
+						JOptionPane.showMessageDialog(null, "Please enter a valid email!", "Errors", JOptionPane.WARNING_MESSAGE);
+					}
+					else if (!v.validPassword(password)){
+						JOptionPane.showMessageDialog(null, "Please enter a valid password! \n must be less than 20 and more than 8 characters in length. \n must have atleast one uppercase character \n must have atleast one lowercase character \n must have atleast one number \n must have atleast one special character among @#$%", "Errors", JOptionPane.WARNING_MESSAGE);
+					}
+					else if ( !(contact.length()>=8 && contact.length()<=15) ) {
+						JOptionPane.showMessageDialog(null, "Your contact number must be between 8 and 15 numbers long!", "Errors", JOptionPane.WARNING_MESSAGE);
+					}
+					else if (!v.alreadyExcists(m.getEmail())) {
 						v.validateUserRegistration(m, a);
 						System.out.println("added user");
-					} else {
+					}
+					else {
 						System.out.println("already excists");
 					}
 				}
