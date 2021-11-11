@@ -4,13 +4,13 @@ public class Address {
 	private String house; //the name or number of the property
 	private String streetName;
 	private String placeName;
-	private String postCode;
+	private String postcode;
 	
 	public Address(String house, String postcode, String streetName, String placeName)  {
 		this.house = house;
 		this.streetName = streetName;
 		this.placeName = placeName;
-		this.postCode = postcode;
+		this.postcode = postcode;
 				
 	}
 	
@@ -36,9 +36,9 @@ public class Address {
 	}
 	
 	private void setPostCode(String postCode) {
-		this.postCode = postCode;
+		this.postcode = postCode;
 	}
 	public String getPostCode() {
-		return postCode;
+		return postcode;
 	}
 }

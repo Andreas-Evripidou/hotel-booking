@@ -10,7 +10,14 @@ import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import main.Address;
+import main.Person;
+import main.Validation;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -23,19 +30,20 @@ import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import java.awt.Dimension;
 import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class RegistrationPage {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JPasswordField passwordField;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField textFieldPostcode;
+	private JTextField textFieldStreetName;
+	private JTextField textFieldPlaceName;
+	private JTextField textFieldHouseNumber;
+	private JPasswordField textFieldPassword;
+	private JTextField textFieldEmail;
+	private JTextField textFieldContact;
+	private JTextField textFieldForename;
+	private JTextField textFieldSurname;
 
 	/**
 	 * Launch the application.
@@ -91,31 +99,6 @@ public class RegistrationPage {
 		lblPageTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPageTitle.setFont(new Font("Tahoma", Font.BOLD, 32));
 		
-		JPanel panelRegister = new JPanel();
-		panelRegister.setBackground(Color.LIGHT_GRAY);
-		
-		JButton btnRegister = new JButton("Register");
-		btnRegister.setPreferredSize(new Dimension(100, 40));
-		btnRegister.setMinimumSize(new Dimension(100, 40));
-		btnRegister.setMaximumSize(new Dimension(100, 40));
-		panelRegister.add(btnRegister);
-		
-		JButton btnRedirectToLogin = new JButton("Log in");
-		btnRedirectToLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				LoginPage window = new LoginPage();
-				window.getFrame().setVisible(true);
-				window.getFrame().pack();
-				window.getFrame().setLocationRelativeTo(null);
-				frame.dispose();
-			}
-		});
-		btnRedirectToLogin.setPreferredSize(new Dimension(100, 40));
-		btnRedirectToLogin.setMinimumSize(new Dimension(100, 40));
-		btnRedirectToLogin.setMaximumSize(new Dimension(100, 40));
-		btnRedirectToLogin.setHideActionText(true);
-		panelRegister.add(btnRedirectToLogin);
-		
 		JPanel panelPostcode = new JPanel();
 		panelPostcode.setBackground(Color.LIGHT_GRAY);
 		
@@ -123,10 +106,10 @@ public class RegistrationPage {
 		lblpostcode.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panelPostcode.add(lblpostcode);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textField.setColumns(10);
-		panelPostcode.add(textField);
+		textFieldPostcode = new JTextField();
+		textFieldPostcode.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textFieldPostcode.setColumns(10);
+		panelPostcode.add(textFieldPostcode);
 		
 		JPanel panelStreetNumber = new JPanel();
 		panelStreetNumber.setBackground(Color.LIGHT_GRAY);
@@ -135,10 +118,10 @@ public class RegistrationPage {
 		lblStreetName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panelStreetNumber.add(lblStreetName);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textField_1.setColumns(10);
-		panelStreetNumber.add(textField_1);
+		textFieldStreetName = new JTextField();
+		textFieldStreetName.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textFieldStreetName.setColumns(10);
+		panelStreetNumber.add(textFieldStreetName);
 		
 		JPanel panelPlaceName = new JPanel();
 		panelPlaceName.setBackground(Color.LIGHT_GRAY);
@@ -147,10 +130,10 @@ public class RegistrationPage {
 		lbPlaceName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panelPlaceName.add(lbPlaceName);
 		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textField_2.setColumns(10);
-		panelPlaceName.add(textField_2);
+		textFieldPlaceName = new JTextField();
+		textFieldPlaceName.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textFieldPlaceName.setColumns(10);
+		panelPlaceName.add(textFieldPlaceName);
 		
 		JPanel panelHouse = new JPanel();
 		panelHouse.setBackground(Color.LIGHT_GRAY);
@@ -159,10 +142,10 @@ public class RegistrationPage {
 		lblHouse.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panelHouse.add(lblHouse);
 		
-		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textField_3.setColumns(10);
-		panelHouse.add(textField_3);
+		textFieldHouseNumber = new JTextField();
+		textFieldHouseNumber.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textFieldHouseNumber.setColumns(10);
+		panelHouse.add(textFieldHouseNumber);
 		
 		JPanel panelAddress = new JPanel();
 		panelAddress.setBackground(Color.LIGHT_GRAY);
@@ -197,10 +180,10 @@ public class RegistrationPage {
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panelPassword.add(lblPassword);
 		
-		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		passwordField.setColumns(15);
-		panelPassword.add(passwordField);
+		textFieldPassword = new JPasswordField();
+		textFieldPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textFieldPassword.setColumns(15);
+		panelPassword.add(textFieldPassword);
 		
 		JPanel panelEmail = new JPanel();
 		panelEmail.setBackground(Color.LIGHT_GRAY);
@@ -209,11 +192,11 @@ public class RegistrationPage {
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panelEmail.add(lblEmail);
 		
-		textField_4 = new JTextField();
-		textField_4.setToolTipText("");
-		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textField_4.setColumns(21);
-		panelEmail.add(textField_4);
+		textFieldEmail = new JTextField();
+		textFieldEmail.setToolTipText("");
+		textFieldEmail.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textFieldEmail.setColumns(21);
+		panelEmail.add(textFieldEmail);
 		
 		JPanel panelMobileNumber = new JPanel();
 		panelMobileNumber.setBackground(Color.LIGHT_GRAY);
@@ -222,10 +205,10 @@ public class RegistrationPage {
 		lblContact.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panelMobileNumber.add(lblContact);
 		
-		textField_5 = new JTextField();
-		textField_5.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textField_5.setColumns(15);
-		panelMobileNumber.add(textField_5);
+		textFieldContact = new JTextField();
+		textFieldContact.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textFieldContact.setColumns(15);
+		panelMobileNumber.add(textFieldContact);
 		
 		JPanel panelTitle = new JPanel();
 		panelTitle.setBackground(Color.LIGHT_GRAY);
@@ -235,6 +218,7 @@ public class RegistrationPage {
 		panelTitle.add(lblTitle);
 		
 		JComboBox comboBoxTitle = new JComboBox();
+		comboBoxTitle.setModel(new DefaultComboBoxModel(new String[] {"Mr.", "Mrs.", "Ms.", "Prof.", "Sr.", "Dr."}));
 		comboBoxTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panelTitle.add(comboBoxTitle);
 		
@@ -245,10 +229,10 @@ public class RegistrationPage {
 		lblForename.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panelForename.add(lblForename);
 		
-		textField_6 = new JTextField();
-		textField_6.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textField_6.setColumns(15);
-		panelForename.add(textField_6);
+		textFieldForename = new JTextField();
+		textFieldForename.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textFieldForename.setColumns(15);
+		panelForename.add(textFieldForename);
 		
 		JPanel panelSurname = new JPanel();
 		panelSurname.setBackground(Color.LIGHT_GRAY);
@@ -257,10 +241,81 @@ public class RegistrationPage {
 		lblSurname.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panelSurname.add(lblSurname);
 		
-		textField_7 = new JTextField();
-		textField_7.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textField_7.setColumns(15);
-		panelSurname.add(textField_7);
+		textFieldSurname = new JTextField();
+		textFieldSurname.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textFieldSurname.setColumns(15);
+		panelSurname.add(textFieldSurname);
+		
+		
+		JPanel panelRegister = new JPanel();
+		panelRegister.setBackground(Color.LIGHT_GRAY);
+		
+		JButton btnRegister = new JButton("Register");
+		btnRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String title = (String) comboBoxTitle.getSelectedItem();
+				String userId = textFieldEmail.getText();
+				String password = textFieldPassword.getText();
+				String forename = textFieldForename.getText();
+				String surname = textFieldSurname.getText();
+				String contact = textFieldContact.getText();
+				int isGuest = chckbxGuest.isSelected() ? 1 : 0;
+				int isHost = chckbxHost.isSelected() ? 1 : 0;
+				String houseNumber = textFieldHouseNumber.getText();
+				String placeName = textFieldPlaceName.getText();
+				String streetName = textFieldStreetName.getText();
+				String postcode = textFieldPostcode.getText();
+				
+				if( userId.length() != 0 && password.length() != 0 
+						&& forename.length() !=0 && surname.length() != 0 
+						&& contact.length() != 0 && (isGuest != 0 || isHost != 0)
+						&& houseNumber.length() !=0 && placeName.length() != 0 
+						&& streetName.length() !=0 && postcode.length() != 0 ) {		
+					
+					Validation v = new Validation();
+//					System.out.println(v.validateUser("malakas@email.com", "123456", "Host"));
+//					db.closeAll(db.res, db.stmt, db.pstmt, db.con);
+					
+					
+					Person m = new Person(title, forename, surname, userId, Integer.parseInt(contact), isHost, isGuest, password);
+					Address a = new Address( houseNumber, postcode, streetName, placeName);
+					
+					if (!v.alreadyExcists(m.getEmail())) {
+						v.validateUserRegistration(m, a);
+						System.out.println("added user");
+					} else {
+						System.out.println("already excists");
+					}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Please fill all the fields!", "Errors", JOptionPane.WARNING_MESSAGE);
+				}
+				
+			}
+		});
+		btnRegister.setPreferredSize(new Dimension(100, 40));
+		btnRegister.setMinimumSize(new Dimension(100, 40));
+		btnRegister.setMaximumSize(new Dimension(100, 40));
+		panelRegister.add(btnRegister);
+		
+		JButton btnRedirectToLogin = new JButton("Log in");
+		btnRedirectToLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoginPage window = new LoginPage();
+				window.getFrame().setVisible(true);
+				window.getFrame().pack();
+				window.getFrame().setLocationRelativeTo(null);
+				frame.dispose();
+			}
+		});
+		btnRedirectToLogin.setPreferredSize(new Dimension(100, 40));
+		btnRedirectToLogin.setMinimumSize(new Dimension(100, 40));
+		btnRedirectToLogin.setMaximumSize(new Dimension(100, 40));
+		btnRedirectToLogin.setHideActionText(true);
+		panelRegister.add(btnRedirectToLogin);
+		
+		
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
