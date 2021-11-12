@@ -6,12 +6,11 @@ public class Address {
 	private String placeName;
 	private String postcode;
 	
-	public Address(String house, String postcode, String streetName, String placeName)  {
+	public Address(String house, String streetName, String placeName, String postcode)  {
 		this.house = house;
 		this.streetName = streetName;
 		this.placeName = placeName;
 		this.postcode = postcode;
-				
 	}
 	
 	private void setHouse(String house) {

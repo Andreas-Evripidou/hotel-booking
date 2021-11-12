@@ -8,4 +8,5 @@ public class Utility {
 	private boolean hasFireExtinguisher;
 	private boolean hasSmokeAlarm;
 	private boolean hasFirstAidKit;
+	
 }

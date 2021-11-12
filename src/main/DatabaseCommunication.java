@@ -2,6 +2,8 @@ package main;
 
 import java.sql.*;
 
+import views.AddPropertyPage;
+
 public class DatabaseCommunication {
 	
 	private String SERVER = "jdbc:mysql://stusql.dcs.shef.ac.uk/team023";
@@ -153,6 +155,24 @@ public class DatabaseCommunication {
 			}
 		}
 		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
+	}
+	
+	public void addPropertyInDatabase(String hostEmailAddress, Property property, String statement) throws SQLException, Exception{
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(statement);
+				//TODO IMPLEMENT DB UPDATE ON PROPERTY ADD
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
 			closeAll(res, stmt, pstmt, con);
