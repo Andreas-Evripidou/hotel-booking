@@ -32,14 +32,20 @@ public class DatabaseCommunication {
 //		}
 		
 		Validation v = new Validation();
-//		System.out.println(v.validateUser("malakas@email.com", "123456", "Host"));
+//		System.out.println(v.validateUser("a", "a", "Host"));
 //		db.closeAll(db.res, db.stmt, db.pstmt, db.con);
 		
 		Person m = new Person("am", "am", "am", "envlakas", 12343, 1, 0, "am");
 		Address a = new Address("mddd", "am", "am", "am");
 		
-		if (!v.alreadyExcists(m.getEmail())) {
-			v.validateUserRegistration(m, a);
+//		if (!v.alreadyExcistsPerson(m.getEmail())) {
+//			v.validateUserRegistration(m, a);
+//			System.out.println("added user");
+//		} else {
+//			System.out.println("already excists");
+//		}
+		
+		if (!v.alreadyExcistsAddress("eimastepalavoi", a.getPostCode())) {
 			System.out.println("added user");
 		} else {
 			System.out.println("already excists");
@@ -85,6 +91,51 @@ public class DatabaseCommunication {
 		catch (Exception ex) {
 			ex.printStackTrace();
 		}
+		return null;
+	}
+	
+	public ResultSet getUserById(String query, String userId) {
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setString(1, userId);
+				res = pstmt.executeQuery();
+				
+				return res;
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public ResultSet getAddress(String query, String houseName, String postcode) {
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setString(1, houseName);
+				pstmt.setString(2, postcode);
+				res = pstmt.executeQuery();
+				
+				return res;
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
 		return null;
 	}
 	
