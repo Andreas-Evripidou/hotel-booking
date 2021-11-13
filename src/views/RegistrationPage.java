@@ -138,7 +138,7 @@ public class RegistrationPage {
 		JPanel panelHouse = new JPanel();
 		panelHouse.setBackground(Color.LIGHT_GRAY);
 		
-		JLabel lblHouse = new JLabel("House Number:");
+		JLabel lblHouse = new JLabel("House Name or Number:");
 		lblHouse.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panelHouse.add(lblHouse);
 		
@@ -255,7 +255,7 @@ public class RegistrationPage {
 			public void actionPerformed(ActionEvent e) {
 				
 				String title = (String) comboBoxTitle.getSelectedItem();
-				String userId = textFieldEmail.getText();
+				String userId = textFieldEmail.getText().toLowerCase();
 				String password = textFieldPassword.getText();
 				String forename = textFieldForename.getText();
 				String surname = textFieldSurname.getText();
@@ -279,27 +279,49 @@ public class RegistrationPage {
 					
 					
 					Person m = new Person(title, forename, surname, userId, Integer.parseInt(contact), isHost, isGuest, password);
-					Address a = new Address( houseNumber, postcode, streetName, placeName);
+					Address a = new Address( houseNumber, streetName, placeName, postcode);
 					
-					if (!v.validEmail(userId)) {
-						JOptionPane.showMessageDialog(null, "Please enter a valid email!", "Errors", JOptionPane.WARNING_MESSAGE);
-					}
-					else if (!v.validPassword(password)){
-						JOptionPane.showMessageDialog(null, "Please enter a valid password! \n must be less than 20 and more than 8 characters in length. \n must have atleast one uppercase character \n must have atleast one lowercase character \n must have atleast one number \n must have atleast one special character among @#$%", "Errors", JOptionPane.WARNING_MESSAGE);
-					}
-					else if ( !(contact.length()>=8 && contact.length()<=15) ) {
-						JOptionPane.showMessageDialog(null, "Your contact number must be between 8 and 15 numbers long!", "Errors", JOptionPane.WARNING_MESSAGE);
-					}
-					else if (!v.alreadyExcists(m.getEmail())) {
+					if ( forename.length()>20 )
+						JOptionPane.showMessageDialog(null, "A forename cannot be longer than 20 characters!", "Invalid Forename", JOptionPane.WARNING_MESSAGE);
+					
+					else if ( surname.length()>20 )
+						JOptionPane.showMessageDialog(null, "A surname cannot be longer than 20 characters!", "Invalid Surname", JOptionPane.WARNING_MESSAGE);
+					
+					else if ( !(contact.length()>=8 && contact.length()<=11) ) 
+						JOptionPane.showMessageDialog(null, "Your contact number must be between 8 and 11 numbers long!", "Invalid Contact Number", JOptionPane.WARNING_MESSAGE);
+					
+					else if (!v.validEmail(userId)) 
+						JOptionPane.showMessageDialog(null, "Please enter a valid email!", "Invalid Email", JOptionPane.WARNING_MESSAGE);
+					
+					else if (v.isValidPassword(password) != "")
+						JOptionPane.showMessageDialog(null, v.isValidPassword(password), "Invalid Password", JOptionPane.WARNING_MESSAGE);
+					
+					else if (houseNumber.length() > 20 )
+						JOptionPane.showMessageDialog(null, "The house name or number cannot be longer than 20 characters!", "Invalid House Name or Number", JOptionPane.WARNING_MESSAGE);
+						
+					else if (postcode.length() > 15 )
+						JOptionPane.showMessageDialog(null, "The postcode cannot be longer than 15 digits!", "Invalid Postcode", JOptionPane.WARNING_MESSAGE);
+						
+					else if (streetName.length() > 20 )
+						JOptionPane.showMessageDialog(null, "The steet name cannot be longer than 20 characters!", "Invalid Street Name", JOptionPane.WARNING_MESSAGE);
+					
+					else if (placeName.length() > 20 )	
+						JOptionPane.showMessageDialog(null, "The place name cannot be longer than 20 characters!", "Invalid Place Name", JOptionPane.WARNING_MESSAGE);
+						
+					else if (!v.alreadyExcistsPerson(m.getEmail()) && !v.alreadyExcistsAddress(a.getHouse(), a.getPostCode())) {
 						v.validateUserRegistration(m, a);
-						System.out.println("added user");
+						LoginPage window = new LoginPage();
+						window.getFrame().setVisible(true);
+						window.getFrame().pack();
+						window.getFrame().setLocationRelativeTo(null);
+						frame.dispose();
 					}
 					else {
 						System.out.println("already excists");
 					}
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Please fill all the fields!", "Errors", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Please fill all the fields!", "Empty Fields", JOptionPane.WARNING_MESSAGE);
 				}
 				
 			}
