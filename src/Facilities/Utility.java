@@ -9,4 +9,14 @@ public class Utility {
 	private boolean hasSmokeAlarm;
 	private boolean hasFirstAidKit;
 	
+	public Utility(boolean hasCentralHeating, boolean hasWashingMachine,
+			boolean hasDryingMachine, boolean hasFireExtinguisher,
+			boolean hasSmokeAlarm, boolean hasFirstAidKit) {
+		this.hasCentralHeating = hasCentralHeating;
+		this.hasWashingMachine = hasWashingMachine;
+		this.hasDryingMachine = hasDryingMachine;
+		this.hasFireExtinguisher = hasFireExtinguisher;
+		this.hasSmokeAlarm = hasSmokeAlarm;
+		this.hasFirstAidKit = hasFirstAidKit;
+	}
 }

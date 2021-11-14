@@ -10,7 +10,6 @@ public class Property {
 	private List<ChargeBand> chargeBands;
 	
 	private Address address;
-	private String name;
 	private String description;
 	private boolean isBreakfastOffered;
 	
@@ -23,13 +22,12 @@ public class Property {
 	private Utility utility;
 	
 	public Property() {}
-	public Property(String name, Address address,
+	public Property(List<ChargeBand> chargeBands, Address address,
 			String description, boolean isBreakfastOffered, Bathing bathing,
 			Kitchen kitchen, Living living, Outdoor outdoor, Sleeping sleeping,
 			Utility utility) {
 		this.chargeBands = chargeBands;
 		this.address = address;
-		this.name = name;
 		this.description = description;
 		this.isBreakfastOffered = isBreakfastOffered;
 		this.bathing = bathing;

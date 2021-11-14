@@ -11,8 +11,12 @@ import javax.swing.border.EmptyBorder;
 
 import Facilities.*;
 import main.Address;
+import main.ChargeBand;
+import main.Property;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import java.awt.CardLayout;
@@ -55,14 +59,15 @@ public class AddPropertyPage extends JFrame {
 	private JCheckBox chckbxHeating;
 	private JCheckBox chckbxWashingMachine;
 	private JCheckBox chckbxDryingMachine;
-	private JCheckBox chckbxStreaming_1;
-	private JCheckBox chckbxDvdPlayer_1;
-	private JCheckBox chckbxBoardGames_1;
+	private JCheckBox chckbxFireExtinguisher;
+	private JCheckBox chckbxSmokeAlarm;
+	private JCheckBox chckbxFirstAidKit;
 	private JCheckBox chckbxFreeOnsiteParking;
 	private JCheckBox chckbxOnroadParking;
 	private JCheckBox chckbxPaidParking;
 	private JCheckBox chckbxPatio;
 	private JCheckBox chckbxBarbecue;
+	private JCheckBox breakfastChk;
 
 	/**
 	 * Launch the application.
@@ -107,7 +112,7 @@ public class AddPropertyPage extends JFrame {
 		locationLabel.setBounds(10, 6, 121, 13);
 		panel.add(locationLabel);
 		
-		JCheckBox breakfastChk = new JCheckBox("Breakfast Offered");
+		breakfastChk = new JCheckBox("Breakfast Offered");
 		breakfastChk.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		breakfastChk.setBounds(10, 87, 144, 21);
 		panel.add(breakfastChk);
@@ -126,14 +131,41 @@ public class AddPropertyPage extends JFrame {
 		JButton btnNewButton = new JButton("OK");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				Address address = new Address(txtbxHouse.getText(),
-						txtbxStreetName.getText(), txtbxCity.getText(), 
-						txtbxPostCode.getText());
-				Sleeping sleeping = new Sleeping(new ArrayList<Bedroom>(),
-						chckbxBedLinen.isSelected(),
-						chckbxTowels.isSelected());
-			    
+				//check for filled in form
+				if(!(txtbxHouse.getText().length() == 0) && !(txtbxStreetName.getText().length() == 0) 
+						&& !(txtbxCity.getText().length() == 0) && !(txtbxPostCode.getText().length() == 0)) {
+					Address address = new Address(txtbxHouse.getText(),
+							txtbxStreetName.getText(), txtbxCity.getText(), 
+							txtbxPostCode.getText());
+					Sleeping sleeping = new Sleeping(new ArrayList<Bedroom>(),
+							chckbxBedLinen.isSelected(),
+							chckbxTowels.isSelected());
+					Bathing bathing = new Bathing(new ArrayList<Bathroom>(), chckbxHairDryer.isSelected(),
+							chckbxShampoo.isSelected(), chckbxToiletPaper.isSelected());
+					Outdoor outdoor = new Outdoor(chckbxFreeOnsiteParking.isSelected(),
+							chckbxOnroadParking.isSelected(), 
+							chckbxPaidParking.isSelected(),
+							chckbxPatio.isSelected(),
+							chckbxBarbecue.isSelected());
+					Kitchen kitchen = new Kitchen(chckbxRefrigerator.isSelected(),
+							chckbxMicrowave.isSelected(), chckbxOven.isSelected(),
+							chckbxStove.isSelected(), chckbxDishwasher.isSelected(),
+							chckbxTableware.isSelected(), chckbxCookware.isSelected(),
+							chckbxProvisions.isSelected());
+					Living living = new Living(chckbxWifi.isSelected(),
+							chckbxTelevision.isSelected(), chckbxSatellite.isSelected(),
+							chckbxFireExtinguisher.isSelected(), chckbxSmokeAlarm.isSelected(),
+							chckbxFirstAidKit.isSelected());
+					Utility utility = new Utility(chckbxHeating.isSelected(), chckbxWashingMachine.isSelected(),
+							chckbxDryingMachine.isSelected(), chckbxFireExtinguisher.isSelected(),
+							chckbxSmokeAlarm.isSelected(), chckbxFirstAidKit.isSelected());
+					
+					Property property = new Property(new ArrayList<ChargeBand>(), address,
+							descriptionTxt.getText(), breakfastChk.isSelected(), bathing,
+							kitchen, living, outdoor, sleeping, utility);
+				} else {
+					JOptionPane.showMessageDialog(null, "Please fill in all fields!", "Empty fields", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -165,6 +197,10 @@ public class AddPropertyPage extends JFrame {
 		chckbxTowels.setBounds(0, 52, 109, 21);
 		sleepingPanel.add(chckbxTowels);
 		
+		JButton btnAddBedroom = new JButton("Add Bedroom Info");
+		btnAddBedroom.setBounds(10, 79, 124, 21);
+		sleepingPanel.add(btnAddBedroom);
+		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(164, 131, 144, 152);
 		panel.add(panel_1);
@@ -189,6 +225,10 @@ public class AddPropertyPage extends JFrame {
 		chckbxToiletPaper.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		chckbxToiletPaper.setBounds(6, 70, 109, 21);
 		panel_1.add(chckbxToiletPaper);
+		
+		JButton btnAddBathroom = new JButton("Add Bathroom Info");
+		btnAddBathroom.setBounds(6, 97, 128, 21);
+		panel_1.add(btnAddBathroom);
 		
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setLayout(null);
@@ -305,20 +345,20 @@ public class AddPropertyPage extends JFrame {
 		chckbxDryingMachine.setBounds(6, 70, 109, 21);
 		panel_1_2_1.add(chckbxDryingMachine);
 		
-		chckbxStreaming_1 = new JCheckBox("Streaming");
-		chckbxStreaming_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxStreaming_1.setBounds(6, 93, 109, 21);
-		panel_1_2_1.add(chckbxStreaming_1);
+		chckbxFireExtinguisher = new JCheckBox("Fire Extinguisher");
+		chckbxFireExtinguisher.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxFireExtinguisher.setBounds(6, 93, 119, 21);
+		panel_1_2_1.add(chckbxFireExtinguisher);
 		
-		chckbxDvdPlayer_1 = new JCheckBox("DVD Player");
-		chckbxDvdPlayer_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxDvdPlayer_1.setBounds(6, 116, 109, 21);
-		panel_1_2_1.add(chckbxDvdPlayer_1);
+		chckbxSmokeAlarm = new JCheckBox("Smoke Alarm");
+		chckbxSmokeAlarm.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxSmokeAlarm.setBounds(6, 116, 109, 21);
+		panel_1_2_1.add(chckbxSmokeAlarm);
 		
-		chckbxBoardGames_1 = new JCheckBox("Board Games");
-		chckbxBoardGames_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxBoardGames_1.setBounds(6, 139, 109, 21);
-		panel_1_2_1.add(chckbxBoardGames_1);
+		chckbxFirstAidKit = new JCheckBox("First Aid Kit");
+		chckbxFirstAidKit.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxFirstAidKit.setBounds(6, 139, 109, 21);
+		panel_1_2_1.add(chckbxFirstAidKit);
 		
 		JPanel panel_1_3 = new JPanel();
 		panel_1_3.setLayout(null);
