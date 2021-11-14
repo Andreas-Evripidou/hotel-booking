@@ -30,6 +30,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class AddPropertyPage extends JFrame {
+	
+	private List<Bedroom> bedrooms;
+	private List<Bathroom> bathrooms;
 
 	private JPanel contentPane;
 	private JTextField descriptionTxt;
@@ -91,14 +94,14 @@ public class AddPropertyPage extends JFrame {
 	public AddPropertyPage() {
 		setTitle("Add Property");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 655, 584);
+		setBounds(100, 100, 585, 629);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 10, 621, 537);
+		panel.setBounds(10, 10, 559, 572);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -125,7 +128,7 @@ public class AddPropertyPage extends JFrame {
 		
 		JButton CancelBtn = new JButton("Cancel");
 		CancelBtn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		CancelBtn.setBounds(377, 506, 85, 21);
+		CancelBtn.setBounds(468, 541, 85, 21);
 		panel.add(CancelBtn);
 		
 		JButton btnNewButton = new JButton("OK");
@@ -165,16 +168,17 @@ public class AddPropertyPage extends JFrame {
 							kitchen, living, outdoor, sleeping, utility);
 				} else {
 					JOptionPane.showMessageDialog(null, "Please fill in all fields!", "Empty fields", JOptionPane.WARNING_MESSAGE);
+					
 				}
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton.setBounds(299, 506, 61, 21);
+		btnNewButton.setBounds(397, 541, 61, 21);
 		panel.add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel("Facilities");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel.setBounds(260, 108, 78, 13);
+		lblNewLabel.setBounds(242, 108, 78, 13);
 		panel.add(lblNewLabel);
 		
 		JPanel sleepingPanel = new JPanel();
@@ -198,11 +202,24 @@ public class AddPropertyPage extends JFrame {
 		sleepingPanel.add(chckbxTowels);
 		
 		JButton btnAddBedroom = new JButton("Add Bedroom Info");
+		btnAddBedroom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddBedroom addBedroom = new AddBedroom();
+				int result = JOptionPane.showConfirmDialog(null, addBedroom,
+						"Add Bedroom", JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.PLAIN_MESSAGE);
+				if(result == JOptionPane.OK_OPTION) {
+					Bedroom bedroom = new Bedroom(Bed.stringToBed(addBedroom.cmbBed1.getSelectedItem().toString()), 
+							Bed.stringToBed(addBedroom.cmbBed2.getSelectedItem().toString()));
+					bedrooms.add(bedroom);
+				}
+			}
+		});
 		btnAddBedroom.setBounds(10, 79, 124, 21);
 		sleepingPanel.add(btnAddBedroom);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(164, 131, 144, 152);
+		panel_1.setBounds(210, 130, 144, 152);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -227,6 +244,20 @@ public class AddPropertyPage extends JFrame {
 		panel_1.add(chckbxToiletPaper);
 		
 		JButton btnAddBathroom = new JButton("Add Bathroom Info");
+		btnAddBathroom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddBathroom addBathroom = new AddBathroom();
+				int result = JOptionPane.showConfirmDialog(null, addBathroom,  "Add Bathroom",
+						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				if(result == JOptionPane.OK_OPTION) {
+					Bathroom bathroom = new Bathroom(addBathroom.chckbxToilet.isSelected(),
+							addBathroom.chckbxBath.isSelected(), 
+							addBathroom.chckbxShower.isSelected(),
+							addBathroom.chckbxSharedWithHost.isSelected());
+					bathrooms.add(bathroom);
+				}
+			}
+		});
 		btnAddBathroom.setBounds(6, 97, 128, 21);
 		panel_1.add(btnAddBathroom);
 		
@@ -282,7 +313,7 @@ public class AddPropertyPage extends JFrame {
 		
 		JPanel panel_1_2 = new JPanel();
 		panel_1_2.setLayout(null);
-		panel_1_2.setBounds(164, 293, 144, 207);
+		panel_1_2.setBounds(210, 293, 144, 207);
 		panel.add(panel_1_2);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Living");
@@ -322,7 +353,7 @@ public class AddPropertyPage extends JFrame {
 		
 		JPanel panel_1_2_1 = new JPanel();
 		panel_1_2_1.setLayout(null);
-		panel_1_2_1.setBounds(318, 292, 144, 207);
+		panel_1_2_1.setBounds(409, 292, 144, 207);
 		panel.add(panel_1_2_1);
 		
 		JLabel lblNewLabel_1_2_1 = new JLabel("Utility");
@@ -362,7 +393,7 @@ public class AddPropertyPage extends JFrame {
 		
 		JPanel panel_1_3 = new JPanel();
 		panel_1_3.setLayout(null);
-		panel_1_3.setBounds(318, 130, 144, 152);
+		panel_1_3.setBounds(409, 130, 144, 152);
 		panel.add(panel_1_3);
 		
 		JLabel lblNewLabel_1_3 = new JLabel("Outdoor");
@@ -434,5 +465,9 @@ public class AddPropertyPage extends JFrame {
 		txtbxCity.setColumns(10);
 		txtbxCity.setBounds(242, 27, 96, 19);
 		panel.add(txtbxCity);
+		
+		JButton btnNewButton_1 = new JButton("Add Charge Band");
+		btnNewButton_1.setBounds(10, 523, 121, 21);
+		panel.add(btnNewButton_1);
 	}
 }
