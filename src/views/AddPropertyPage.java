@@ -33,6 +33,7 @@ public class AddPropertyPage extends JFrame {
 	
 	private List<Bedroom> bedrooms;
 	private List<Bathroom> bathrooms;
+	private List<ChargeBand> chargeBands;
 
 	private JPanel contentPane;
 	private JTextField descriptionTxt;
@@ -140,10 +141,10 @@ public class AddPropertyPage extends JFrame {
 					Address address = new Address(txtbxHouse.getText(),
 							txtbxStreetName.getText(), txtbxCity.getText(), 
 							txtbxPostCode.getText());
-					Sleeping sleeping = new Sleeping(new ArrayList<Bedroom>(),
+					Sleeping sleeping = new Sleeping(bedrooms,
 							chckbxBedLinen.isSelected(),
 							chckbxTowels.isSelected());
-					Bathing bathing = new Bathing(new ArrayList<Bathroom>(), chckbxHairDryer.isSelected(),
+					Bathing bathing = new Bathing(bathrooms, chckbxHairDryer.isSelected(),
 							chckbxShampoo.isSelected(), chckbxToiletPaper.isSelected());
 					Outdoor outdoor = new Outdoor(chckbxFreeOnsiteParking.isSelected(),
 							chckbxOnroadParking.isSelected(), 
@@ -163,7 +164,7 @@ public class AddPropertyPage extends JFrame {
 							chckbxDryingMachine.isSelected(), chckbxFireExtinguisher.isSelected(),
 							chckbxSmokeAlarm.isSelected(), chckbxFirstAidKit.isSelected());
 					
-					Property property = new Property(new ArrayList<ChargeBand>(), address,
+					Property property = new Property(chargeBands, address,
 							descriptionTxt.getText(), breakfastChk.isSelected(), bathing,
 							kitchen, living, outdoor, sleeping, utility);
 				} else {
@@ -467,6 +468,21 @@ public class AddPropertyPage extends JFrame {
 		panel.add(txtbxCity);
 		
 		JButton btnNewButton_1 = new JButton("Add Charge Band");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddChargeBand a = new AddChargeBand();
+				int result = JOptionPane.showConfirmDialog(null, a, "Add Charge Band", 
+						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				if(result == JOptionPane.OK_OPTION) {
+					ChargeBand cb = new ChargeBand(a.startDateTxt.getValue().toString(),
+							a.endDateTxt.getValue().toString(), 
+							Double.parseDouble(a.serviceChargeTxt.getText()),
+							Double.parseDouble(a.cleaningChargeTxt.getText()),
+							Double.parseDouble(a.pppTxt.getText()));
+					chargeBands.add(cb);
+				}
+			}
+		});
 		btnNewButton_1.setBounds(10, 523, 121, 21);
 		panel.add(btnNewButton_1);
 	}

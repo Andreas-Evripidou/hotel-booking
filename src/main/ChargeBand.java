@@ -3,25 +3,22 @@ package main;
 import java.util.Date;
 
 public class ChargeBand {
-	private Date startDate;
-	private Date endDate;
+	private String startDate;
+	private String endDate;
 	private double pricePerNight;
 	private double serviceCharge;
 	private double cleaningCharge;
 	
-	private void setStartDate(Date startDate) {
+	public ChargeBand(String startDate, String endDate, 
+			double pricePerNight, double serviceCharge,
+			double cleaningCharge) {
 		this.startDate = startDate;
-	}
-	public Date getStartDate() {
-		return startDate;
+		this.endDate = endDate;
+		this.pricePerNight = pricePerNight;
+		this.serviceCharge = serviceCharge;
+		this.cleaningCharge = cleaningCharge;
 	}
 	
-	private void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-	public Date getEndDate() {
-		return endDate;
-	}
 	
 	private void setPricePerNight(double pricePerNight) {
 		this.pricePerNight = pricePerNight;
