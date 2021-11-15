@@ -6,10 +6,30 @@ public class Bedroom {
 	
 	public Bedroom(Bed bed1) {
 		this.bed1 = bed1;
+		this.bed2 = Bed.NO_BED;
 	}
 	
 	public Bedroom(Bed bed1, Bed bed2) {
 		this.bed1 = bed1;
 		this.bed2 = bed2;
+	}
+	
+	public int getNumSleepers() {
+		int count = 0;
+		
+		if(bed1 == Bed.SINGLE) {
+			count++;
+		} else {
+			count = count + 2;
+		}
+		if(bed2 == Bed.SINGLE) {
+			count++;
+		} else if(bed2 == Bed.NO_BED){
+			count = count;
+		} else {
+			count = count + 2;
+		}
+		
+		return count;
 	}
 }

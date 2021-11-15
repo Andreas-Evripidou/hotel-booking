@@ -317,7 +317,7 @@ public class RegistrationPage {
 						frame.dispose();
 					}
 					else {
-						System.out.println("already excists");
+						System.out.println("already exists");
 					}
 				}
 				else {

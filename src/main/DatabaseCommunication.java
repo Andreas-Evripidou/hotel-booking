@@ -2,6 +2,12 @@ package main;
 
 import java.sql.*;
 
+import Facilities.Bathing;
+import Facilities.Kitchen;
+import Facilities.Living;
+import Facilities.Outdoor;
+import Facilities.Sleeping;
+import Facilities.Utility;
 import views.AddPropertyPage;
 
 public class DatabaseCommunication {
@@ -269,5 +275,64 @@ public class DatabaseCommunication {
 	            e.printStackTrace();
 	        }
 		}
+	}
+
+	public void addPropertyInDatabase(Property p, String statement, String userID) {
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(statement);
+				
+				pstmt.setString(1, userID);
+				pstmt.setString(2, p.getName());
+				pstmt.setString(3, p.getDescription());
+				pstmt.setString(4, p.getAddress().getPlaceName());
+				if(p.getBreakfastOffered() == true) {
+					pstmt.setString(5, "1");
+				} else { pstmt.setString(5, "0"); }
+				pstmt.setString(6, String.valueOf(p.getSleeping().getTotalSleepers()));
+				pstmt.setString(7, p.getAddress().getHouse());
+				pstmt.setString(8, p.getAddress().getPostCode());
+				
+				
+				pstmt.executeUpdate();
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
+	}
+	public void addBathingInDatabase(Bathing b, String statement) {
+		// TODO Auto-generated method stub
+	}
+
+	public void addKitchenInDatabase(Kitchen k, String statement) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addLivingInDatabase(Living l, String statement) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addOutdoorInDatabase(Outdoor o, String statement) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addSleepingInDatabase(Sleeping s, String statement) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addUtilityInDatabase(Utility u, String statement) {
+		// TODO Auto-generated method stub
+		
 	}
 }

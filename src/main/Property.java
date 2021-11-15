@@ -9,7 +9,9 @@ public class Property {
 	//property charge bands, can have multiple for different dates
 	private List<ChargeBand> chargeBands;
 	
+	
 	private Address address;
+	private String name;
 	private String description;
 	private boolean isBreakfastOffered;
 	
@@ -23,11 +25,12 @@ public class Property {
 	
 	public Property() {}
 	public Property(List<ChargeBand> chargeBands, Address address,
-			String description, boolean isBreakfastOffered, Bathing bathing,
+			String name, String description, boolean isBreakfastOffered, Bathing bathing,
 			Kitchen kitchen, Living living, Outdoor outdoor, Sleeping sleeping,
 			Utility utility) {
 		this.chargeBands = chargeBands;
 		this.address = address;
+		this.name = name;
 		this.description = description;
 		this.isBreakfastOffered = isBreakfastOffered;
 		this.bathing = bathing;
@@ -37,14 +40,35 @@ public class Property {
 		this.sleeping = sleeping;
 		this.utility = utility;
 	}
-
 	
-	private void setName(String name) {
-		this.name = name;
+	public Address getAddress() {
+		return address;
 	}
+	
+	public Bathing getBathing() {
+		return bathing;
+	}
+	public Kitchen getKitchen() {
+		return kitchen;
+	}
+	public Living getLiving() {
+		return living;
+	}
+	public Outdoor getOutdoor() {
+		return outdoor;
+	}
+	public Sleeping getSleeping() {
+		return sleeping;
+	}
+	public Utility getUtility() {
+		return utility;
+	}
+	
 	public String getName() {
 		return name;
 	}
+	
+
 	
 	private void setDescription(String description) {
 		this.description = description;

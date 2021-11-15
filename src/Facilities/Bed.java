@@ -1,6 +1,7 @@
 package Facilities;
 
 public enum Bed {
+	NO_BED("no bed"),
 	SINGLE("single"),
 	DOUBLE("double"),
 	KING("king"),
@@ -13,6 +14,7 @@ public enum Bed {
 	public String getType() {
 		return bedType;
 	}
+	
 	
 	public static Bed stringToBed(String bed) {
 		if(bed=="Single Bed") return Bed.SINGLE;

@@ -49,8 +49,47 @@ public class Validation {
 		return false;
 	}
 	
+	String insertAddress = "INSERT INTO `team023`.`Address` (`house`, `postcode`, `streetName`, `placeName`) VALUES(?, ?, ?, ?);";
+	
+	public void validateProperty(Person user, Property p) {
+		String insertBathing = "INSERT INTO `team023`. `Bathing Facility` (`bathingFacilityID`, `propertyID`, `hairDryer`, `shampoo`, `toiletPaper`)"
+				+ " VALUES (?, ?, ?, ?, ?)";
+		String insertKitchen = "INSERT INTO `team023`.`Kitchen Facility` (`propertyID`, `oven`, `refrigerator`, `microwave`, `stove`, "
+				+ "`dishwasher`, `tableware`, `cookware`, `basicProvisions`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String insertLiving = "INSERT INTO `team023`.`Living Facility` (`propertyID`, `wifi`, `television`, `satellite`, `streaming`, "
+				+ "`boardGames`) VALUES (?, ?, ?, ?, ?, ?)";
+		String insertOutdoor = "INSERT INTO `team023`.`Outdoor Facility` (`propertyID`, `freeOnSideParking_copy4`, `onRoadParking`, "
+				+ "`paidCarPark`, `patio`, `barbecue`) VALUES (?, ?, ?, ?, ?, ?)";
+		String insertSleeping = "INSERT INTO `team023`.`Sleeping Facility` (`sleepingFacilityID`, `propertyID`, `bedLiner`, `towels`) "
+				+ "VALUES (?, ?, ?, ?)";
+		String insertUtility = "INSERT INTO `team023`.`Utility Facility` (`propertyID`, `heating`, `washingMachine`, `dryingMachine`,"
+				+ " `fireExtinguisher`, `smokeAlarm`, `firstAidKit`) VALUES	(?, ?, ?, ?, ?, ?, ?)";
+		
+		String insertProperty = "INSERT INTO `team023`.`Property` (`userID`, `shortName`, `description`, `generalLocation`,"
+				+ " `breakfast`, `maximumGuests`, `house`, `postcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		DatabaseCommunication db = new DatabaseCommunication();
+		try {
+			//add the address ?
+			
+			
+			db.addPropertyInDatabase(p, insertProperty, user.getEmail());
+			
+			
+			db.addBathingInDatabase(p.getBathing(), insertBathing);
+			db.addKitchenInDatabase(p.getKitchen(), insertKitchen);
+			db.addLivingInDatabase(p.getLiving(), insertLiving);
+			db.addOutdoorInDatabase(p.getOutdoor(), insertOutdoor);
+			db.addSleepingInDatabase(p.getSleeping(), insertSleeping);
+			db.addUtilityInDatabase(p.getUtility(), insertUtility);
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+		}
+	}
+	
 	public void validateUserRegistration(Person user, Address userAddress) {
-		String insertAddress = "INSERT INTO `team023`.`Address` (`house`, `postcode`, `streetName`, `placeName`) VALUES(?, ?, ?, ?);";
 		String insertPerson = "INSERT INTO `team023`.`Person` (`userID`, `password`, `title`, `name`, `surname`, `contactDetails`, `host`, `guest`, `house`, `postcode`) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		DatabaseCommunication db = new DatabaseCommunication();

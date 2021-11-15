@@ -12,7 +12,9 @@ import javax.swing.border.EmptyBorder;
 import Facilities.*;
 import main.Address;
 import main.ChargeBand;
+import main.Person;
 import main.Property;
+import main.Validation;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -72,27 +74,13 @@ public class AddPropertyPage extends JFrame {
 	private JCheckBox chckbxPatio;
 	private JCheckBox chckbxBarbecue;
 	private JCheckBox breakfastChk;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AddPropertyPage frame = new AddPropertyPage();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JTextField txtbxName;
+	
 
 	/**
 	 * Create the frame.
 	 */
-	public AddPropertyPage() {
+	public AddPropertyPage(Person p) {
 		setTitle("Add Property");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 585, 629);
@@ -107,8 +95,8 @@ public class AddPropertyPage extends JFrame {
 		panel.setLayout(null);
 		
 		JLabel descriptionLabel = new JLabel("Description:");
-		descriptionLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		descriptionLabel.setBounds(10, 46, 207, 25);
+		descriptionLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		descriptionLabel.setBounds(220, 47, 207, 25);
 		panel.add(descriptionLabel);
 		
 		JLabel locationLabel = new JLabel("Address");
@@ -123,7 +111,7 @@ public class AddPropertyPage extends JFrame {
 		
 		descriptionTxt = new JTextField();
 		descriptionTxt.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		descriptionTxt.setBounds(104, 49, 266, 20);
+		descriptionTxt.setBounds(287, 49, 266, 20);
 		panel.add(descriptionTxt);
 		descriptionTxt.setColumns(10);
 		
@@ -137,7 +125,9 @@ public class AddPropertyPage extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//check for filled in form
 				if(!(txtbxHouse.getText().length() == 0) && !(txtbxStreetName.getText().length() == 0) 
-						&& !(txtbxCity.getText().length() == 0) && !(txtbxPostCode.getText().length() == 0)) {
+						&& !(txtbxCity.getText().length() == 0) && !(txtbxPostCode.getText().length() == 0)
+						&& !(bedrooms.isEmpty()) && !(bathrooms.isEmpty()) && !(chargeBands.isEmpty())
+						&& !(txtbxName.getText().length() == 0)) {
 					Address address = new Address(txtbxHouse.getText(),
 							txtbxStreetName.getText(), txtbxCity.getText(), 
 							txtbxPostCode.getText());
@@ -164,12 +154,14 @@ public class AddPropertyPage extends JFrame {
 							chckbxDryingMachine.isSelected(), chckbxFireExtinguisher.isSelected(),
 							chckbxSmokeAlarm.isSelected(), chckbxFirstAidKit.isSelected());
 					
-					Property property = new Property(chargeBands, address,
+					Property property = new Property(chargeBands, address, txtbxName.getText(),
 							descriptionTxt.getText(), breakfastChk.isSelected(), bathing,
 							kitchen, living, outdoor, sleeping, utility);
+					
+					Validation v = new Validation();
+					v.validateProperty(p, property);
 				} else {
 					JOptionPane.showMessageDialog(null, "Please fill in all fields!", "Empty fields", JOptionPane.WARNING_MESSAGE);
-					
 				}
 			}
 		});
@@ -485,5 +477,15 @@ public class AddPropertyPage extends JFrame {
 		});
 		btnNewButton_1.setBounds(10, 523, 121, 21);
 		panel.add(btnNewButton_1);
+		
+		JLabel lblNewLabel_3 = new JLabel("Name:");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel_3.setBounds(10, 54, 45, 13);
+		panel.add(lblNewLabel_3);
+		
+		txtbxName = new JTextField();
+		txtbxName.setBounds(58, 51, 121, 19);
+		panel.add(txtbxName);
+		txtbxName.setColumns(10);
 	}
 }

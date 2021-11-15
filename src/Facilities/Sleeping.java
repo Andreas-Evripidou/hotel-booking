@@ -13,4 +13,12 @@ public class Sleeping {
 		this.hasBedLinen = hasBedLinen;
 		this.hasTowels = hasTowels;
 	}
+	
+	public int getTotalSleepers() {
+		int count = 0;
+		for(Bedroom b : bedrooms) {
+			count += b.getNumSleepers();
+		}
+		return count;
+	}
 }
