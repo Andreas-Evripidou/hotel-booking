@@ -21,4 +21,11 @@ public class Sleeping {
 		}
 		return count;
 	}
+	
+	public boolean getBedLinen() {
+		return hasBedLinen;
+	}
+	public boolean getTowels() {
+		return hasTowels;
+	}
 }

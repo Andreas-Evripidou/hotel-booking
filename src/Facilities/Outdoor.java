@@ -14,4 +14,20 @@ public class Outdoor {
 		this.hasPatio = hasPatio;
 		this.hasBarbecue = hasBarbecue;
 	}
+	
+	public boolean getFreeOnsiteParking() {
+		return freeOnSiteParking;
+	}
+	public boolean getOnRoadParking() {
+		return onRoadParking;
+	}
+	public boolean getPaidParking() {
+		return paidParking;
+	}
+	public boolean getPatio() {
+		return hasPatio;
+	}
+	public boolean getBarbecue() {
+		return hasBarbecue;
+	}
 }

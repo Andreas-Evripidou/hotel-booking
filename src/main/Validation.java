@@ -52,8 +52,8 @@ public class Validation {
 	String insertAddress = "INSERT INTO `team023`.`Address` (`house`, `postcode`, `streetName`, `placeName`) VALUES(?, ?, ?, ?);";
 	
 	public void validateProperty(Person user, Property p) {
-		String insertBathing = "INSERT INTO `team023`. `Bathing Facility` (`bathingFacilityID`, `propertyID`, `hairDryer`, `shampoo`, `toiletPaper`)"
-				+ " VALUES (?, ?, ?, ?, ?)";
+		String insertBathing = "INSERT INTO `team023`. `Bathing Facility` (`propertyID`, `hairDryer`, `shampoo`, `toiletPaper`)"
+				+ " VALUES (?, ?, ?, ?)";
 		String insertKitchen = "INSERT INTO `team023`.`Kitchen Facility` (`propertyID`, `oven`, `refrigerator`, `microwave`, `stove`, "
 				+ "`dishwasher`, `tableware`, `cookware`, `basicProvisions`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		String insertLiving = "INSERT INTO `team023`.`Living Facility` (`propertyID`, `wifi`, `television`, `satellite`, `streaming`, "
@@ -76,7 +76,7 @@ public class Validation {
 			db.addPropertyInDatabase(p, insertProperty, user.getEmail());
 			
 			
-			db.addBathingInDatabase(p.getBathing(), insertBathing);
+			db.addBathingInDatabase(p.getBathing(), p, insertBathing);
 			db.addKitchenInDatabase(p.getKitchen(), insertKitchen);
 			db.addLivingInDatabase(p.getLiving(), insertLiving);
 			db.addOutdoorInDatabase(p.getOutdoor(), insertOutdoor);

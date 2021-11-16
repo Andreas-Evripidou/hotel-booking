@@ -16,4 +16,23 @@ public class Living {
 		this.hasDVDPlayer = hasDVDPlayer;
 		this.hasBoardGames = hasBoardGames;
 	}
+	
+	public boolean getWifi() {
+		return hasWifi;
+	}
+	public boolean getTV() {
+		return hasTV;
+	}
+	public boolean getSatellite() {
+		return hasSatellite;
+	}
+	public boolean getStreaming() {
+		return hasStreaming;
+	}
+	public boolean getDVDPlayer() {
+		return hasDVDPlayer;
+	}
+	public boolean getBoardGames() {
+		return hasBoardGames;
+	}
 }

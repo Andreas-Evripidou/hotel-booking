@@ -17,4 +17,14 @@ public class Bathing {
 		this.hasShampoo = hasShampoo;
 		this.hasToiletPaper = hasToiletPaper;
 	}
+	
+	public boolean getHairDryer() {
+		return hasHairDryer;
+	}
+	public boolean getShampoo() {
+		return hasShampoo;
+	}
+	public boolean getToiletPaper() {
+		return hasToiletPaper;
+	}
 }

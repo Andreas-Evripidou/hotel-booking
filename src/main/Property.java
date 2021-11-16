@@ -67,7 +67,9 @@ public class Property {
 	public String getName() {
 		return name;
 	}
-	
+	public String getPostCode() {
+		return address.getPostCode();
+	}
 
 	
 	private void setDescription(String description) {

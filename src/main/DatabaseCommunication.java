@@ -307,13 +307,77 @@ public class DatabaseCommunication {
 			closeAll(res, stmt, pstmt, con);
 		}
 	}
-	public void addBathingInDatabase(Bathing b, String statement) {
-		// TODO Auto-generated method stub
+	
+	private String getPropertyID(String postCode) {
+		//can change postcode to more relevant field if appropriate
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				String query = "SELECT propertyID FROM Property WHERE postcode == " + postCode;
+				
+				pstmt = con.prepareStatement(query);
+				
+				ResultSet rs = pstmt.executeQuery();
+				return rs.getString(1);
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
+		return null;
+	}
+	
+	public void addBathingInDatabase(Bathing b, Property p, String statement) {
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(statement);
+				
+				
+				
+				pstmt.setString(1, getPropertyID(p.getPostCode()));
+				pstmt.setBoolean(2, b.getHairDryer());
+				pstmt.setBoolean(3, b.getShampoo());
+				pstmt.setBoolean(4, b.getToiletPaper());
+				
+				
+				pstmt.executeUpdate();
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
 	}
 
 	public void addKitchenInDatabase(Kitchen k, String statement) {
-		// TODO Auto-generated method stub
-		
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(statement);
+				
+				
+				
+				pstmt.executeUpdate();
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
 	}
 
 	public void addLivingInDatabase(Living l, String statement) {

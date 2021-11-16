@@ -24,4 +24,29 @@ public class Kitchen {
 		this.hasCookware = hasCookware;
 		this.hasProvisions = hasProvisions;
 	}
+	
+	public boolean getRefrigerator() {
+		return hasRefrigerator;
+	}
+	public boolean getMicrowave() {
+		return hasMicrowave;
+	}
+	public boolean getOven() {
+		return hasOven;
+	}
+	public boolean getStove() {
+		return hasStove;
+	}
+	public boolean getDishwasher() {
+		return hasDishwasher;
+	}
+	public boolean getTableware() {
+		return hasTableware;
+	}
+	public boolean getCookware() {
+		return hasCookware;
+	}
+	public boolean getProvisions() {
+		return hasProvisions;
+	}
 }

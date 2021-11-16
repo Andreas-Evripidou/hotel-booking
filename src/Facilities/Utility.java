@@ -19,4 +19,20 @@ public class Utility {
 		this.hasSmokeAlarm = hasSmokeAlarm;
 		this.hasFirstAidKit = hasFirstAidKit;
 	}
+	
+	public boolean getCentralHeating() {
+		return hasCentralHeating;
+	}
+	public boolean getWashingMachine() {
+		return hasWashingMachine;
+	}
+	public boolean getDryingMachine() {
+		return hasDryingMachine;
+	}
+	public boolean getFireExtinguisher() {
+		return hasFireExtinguisher;
+	}
+	public boolean getSmokeAlarm() {
+		return hasSmokeAlarm;
+	}
 }
