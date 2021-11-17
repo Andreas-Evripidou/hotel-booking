@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.JCheckBox;
@@ -76,12 +77,28 @@ public class AddPropertyPage extends JFrame {
 	private JCheckBox breakfastChk;
 	private JTextField txtbxName;
 	
-
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AddPropertyPage frame = new AddPropertyPage(new Person("a", "a", "a", "a", 12343, 1, 1, "a"));
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	
 	/**
 	 * Create the frame.
 	 */
 	public AddPropertyPage(Person p) {
 		setTitle("Add Property");
+		setBounds(100, 100, 1200, 850);
+		setMinimumSize(new Dimension(1200, 850));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 585, 629);
 		contentPane = new JPanel();
@@ -198,6 +215,9 @@ public class AddPropertyPage extends JFrame {
 		btnAddBedroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddBedroom addBedroom = new AddBedroom();
+				addBedroom.setVisible(true);
+				addBedroom.setSize(new Dimension(50, 200));
+				addBedroom.setPreferredSize(new Dimension(50, addBedroom.getPreferredSize().height));
 				int result = JOptionPane.showConfirmDialog(null, addBedroom,
 						"Add Bedroom", JOptionPane.OK_CANCEL_OPTION,
 						JOptionPane.PLAIN_MESSAGE);
@@ -240,6 +260,9 @@ public class AddPropertyPage extends JFrame {
 		btnAddBathroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddBathroom addBathroom = new AddBathroom();
+				addBathroom.setVisible(true);
+				addBathroom.setSize(new Dimension(350, 200));
+				addBathroom.setPreferredSize(new Dimension(350, addBathroom.getPreferredSize().height));
 				int result = JOptionPane.showConfirmDialog(null, addBathroom,  "Add Bathroom",
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 				if(result == JOptionPane.OK_OPTION) {
@@ -463,6 +486,9 @@ public class AddPropertyPage extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddChargeBand a = new AddChargeBand();
+				a.setVisible(true);
+				a.setSize(new Dimension(450, 200));
+				a.setPreferredSize(new Dimension(450, a.getPreferredSize().height));
 				int result = JOptionPane.showConfirmDialog(null, a, "Add Charge Band", 
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 				if(result == JOptionPane.OK_OPTION) {
