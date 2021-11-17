@@ -11,6 +11,8 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
+import main.DatabaseCommunication;
+import main.Person;
 import main.Validation;
 
 import com.jgoodies.forms.layout.FormSpecs;
@@ -213,6 +215,18 @@ public class LoginPage {
 					boolean bool = v.validateUser(textFielduserID, textFieldpassword, userType);
 					if (!bool) {
 						JOptionPane.showMessageDialog(null, "Try again! Something you provided is incorrect!", "Errors", JOptionPane.WARNING_MESSAGE);
+					}
+					else {
+						Person p = v.getUserById(textFielduserID);
+						
+						if (userType=="Host") {
+							HostProfilePage window = new HostProfilePage(p);
+							window.getFrame().setLocationRelativeTo(null);
+							window.getFrame().setVisible(true);
+							frmLogInPage.dispose();
+						}
+							
+						
 					}
 				}
 				else {
