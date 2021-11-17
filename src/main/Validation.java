@@ -136,6 +136,32 @@ public class Validation {
 		return n > 0;
 	}
 	
+	public Person getUserById(String userID) {
+		String query = "SELECT * FROM team023.Person WHERE userID=?";
+		DatabaseCommunication db = new DatabaseCommunication();
+		Person p = null;
+		try {
+			ResultSet result = db.getUserById(query, userID);
+			while (result.next()) {
+				String userId = result.getString(1);
+				String password = result.getString(2);
+				String title = result.getString(3);
+				String forename = result.getString(4);
+				String surname = result.getString(5);
+				int contactDetails = Integer.parseInt(result.getString(6));
+				int isGuest = Integer.parseInt(result.getString(7));
+				int isHost = Integer.parseInt(result.getString(8));
+				
+				p = new Person(title, forename, surname, userId, contactDetails, isHost, isGuest, password);
+			}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+			}
+		return p;
+	}
+	
 	public boolean alreadyExcistsAddress( String houseName, String postcode) {
 		String query = "SELECT COUNT(*) FROM team023.Person WHERE house=? AND postcode=?";
 		DatabaseCommunication db = new DatabaseCommunication();

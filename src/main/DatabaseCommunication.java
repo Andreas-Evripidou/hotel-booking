@@ -43,7 +43,7 @@ public class DatabaseCommunication {
 //		System.out.println(v.validateUser("a", "a", "Host"));
 //		db.closeAll(db.res, db.stmt, db.pstmt, db.con);
 		
-		Person m = new Person("am", "am", "am", "envlakas", 12343, 1, 0, "am");
+		Person m = new Person("a", "am", "am", "envlakas", 12343, 1, 0, "am");
 		Address a = new Address("mddd", "am", "am", "am");
 		
 //		if (!v.alreadyExcistsPerson(m.getEmail())) {
@@ -53,12 +53,13 @@ public class DatabaseCommunication {
 //			System.out.println("already excists");
 //		}
 		
-		if (!v.alreadyExcistsAddress("eimastepalavoi", a.getPostCode())) {
-			System.out.println("added user");
-		} else {
-			System.out.println("already excists");
-		}
+//		if (!v.alreadyExcistsAddress("eimastepalavoi", a.getPostCode())) {
+//			System.out.println("added user");
+//		} else {
+//			System.out.println("already excists");
+//		}
 		
+		Person res = v.getUserById("asdf@gmail.com");
 		
 	}
 	
