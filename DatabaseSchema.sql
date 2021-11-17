@@ -81,6 +81,7 @@ CREATE TABLE `Living Facility` (
   `television` tinyint(1) NOT NULL,
   `satelite` tinyint(1) NOT NULL,
   `streaming` tinyint(1) NOT NULL,
+  `dvdplayer` tinyint(1) NOT NULL,
   `boardGames` tinyint(1) NOT NULL,
   KEY `livingFacilityProperty_idx` (`propertyID`),
   CONSTRAINT `livingFacilityProperty` FOREIGN KEY (`propertyID`) REFERENCES `Property` (`propertyID`) ON DELETE CASCADE ON UPDATE CASCADE

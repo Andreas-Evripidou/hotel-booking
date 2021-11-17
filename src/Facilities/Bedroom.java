@@ -32,4 +32,11 @@ public class Bedroom {
 		
 		return count;
 	}
+	
+	public String getBed1() {
+		return bed1.toString();
+	}
+	public String getBed2() {
+		return bed2.toString();
+	}
 }

@@ -2,6 +2,9 @@ package main;
 
 import java.sql.*;
 
+import Facilities.Bathroom;
+import Facilities.Bedroom;
+
 public class Validation {
 	
 //	public boolean validateUser(String userID, String password, String whatUser) {
@@ -60,13 +63,17 @@ public class Validation {
 				+ "`boardGames`) VALUES (?, ?, ?, ?, ?, ?)";
 		String insertOutdoor = "INSERT INTO `team023`.`Outdoor Facility` (`propertyID`, `freeOnSideParking_copy4`, `onRoadParking`, "
 				+ "`paidCarPark`, `patio`, `barbecue`) VALUES (?, ?, ?, ?, ?, ?)";
-		String insertSleeping = "INSERT INTO `team023`.`Sleeping Facility` (`sleepingFacilityID`, `propertyID`, `bedLiner`, `towels`) "
-				+ "VALUES (?, ?, ?, ?)";
+		String insertSleeping = "INSERT INTO `team023`.`Sleeping Facility` (`propertyID`, `bedLiner`, `towels`) "
+				+ "VALUES (?, ?, ?)";
 		String insertUtility = "INSERT INTO `team023`.`Utility Facility` (`propertyID`, `heating`, `washingMachine`, `dryingMachine`,"
 				+ " `fireExtinguisher`, `smokeAlarm`, `firstAidKit`) VALUES	(?, ?, ?, ?, ?, ?, ?)";
 		
 		String insertProperty = "INSERT INTO `team023`.`Property` (`userID`, `shortName`, `description`, `generalLocation`,"
 				+ " `breakfast`, `maximumGuests`, `house`, `postcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		String insertBathroom = "INSERT INTO `team023`.`Bathroom` (`bathingFacilityID`, `toilet`, `bath`, `shower`, `shared`)"
+				+ " VALUES (?, ?, ?, ?, ?)";
+		String insertBedroom = "INSERT INTO `team023`.`Bedroom` (`sleepingFacilityID`, `bed1`, `bed2`) VALUES (?, ?, ?)";
 		
 		DatabaseCommunication db = new DatabaseCommunication();
 		try {
@@ -77,11 +84,19 @@ public class Validation {
 			
 			
 			db.addBathingInDatabase(p.getBathing(), p, insertBathing);
-			db.addKitchenInDatabase(p.getKitchen(), insertKitchen);
-			db.addLivingInDatabase(p.getLiving(), insertLiving);
-			db.addOutdoorInDatabase(p.getOutdoor(), insertOutdoor);
-			db.addSleepingInDatabase(p.getSleeping(), insertSleeping);
-			db.addUtilityInDatabase(p.getUtility(), insertUtility);
+			for(Bathroom b : p.getBathing().getBathrooms()) {
+				db.addBathroomInDatabase(p, b, insertBathroom);
+			}
+			
+			db.addKitchenInDatabase(p.getKitchen(), p, insertKitchen);
+			db.addLivingInDatabase(p, insertLiving);
+			db.addOutdoorInDatabase(p, insertOutdoor);
+			db.addSleepingInDatabase(p, insertSleeping);
+			for(Bedroom b : p.getSleeping().getBedrooms()) {
+				db.addBedroomInDatabase(p, b, insertBedroom);
+			}
+			
+			db.addUtilityInDatabase(p, insertUtility);
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {

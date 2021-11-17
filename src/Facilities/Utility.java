@@ -35,4 +35,7 @@ public class Utility {
 	public boolean getSmokeAlarm() {
 		return hasSmokeAlarm;
 	}
+	public boolean getFirstAidKit() {
+		return hasFirstAidKit;
+	}
 }

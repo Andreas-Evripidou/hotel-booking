@@ -3,6 +3,8 @@ package main;
 import java.sql.*;
 
 import Facilities.Bathing;
+import Facilities.Bathroom;
+import Facilities.Bedroom;
 import Facilities.Kitchen;
 import Facilities.Living;
 import Facilities.Outdoor;
@@ -12,9 +14,9 @@ import views.AddPropertyPage;
 
 public class DatabaseCommunication {
 	
-	private String SERVER = "jdbc:mysql://stusql.dcs.shef.ac.uk/team023";
-	private String DBUSER = "team023";
-	private String PASSWORD = "64783854";
+	public String SERVER = "jdbc:mysql://stusql.dcs.shef.ac.uk/team023";
+	public String DBUSER = "team023";
+	public String PASSWORD = "64783854";
 	
 	private Connection con = null;
 	private Statement stmt = null;
@@ -359,13 +361,21 @@ public class DatabaseCommunication {
 		}
 	}
 
-	public void addKitchenInDatabase(Kitchen k, String statement) {
+	public void addKitchenInDatabase(Kitchen k, Property p, String statement) {
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
 			try {
 				pstmt = con.prepareStatement(statement);
 				
-				
+				pstmt.setString(1, getPropertyID(p.getPostCode()));
+				pstmt.setBoolean(2, k.getOven());
+				pstmt.setBoolean(3, k.getRefrigerator());
+				pstmt.setBoolean(4, k.getMicrowave());
+				pstmt.setBoolean(5, k.getStove());
+				pstmt.setBoolean(6, k.getDishwasher());
+				pstmt.setBoolean(7, k.getTableware());
+				pstmt.setBoolean(8, k.getCookware());
+				pstmt.setBoolean(9, k.getProvisions());
 				
 				pstmt.executeUpdate();
 			}
@@ -380,23 +390,159 @@ public class DatabaseCommunication {
 		}
 	}
 
-	public void addLivingInDatabase(Living l, String statement) {
+	public void addLivingInDatabase(Property p, String statement) {
 		// TODO Auto-generated method stub
-		
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(statement);
+				
+				pstmt.setString(1, getPropertyID(p.getPostCode()));
+				pstmt.setBoolean(2, p.getLiving().getWifi());
+				pstmt.setBoolean(3, p.getLiving().getTV());
+				pstmt.setBoolean(4, p.getLiving().getSatellite());
+				pstmt.setBoolean(5, p.getLiving().getStreaming());
+				pstmt.setBoolean(6, p.getLiving().getDVDPlayer());
+				pstmt.setBoolean(6, p.getLiving().getBoardGames());
+				
+				pstmt.executeUpdate();
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
 	}
 
-	public void addOutdoorInDatabase(Outdoor o, String statement) {
+	public void addOutdoorInDatabase(Property p, String statement) {
 		// TODO Auto-generated method stub
-		
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(statement);
+				
+				pstmt.setString(1, getPropertyID(p.getPostCode()));
+				pstmt.setBoolean(2, p.getOutdoor().getFreeOnsiteParking());
+				pstmt.setBoolean(3, p.getOutdoor().getOnRoadParking());
+				pstmt.setBoolean(4, p.getOutdoor().getPaidParking());
+				pstmt.setBoolean(5, p.getOutdoor().getPatio());
+				pstmt.setBoolean(6, p.getOutdoor().getBarbecue());
+				
+				pstmt.executeUpdate();
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
 	}
 
-	public void addSleepingInDatabase(Sleeping s, String statement) {
+	public void addSleepingInDatabase(Property p, String statement) {
 		// TODO Auto-generated method stub
-		
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(statement);
+				
+				pstmt.setString(1, getPropertyID(p.getPostCode()));
+				pstmt.setBoolean(2, p.getSleeping().getBedLinen());
+				pstmt.setBoolean(3, p.getSleeping().getTowels());
+				
+				pstmt.executeUpdate();
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
 	}
 
-	public void addUtilityInDatabase(Utility u, String statement) {
+	public void addUtilityInDatabase(Property p, String statement) {
 		// TODO Auto-generated method stub
-		
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(statement);
+				
+				pstmt.setString(1, getPropertyID(p.getPostCode()));
+				pstmt.setBoolean(2, p.getUtility().getCentralHeating());
+				pstmt.setBoolean(3, p.getUtility().getWashingMachine());
+				pstmt.setBoolean(4, p.getUtility().getDryingMachine());
+				pstmt.setBoolean(5, p.getUtility().getFireExtinguisher());
+				pstmt.setBoolean(6, p.getUtility().getSmokeAlarm());
+				pstmt.setBoolean(7, p.getUtility().getFirstAidKit());
+				
+				pstmt.executeUpdate();
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
+	}
+
+	public void addBathroomInDatabase(Property p, Bathroom b, String statement) {
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(statement);
+				
+				pstmt.setString(1, p.getBathing().getBathingFacilityID(getPropertyID(p.getPostCode())));
+				pstmt.setBoolean(2, b.getToilet());
+				pstmt.setBoolean(3, b.getBath());
+				pstmt.setBoolean(4, b.getShower());
+				pstmt.setBoolean(5, b.getShared());
+				
+				pstmt.executeUpdate();
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
+	}
+
+	public void addBedroomInDatabase(Property p, Bedroom b, String statement) {
+		// TODO Auto-generated method stub
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(statement);
+				
+				pstmt.setString(1, p.getSleeping().getSleepingFacilityID(getPropertyID(p.getPostCode())));
+				pstmt.setString(2, b.getBed1());
+				pstmt.setString(3, b.getBed2());
+				
+				pstmt.executeUpdate();
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
 	}
 }

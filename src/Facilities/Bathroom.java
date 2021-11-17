@@ -13,4 +13,17 @@ public class Bathroom {
 		this.hasShower = hasShower;
 		this.isShared = isShared;
 	}
+	
+	public boolean getToilet() {
+		return hasToilet;
+	}
+	public boolean getBath() {
+		return hasBath;
+	}
+	public boolean getShower() {
+		return hasShower;
+	}
+	public boolean getShared() {
+		return isShared;
+	}
 }
