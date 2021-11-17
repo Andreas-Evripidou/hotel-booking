@@ -52,7 +52,6 @@ public class Validation {
 		return false;
 	}
 	
-	String insertAddress = "INSERT INTO `team023`.`Address` (`house`, `postcode`, `streetName`, `placeName`) VALUES(?, ?, ?, ?);";
 	
 	public void validateProperty(Person user, Property p) {
 		String insertBathing = "INSERT INTO `team023`. `Bathing Facility` (`propertyID`, `hairDryer`, `shampoo`, `toiletPaper`)"
@@ -107,6 +106,8 @@ public class Validation {
 	public void validateUserRegistration(Person user, Address userAddress) {
 		String insertPerson = "INSERT INTO `team023`.`Person` (`userID`, `password`, `title`, `name`, `surname`, `contactDetails`, `host`, `guest`, `house`, `postcode`) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		String insertAddress = "INSERT INTO `team023`.`Address` (`house`, `postcode`, `streetName`, `placeName`) VALUES(?, ?, ?, ?);";
+
 		DatabaseCommunication db = new DatabaseCommunication();
 		
 		try {

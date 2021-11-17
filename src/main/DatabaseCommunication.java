@@ -124,6 +124,8 @@ public class DatabaseCommunication {
 		return null;
 	}
 	
+	
+	
 	public ResultSet getAddress(String query, String houseName, String postcode) {
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
@@ -232,6 +234,58 @@ public class DatabaseCommunication {
 			}
 		}
 		catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
+	}
+	
+	public ResultSet getReviewByIDs(String query, String userId, int propertyID) {
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setString(1, userId);
+				pstmt.setInt(2, propertyID);
+				res = pstmt.executeQuery();
+				
+				return res;
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public void addReviewInDatabase(String guestID, int propertyID, Review review, String statement) throws SQLException, Exception {
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(statement);
+				
+				pstmt.setString(1, guestID);
+				pstmt.setInt(2, propertyID);
+				pstmt.setInt(3, review.getCleanlinessScore());
+				pstmt.setInt(4, review.getCommunicationScore());
+				pstmt.setInt(5, review.getCheckInScore());
+				pstmt.setInt(6, review.getAccuracyScore());
+				pstmt.setInt(7, review.getLocationScore());
+				pstmt.setInt(8, review.getValueScore());
+				pstmt.setString(9, review.getComments());
+				
+				pstmt.executeUpdate();
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
 			closeAll(res, stmt, pstmt, con);

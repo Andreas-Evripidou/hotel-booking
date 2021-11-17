@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.JScrollPane;
 
 import main.Review;
-import main.ReviewsContoller;
+import main.ReviewsController;
 
 import javax.swing.BoxLayout;
 import java.awt.*;
@@ -24,7 +24,7 @@ public class ReviewPanels {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ReviewsContoller rc = new ReviewsContoller();
+					ReviewsController rc = new ReviewsController();
 					ReviewPanels window = new ReviewPanels(rc.getAllReviewsOfProperty(1));
 					window.frame.setVisible(true);
 				} catch (Exception e) {
