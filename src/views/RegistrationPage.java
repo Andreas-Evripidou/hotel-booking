@@ -12,6 +12,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import main.Address;
+import main.PasswordHash;
 import main.Person;
 import main.Validation;
 
@@ -78,7 +79,8 @@ public class RegistrationPage {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1200, 850);
+		frame.setResizable(false);
+		frame.setBounds(100, 100, 1200, 800);
 		frame.setMinimumSize(new Dimension(1200, 850));
 		frame.setTitle("Registration Page");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -251,6 +253,7 @@ public class RegistrationPage {
 		panelRegister.setBackground(Color.LIGHT_GRAY);
 		
 		JButton btnRegister = new JButton("Register");
+		btnRegister.setBackground(Color.LIGHT_GRAY);
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -274,11 +277,12 @@ public class RegistrationPage {
 						&& streetName.length() !=0 && postcode.length() != 0 ) {		
 					
 					Validation v = new Validation();
+					PasswordHash ph = new PasswordHash();
 //					System.out.println(v.validateUser("malakas@email.com", "123456", "Host"));
 //					db.closeAll(db.res, db.stmt, db.pstmt, db.con);
 					
 					
-					Person m = new Person(title, forename, surname, userId, Integer.parseInt(contact), isHost, isGuest, password);
+					Person m = new Person(title, forename, surname, userId, Integer.parseInt(contact), isHost, isGuest, ph.hashPassword(password));
 					Address a = new Address( houseNumber, streetName, placeName, postcode);
 					
 					if ( forename.length()>20 )
@@ -332,6 +336,7 @@ public class RegistrationPage {
 		panelRegister.add(btnRegister);
 		
 		JButton btnRedirectToLogin = new JButton("Log in");
+		btnRedirectToLogin.setBackground(Color.LIGHT_GRAY);
 		btnRedirectToLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginPage window = new LoginPage();

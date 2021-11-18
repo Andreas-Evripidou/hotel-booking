@@ -94,6 +94,7 @@ public class LoginPage {
 	 */
 	private void initialize() {
 		frmLogInPage = new JFrame();
+		frmLogInPage.setResizable(false);
 		frmLogInPage.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frmLogInPage.setBackground(Color.LIGHT_GRAY);
 		frmLogInPage.setMinimumSize(new Dimension(1200, 850));
