@@ -12,6 +12,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import main.Address;
+import main.PasswordHash;
 import main.Person;
 import main.Validation;
 
@@ -274,11 +275,12 @@ public class RegistrationPage {
 						&& streetName.length() !=0 && postcode.length() != 0 ) {		
 					
 					Validation v = new Validation();
+					PasswordHash ph = new PasswordHash();
 //					System.out.println(v.validateUser("malakas@email.com", "123456", "Host"));
 //					db.closeAll(db.res, db.stmt, db.pstmt, db.con);
 					
 					
-					Person m = new Person(title, forename, surname, userId, Integer.parseInt(contact), isHost, isGuest, password);
+					Person m = new Person(title, forename, surname, userId, Integer.parseInt(contact), isHost, isGuest, ph.hashPassword(password));
 					Address a = new Address( houseNumber, streetName, placeName, postcode);
 					
 					if ( forename.length()>20 )

@@ -47,6 +47,8 @@ public class Validation {
 				} finally {
 					db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
 				}
+			PasswordHash ph = new PasswordHash();
+			password = ph.hashPassword(password);
 			return user != null && pass != null && user.equals(userID) && pass.equals(password);
 		}
 		return false;
@@ -157,6 +159,9 @@ public class Validation {
 				int contactDetails = Integer.parseInt(result.getString(6));
 				int isGuest = Integer.parseInt(result.getString(7));
 				int isHost = Integer.parseInt(result.getString(8));
+				
+				PasswordHash ph = new PasswordHash();
+				password = ph.hashPassword(password);
 				
 				p = new Person(title, forename, surname, userId, contactDetails, isHost, isGuest, password);
 			}
