@@ -9,8 +9,8 @@ public class testing {
 	public static void main (String [] args) {
 		DatabaseCommunication db = new DatabaseCommunication();
 		Validation v = new Validation();
-		Person m = new Person("a", "a", "a", "a", 12343, 1, 1, "a");
-		Address a = new Address("1", "s", "a", "23");
+		Person m = new Person("a", "a", "d", "a", 12343, 1, 1, "a");
+		Address a = new Address("1", "s", "a", "h");
 		
 		
 		ArrayList<Bathroom> baths = new ArrayList<>();
@@ -27,9 +27,9 @@ public class testing {
 		Utility u = new Utility(true, true, true, true, true, true);
 		
 		ArrayList<ChargeBand> cb = new ArrayList<>();
-		cb.add(new ChargeBand("1-1-2021","1-1-2222", 122.0, 112.0, 111.0));
+		cb.add(new ChargeBand("2021-01-01","2022-01-01", 122.0, 112.0, 111.0));
 				
-		Property property = new Property(cb, a, "Property1", "pellares", true, bathing, k, l, o, sleeping, u);
+		Property property = new Property(cb, a, "Property2", "pellares", true, bathing, k, l, o, sleeping, u);
 		
 		v.validateProperty(m, property);
 	}

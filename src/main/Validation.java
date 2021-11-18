@@ -56,53 +56,54 @@ public class Validation {
 	
 	
 	public void validateProperty(Person user, Property p) {
-		String insertBathing = "INSERT INTO `team023`. `Bathing Facility` (`propertyID`, `hairDryer`, `shampoo`, `toiletPaper`)"
+		String insertBathing = "INSERT INTO `team023`.`Bathing Facility` (`propertyID`, `hairDryer`, `shampoo`, `toiletPaper`)"
 				+ " VALUES (?, ?, ?, ?);";
 		String insertKitchen = "INSERT INTO `team023`.`Kitchen Facility` (`propertyID`, `oven`, `refrigerator`, `microwave`, `stove`, "
-				+ "`dishwasher`, `tableware`, `cookware`, `basicProvisions`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
-		String insertLiving = "INSERT INTO `team023`.`Living Facility` (`propertyID`, `wifi`, `television`, `satellite`, `streaming`, "
-				+ "`boardGames`) VALUES (?, ?, ?, ?, ?, ?);";
+				+ "`dishwasher`, `tableware`, `cookware`, `basicProvisions`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String insertLiving = "INSERT INTO `team023`.`Living Facility` (`propertyID`, `wifi`, `television`, `satelite`, `streaming`, "
+				+ "`dvdplayer`, `boardGames`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		String insertOutdoor = "INSERT INTO `team023`.`Outdoor Facility` (`propertyID`, `freeOnSideParking_copy4`, `onRoadParking`, "
-				+ "`paidCarPark`, `patio`, `barbecue`) VALUES (?, ?, ?, ?, ?, ?);";
+				+ "`paidCarPark`, `patio`, `barbeque`) VALUES (?, ?, ?, ?, ?, ?)";
 		String insertSleeping = "INSERT INTO `team023`.`Sleeping Facility` (`propertyID`, `bedLiner`, `towels`)"
-				+ "VALUES (?, ?, ?);";
-		String insertUtility = "INSERT INTO `team023`.`Utility Facility` (`propertyID`, `heating`, `washingMachine`, `dryingMachine`,"
-				+ " `fireExtinguisher`, `smokeAlarm`, `firstAidKit`) VALUES	(?, ?, ?, ?, ?, ?, ?);";
+				+ "VALUES (?, ?, ?)";
+		String insertUtility = "INSERT INTO `team023`.`Utility Facility` (`propertyID`, `heating`, `washingMashine`, `dryingMashine`,"
+				+ " `fireExtinguisher`, `smokeAlarm`, `firstAidKit`) VALUES	(?, ?, ?, ?, ?, ?, ?)";
 		
 		String insertProperty = "INSERT INTO `team023`.`Property` (`userID`, `shortName`, `description`, `generalLocation`,"
-				+ " `breakfast`, `maximumGuests`, `house`, `postcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+				+ " `breakfast`, `maximumGuests`, `house`, `postcode`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		String insertBathroom = "INSERT INTO `team023`.`Bathroom` (`bathingFacilityID`, `toilet`, `bath`, `shower`, `shared`)"
-				+ " VALUES (?, ?, ?, ?, ?);";
+				+ " VALUES (?, ?, ?, ?, ?)";
 		String insertBedroom = "INSERT INTO `team023`.`Bedroom` (`sleepingFacilityID`, `bed1`, `bed2`) VALUES (?, ?, ?);";
-		String insertChargeBand = "INSERT INTO `team023`.`Charge Band` (`propertyID`, `startDate`, `endDate`, `pricePerNight`)"
-				+ " VALUES (?, ?, ?, ?);";
+		String insertChargeBand = "INSERT INTO `team023`.`Charge Band` (`propertyID`, `startDate`, `endDate`, `serviceCharge`, `cleaningCharge`, `pricePerNight`)"
+				+ " VALUES (?, ?, ?, ?, ?, ?)";
+		String insertAddress = "INSERT INTO `team023`.`Address` (`house`, `postcode`, `streetName`, `placeName`) VALUES(?, ?, ?, ?)";
 		
 		DatabaseCommunication db = new DatabaseCommunication();
 		try {
-			//add the address ?
-			
+			db.addUserAddressInDatabase(p.getAddress(), insertAddress);
 			
 			db.addPropertyInDatabase(p, insertProperty, user.getEmail());
+			int propertyID = db.getPropertyID(p.getPostCode());
 			
-			
-			db.addBathingInDatabase(p.getBathing(), p, insertBathing);
+			db.addBathingInDatabase(p.getBathing(), p, insertBathing, propertyID);
+			int bathingFacilityID = db.getBathingFacilityID(propertyID);
 			for(Bathroom b : p.getBathing().getBathrooms()) {
-				db.addBathroomInDatabase(p, b, insertBathroom);
+				db.addBathroomInDatabase(p, b, insertBathroom, bathingFacilityID);
 			}
-			
-			db.addKitchenInDatabase(p.getKitchen(), p, insertKitchen);
-			db.addLivingInDatabase(p, insertLiving);
-			db.addOutdoorInDatabase(p, insertOutdoor);
-			db.addSleepingInDatabase(p, insertSleeping);
+			db.addKitchenInDatabase(p.getKitchen(), p, insertKitchen, propertyID);
+			db.addLivingInDatabase(p, insertLiving, propertyID);
+			db.addOutdoorInDatabase(p, insertOutdoor, propertyID);
+			db.addSleepingInDatabase(p, insertSleeping, propertyID);
+			int sleepingFacilityID = db.getSleepingFacilityID(propertyID);
 			for(Bedroom b : p.getSleeping().getBedrooms()) {
-				db.addBedroomInDatabase(p, b, insertBedroom);
+				db.addBedroomInDatabase(p, b, insertBedroom, sleepingFacilityID);
 			}
-			db.addUtilityInDatabase(p, insertUtility);
+			db.addUtilityInDatabase(p, insertUtility, propertyID);
 			for(ChargeBand cb : p.getChargeBands()) {
-				db.addChargeBandInDatabase(p, cb, insertChargeBand);
+				db.addChargeBandInDatabase(p, cb, insertChargeBand, propertyID);
 			}
-			System.out.println("Database update successful");
+			System.out.println("Database updates finished.");
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
