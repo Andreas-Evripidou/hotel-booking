@@ -133,6 +133,15 @@ public class AddPropertyPage extends JFrame {
 		descriptionTxt.setColumns(10);
 		
 		JButton CancelBtn = new JButton("Cancel");
+		CancelBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HostProfilePage window = new HostProfilePage(p);
+				window.getFrame().setVisible(true);
+				window.getFrame().pack();
+				window.getFrame().setLocationRelativeTo(null);
+				dispose();
+			}
+		});
 		CancelBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		CancelBtn.setBounds(1065, 741, 96, 21);
 		panel.add(CancelBtn);
@@ -177,11 +186,18 @@ public class AddPropertyPage extends JFrame {
 					
 					Validation v = new Validation();
 					v.validateProperty(p, property);
+					
+					HostProfilePage window = new HostProfilePage(p);
+					window.getFrame().setVisible(true);
+					window.getFrame().pack();
+					window.getFrame().setLocationRelativeTo(null);
+					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Please fill in all fields!", "Empty fields", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
+		
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnNewButton.setBounds(994, 741, 61, 21);
 		panel.add(btnNewButton);
@@ -500,8 +516,8 @@ public class AddPropertyPage extends JFrame {
 				int result = JOptionPane.showConfirmDialog(null, a, "Add Charge Band", 
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 				if(result == JOptionPane.OK_OPTION) {
-					ChargeBand cb = new ChargeBand(a.startDateTxt.getValue().toString(),
-							a.endDateTxt.getValue().toString(), 
+					ChargeBand cb = new ChargeBand(a.startDateTxt.getText(),
+							a.endDateTxt.getText(), 
 							Double.parseDouble(a.serviceChargeTxt.getText()),
 							Double.parseDouble(a.cleaningChargeTxt.getText()),
 							Double.parseDouble(a.pppTxt.getText()));

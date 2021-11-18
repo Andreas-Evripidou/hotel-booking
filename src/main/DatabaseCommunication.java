@@ -223,23 +223,7 @@ public class DatabaseCommunication {
 		}
 	}
 	
-	public void addPropertyInDatabase(String hostEmailAddress, Property property, String statement) throws SQLException, Exception{
-		try {
-			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
-			try {
-				pstmt = con.prepareStatement(statement);
-				//TODO IMPLEMENT DB UPDATE ON PROPERTY ADD
-			}
-			catch (SQLException ex) {
-				ex.printStackTrace();
-			}
-		}
-		catch(Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			closeAll(res, stmt, pstmt, con);
-		}
-	}
+	
 	
 	public ResultSet getReviewByIDs(String query, String userId, int propertyID) {
 		try {
@@ -365,17 +349,20 @@ public class DatabaseCommunication {
 		}
 	}
 	
-	private String getPropertyID(String postCode) {
+	public int getPropertyID(String postCode) {
 		//can change postcode to more relevant field if appropriate
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
 			try {
-				String query = "SELECT propertyID FROM Property WHERE postcode == " + postCode;
+				String query = "SELECT propertyID FROM `team023`.`Property` WHERE postcode = ?;";
 				
 				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, postCode);
 				
 				ResultSet rs = pstmt.executeQuery();
-				return rs.getString(1);
+				while(rs.next()) {
+					return rs.getInt(1);
+				}
 			}
 			catch (SQLException ex) {
 				ex.printStackTrace();
@@ -386,10 +373,10 @@ public class DatabaseCommunication {
 		} finally {
 			closeAll(res, stmt, pstmt, con);
 		}
-		return null;
+		return 0;
 	}
 	
-	public void addBathingInDatabase(Bathing b, Property p, String statement) {
+	public void addBathingInDatabase(Bathing b, Property p, String statement, int propertyID) {
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
 			try {
@@ -397,7 +384,7 @@ public class DatabaseCommunication {
 				
 				
 				
-				pstmt.setString(1, getPropertyID(p.getPostCode()));
+				pstmt.setInt(1, propertyID);
 				pstmt.setInt(2, b.getHairDryer());
 				pstmt.setInt(3, b.getShampoo());
 				pstmt.setInt(4, b.getToiletPaper());
@@ -416,13 +403,13 @@ public class DatabaseCommunication {
 		}
 	}
 
-	public void addKitchenInDatabase(Kitchen k, Property p, String statement) {
+	public void addKitchenInDatabase(Kitchen k, Property p, String statement, int propertyID) {
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
 			try {
 				pstmt = con.prepareStatement(statement);
 				
-				pstmt.setString(1, getPropertyID(p.getPostCode()));
+				pstmt.setInt(1, propertyID);
 				pstmt.setInt(2, k.getOven());
 				pstmt.setInt(3, k.getRefrigerator());
 				pstmt.setInt(4, k.getMicrowave());
@@ -445,20 +432,20 @@ public class DatabaseCommunication {
 		}
 	}
 
-	public void addLivingInDatabase(Property p, String statement) {
+	public void addLivingInDatabase(Property p, String statement, int propertyID) {
 		// TODO Auto-generated method stub
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
 			try {
 				pstmt = con.prepareStatement(statement);
 				
-				pstmt.setString(1, getPropertyID(p.getPostCode()));
+				pstmt.setInt(1, propertyID);
 				pstmt.setInt(2, p.getLiving().getWifi());
 				pstmt.setInt(3, p.getLiving().getTV());
 				pstmt.setInt(4, p.getLiving().getSatellite());
 				pstmt.setInt(5, p.getLiving().getStreaming());
 				pstmt.setInt(6, p.getLiving().getDVDPlayer());
-				pstmt.setInt(6, p.getLiving().getBoardGames());
+				pstmt.setInt(7, p.getLiving().getBoardGames());
 				
 				pstmt.executeUpdate();
 			}
@@ -473,14 +460,14 @@ public class DatabaseCommunication {
 		}
 	}
 
-	public void addOutdoorInDatabase(Property p, String statement) {
+	public void addOutdoorInDatabase(Property p, String statement, int propertyID) {
 		// TODO Auto-generated method stub
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
 			try {
 				pstmt = con.prepareStatement(statement);
 				
-				pstmt.setString(1, getPropertyID(p.getPostCode()));
+				pstmt.setInt(1, propertyID);
 				pstmt.setInt(2, p.getOutdoor().getFreeOnsiteParking());
 				pstmt.setInt(3, p.getOutdoor().getOnRoadParking());
 				pstmt.setInt(4, p.getOutdoor().getPaidParking());
@@ -500,14 +487,14 @@ public class DatabaseCommunication {
 		}
 	}
 
-	public void addSleepingInDatabase(Property p, String statement) {
+	public void addSleepingInDatabase(Property p, String statement, int propertyID) {
 		// TODO Auto-generated method stub
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
 			try {
 				pstmt = con.prepareStatement(statement);
 				
-				pstmt.setString(1, getPropertyID(p.getPostCode()));
+				pstmt.setInt(1, propertyID);
 				pstmt.setInt(2, p.getSleeping().getBedLinen());
 				pstmt.setInt(3, p.getSleeping().getTowels());
 				
@@ -524,14 +511,14 @@ public class DatabaseCommunication {
 		}
 	}
 
-	public void addUtilityInDatabase(Property p, String statement) {
+	public void addUtilityInDatabase(Property p, String statement, int propertyID) {
 		// TODO Auto-generated method stub
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
 			try {
 				pstmt = con.prepareStatement(statement);
 				
-				pstmt.setString(1, getPropertyID(p.getPostCode()));
+				pstmt.setInt(1, propertyID);
 				pstmt.setInt(2, p.getUtility().getCentralHeating());
 				pstmt.setInt(3, p.getUtility().getWashingMachine());
 				pstmt.setInt(4, p.getUtility().getDryingMachine());
@@ -552,13 +539,13 @@ public class DatabaseCommunication {
 		}
 	}
 
-	public void addBathroomInDatabase(Property p, Bathroom b, String statement) {
+	public void addBathroomInDatabase(Property p, Bathroom b, String statement, int bathingFacilityID) {
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
 			try {
 				pstmt = con.prepareStatement(statement);
 				
-				pstmt.setInt(1, getBathingFacilityID(getPropertyID(p.getPostCode())));
+				pstmt.setInt(1, bathingFacilityID);
 				pstmt.setInt(2, b.getToilet());
 				pstmt.setInt(3, b.getBath());
 				pstmt.setInt(4, b.getShower());
@@ -577,14 +564,14 @@ public class DatabaseCommunication {
 		}
 	}
 
-	public void addBedroomInDatabase(Property p, Bedroom b, String statement) {
+	public void addBedroomInDatabase(Property p, Bedroom b, String statement, int sleepingFacilityID) {
 		// TODO Auto-generated method stub
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
 			try {
 				pstmt = con.prepareStatement(statement);
 				
-				pstmt.setInt(1, getSleepingFacilityID(getPropertyID(p.getPostCode())));
+				pstmt.setInt(1, sleepingFacilityID);
 				pstmt.setString(2, b.getBed1());
 				pstmt.setString(3, b.getBed2());
 				
@@ -601,16 +588,19 @@ public class DatabaseCommunication {
 		}
 	}
 	
-	public int getSleepingFacilityID(String propertyID) {
+	public int getSleepingFacilityID(int propertyID) {
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
 			try {
-				String query = "SELECT sleepingFacilityID FROM Sleeping Facility WHERE propertyID == " + propertyID + ";";
+				String query = "SELECT sleepingFacilityID FROM team023.`Sleeping Facility` WHERE propertyID = ?;";
 				
 				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, propertyID);
 				
 				ResultSet rs = pstmt.executeQuery();
-				return rs.getInt(1);
+				while(rs.next()) {
+					return rs.getInt(1);
+				}
 			}
 			catch (SQLException ex) {
 				ex.printStackTrace();
@@ -624,16 +614,19 @@ public class DatabaseCommunication {
 		return 0;
 	}
 	
-	public int getBathingFacilityID(String propertyID) {
+	public int getBathingFacilityID(int propertyID) {
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
 			try {
-				String query = "SELECT bathingFacilityID FROM Bathing Facility WHERE propertyID == " + propertyID + ";";
+				String query = "SELECT bathingFacilityID FROM team023.`Bathing Facility` WHERE propertyID = ?;";
 				
 				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, propertyID);
 				
 				ResultSet rs = pstmt.executeQuery();
-				return rs.getInt(1);
+				while(rs.next()) {
+					return rs.getInt(1);
+				}
 			}
 			catch (SQLException ex) {
 				ex.printStackTrace();
@@ -647,16 +640,18 @@ public class DatabaseCommunication {
 		return 0;
 	}
 
-	public void addChargeBandInDatabase(Property p, ChargeBand cb, String statement) {
+	public void addChargeBandInDatabase(Property p, ChargeBand cb, String statement, int propertyID) {
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
 			try {
 				pstmt = con.prepareStatement(statement);
 				
-				pstmt.setInt(1, getSleepingFacilityID(getPropertyID(p.getPostCode())));
+				pstmt.setInt(1, propertyID);
 				pstmt.setDate(2, java.sql.Date.valueOf(cb.getStartDate()));
 				pstmt.setDate(3, java.sql.Date.valueOf(cb.getEndDate()));
 				pstmt.setDouble(4, cb.getPricePerNight());
+				pstmt.setDouble(5, cb.getServiceCharge());
+				pstmt.setDouble(6, cb.getCleaningCharge());
 				
 				pstmt.executeUpdate();
 			}
