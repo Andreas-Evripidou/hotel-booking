@@ -25,28 +25,68 @@ public class Kitchen {
 		this.hasProvisions = hasProvisions;
 	}
 	
-	public boolean getRefrigerator() {
-		return hasRefrigerator;
+	public int getRefrigerator() {
+		if(hasRefrigerator) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getMicrowave() {
-		return hasMicrowave;
+	public int getMicrowave() {
+		if(hasMicrowave) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getOven() {
-		return hasOven;
+	public int getOven() {
+		if(hasOven) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getStove() {
-		return hasStove;
+	public int getStove() {
+		if(hasStove) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getDishwasher() {
-		return hasDishwasher;
+	public int getDishwasher() {
+		if(hasDishwasher) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getTableware() {
-		return hasTableware;
+	public int getTableware() {
+		if(hasTableware) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getCookware() {
-		return hasCookware;
+	public int getCookware() {
+		if(hasCookware) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getProvisions() {
-		return hasProvisions;
+	public int getProvisions() {
+		if(hasProvisions) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
 }

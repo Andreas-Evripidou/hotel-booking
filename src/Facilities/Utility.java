@@ -20,22 +20,52 @@ public class Utility {
 		this.hasFirstAidKit = hasFirstAidKit;
 	}
 	
-	public boolean getCentralHeating() {
-		return hasCentralHeating;
+	public int getCentralHeating() {
+		if(hasCentralHeating) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getWashingMachine() {
-		return hasWashingMachine;
+	public int getWashingMachine() {
+		if(hasWashingMachine) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getDryingMachine() {
-		return hasDryingMachine;
+	public int getDryingMachine() {
+		if(hasDryingMachine) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getFireExtinguisher() {
-		return hasFireExtinguisher;
+	public int getFireExtinguisher() {
+		if(hasFireExtinguisher) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getSmokeAlarm() {
-		return hasSmokeAlarm;
+	public int getSmokeAlarm() {
+		if(hasSmokeAlarm) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getFirstAidKit() {
-		return hasFirstAidKit;
+	public int getFirstAidKit() {
+		if(hasFirstAidKit) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
 }

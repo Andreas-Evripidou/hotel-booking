@@ -55,24 +55,26 @@ public class Validation {
 	
 	public void validateProperty(Person user, Property p) {
 		String insertBathing = "INSERT INTO `team023`. `Bathing Facility` (`propertyID`, `hairDryer`, `shampoo`, `toiletPaper`)"
-				+ " VALUES (?, ?, ?, ?)";
+				+ " VALUES (?, ?, ?, ?);";
 		String insertKitchen = "INSERT INTO `team023`.`Kitchen Facility` (`propertyID`, `oven`, `refrigerator`, `microwave`, `stove`, "
-				+ "`dishwasher`, `tableware`, `cookware`, `basicProvisions`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "`dishwasher`, `tableware`, `cookware`, `basicProvisions`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		String insertLiving = "INSERT INTO `team023`.`Living Facility` (`propertyID`, `wifi`, `television`, `satellite`, `streaming`, "
-				+ "`boardGames`) VALUES (?, ?, ?, ?, ?, ?)";
+				+ "`boardGames`) VALUES (?, ?, ?, ?, ?, ?);";
 		String insertOutdoor = "INSERT INTO `team023`.`Outdoor Facility` (`propertyID`, `freeOnSideParking_copy4`, `onRoadParking`, "
-				+ "`paidCarPark`, `patio`, `barbecue`) VALUES (?, ?, ?, ?, ?, ?)";
-		String insertSleeping = "INSERT INTO `team023`.`Sleeping Facility` (`propertyID`, `bedLiner`, `towels`) "
-				+ "VALUES (?, ?, ?)";
+				+ "`paidCarPark`, `patio`, `barbecue`) VALUES (?, ?, ?, ?, ?, ?);";
+		String insertSleeping = "INSERT INTO `team023`.`Sleeping Facility` (`propertyID`, `bedLiner`, `towels`)"
+				+ "VALUES (?, ?, ?);";
 		String insertUtility = "INSERT INTO `team023`.`Utility Facility` (`propertyID`, `heating`, `washingMachine`, `dryingMachine`,"
-				+ " `fireExtinguisher`, `smokeAlarm`, `firstAidKit`) VALUES	(?, ?, ?, ?, ?, ?, ?)";
+				+ " `fireExtinguisher`, `smokeAlarm`, `firstAidKit`) VALUES	(?, ?, ?, ?, ?, ?, ?);";
 		
 		String insertProperty = "INSERT INTO `team023`.`Property` (`userID`, `shortName`, `description`, `generalLocation`,"
-				+ " `breakfast`, `maximumGuests`, `house`, `postcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+				+ " `breakfast`, `maximumGuests`, `house`, `postcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 		
 		String insertBathroom = "INSERT INTO `team023`.`Bathroom` (`bathingFacilityID`, `toilet`, `bath`, `shower`, `shared`)"
-				+ " VALUES (?, ?, ?, ?, ?)";
-		String insertBedroom = "INSERT INTO `team023`.`Bedroom` (`sleepingFacilityID`, `bed1`, `bed2`) VALUES (?, ?, ?)";
+				+ " VALUES (?, ?, ?, ?, ?);";
+		String insertBedroom = "INSERT INTO `team023`.`Bedroom` (`sleepingFacilityID`, `bed1`, `bed2`) VALUES (?, ?, ?);";
+		String insertChargeBand = "INSERT INTO `team023`.`Charge Band` (`propertyID`, `startDate`, `endDate`, `pricePerNight`)"
+				+ " VALUES (?, ?, ?, ?);";
 		
 		DatabaseCommunication db = new DatabaseCommunication();
 		try {
@@ -94,8 +96,11 @@ public class Validation {
 			for(Bedroom b : p.getSleeping().getBedrooms()) {
 				db.addBedroomInDatabase(p, b, insertBedroom);
 			}
-			
 			db.addUtilityInDatabase(p, insertUtility);
+			for(ChargeBand cb : p.getChargeBands()) {
+				db.addChargeBandInDatabase(p, cb, insertChargeBand);
+			}
+			System.out.println("Database update successful");
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {

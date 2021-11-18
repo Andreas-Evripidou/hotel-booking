@@ -41,6 +41,10 @@ public class Property {
 		this.utility = utility;
 	}
 	
+	public List<ChargeBand> getChargeBands(){
+		return chargeBands;
+	}
+	
 	public Address getAddress() {
 		return address;
 	}

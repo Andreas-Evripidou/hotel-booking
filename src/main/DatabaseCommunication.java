@@ -345,9 +345,9 @@ public class DatabaseCommunication {
 				pstmt.setString(3, p.getDescription());
 				pstmt.setString(4, p.getAddress().getPlaceName());
 				if(p.getBreakfastOffered() == true) {
-					pstmt.setString(5, "1");
-				} else { pstmt.setString(5, "0"); }
-				pstmt.setString(6, String.valueOf(p.getSleeping().getTotalSleepers()));
+					pstmt.setInt(5, 1);
+				} else { pstmt.setInt(5, 0); }
+				pstmt.setInt(6, p.getSleeping().getTotalSleepers());
 				pstmt.setString(7, p.getAddress().getHouse());
 				pstmt.setString(8, p.getAddress().getPostCode());
 				
@@ -398,9 +398,9 @@ public class DatabaseCommunication {
 				
 				
 				pstmt.setString(1, getPropertyID(p.getPostCode()));
-				pstmt.setBoolean(2, b.getHairDryer());
-				pstmt.setBoolean(3, b.getShampoo());
-				pstmt.setBoolean(4, b.getToiletPaper());
+				pstmt.setInt(2, b.getHairDryer());
+				pstmt.setInt(3, b.getShampoo());
+				pstmt.setInt(4, b.getToiletPaper());
 				
 				
 				pstmt.executeUpdate();
@@ -423,14 +423,14 @@ public class DatabaseCommunication {
 				pstmt = con.prepareStatement(statement);
 				
 				pstmt.setString(1, getPropertyID(p.getPostCode()));
-				pstmt.setBoolean(2, k.getOven());
-				pstmt.setBoolean(3, k.getRefrigerator());
-				pstmt.setBoolean(4, k.getMicrowave());
-				pstmt.setBoolean(5, k.getStove());
-				pstmt.setBoolean(6, k.getDishwasher());
-				pstmt.setBoolean(7, k.getTableware());
-				pstmt.setBoolean(8, k.getCookware());
-				pstmt.setBoolean(9, k.getProvisions());
+				pstmt.setInt(2, k.getOven());
+				pstmt.setInt(3, k.getRefrigerator());
+				pstmt.setInt(4, k.getMicrowave());
+				pstmt.setInt(5, k.getStove());
+				pstmt.setInt(6, k.getDishwasher());
+				pstmt.setInt(7, k.getTableware());
+				pstmt.setInt(8, k.getCookware());
+				pstmt.setInt(9, k.getProvisions());
 				
 				pstmt.executeUpdate();
 			}
@@ -453,12 +453,12 @@ public class DatabaseCommunication {
 				pstmt = con.prepareStatement(statement);
 				
 				pstmt.setString(1, getPropertyID(p.getPostCode()));
-				pstmt.setBoolean(2, p.getLiving().getWifi());
-				pstmt.setBoolean(3, p.getLiving().getTV());
-				pstmt.setBoolean(4, p.getLiving().getSatellite());
-				pstmt.setBoolean(5, p.getLiving().getStreaming());
-				pstmt.setBoolean(6, p.getLiving().getDVDPlayer());
-				pstmt.setBoolean(6, p.getLiving().getBoardGames());
+				pstmt.setInt(2, p.getLiving().getWifi());
+				pstmt.setInt(3, p.getLiving().getTV());
+				pstmt.setInt(4, p.getLiving().getSatellite());
+				pstmt.setInt(5, p.getLiving().getStreaming());
+				pstmt.setInt(6, p.getLiving().getDVDPlayer());
+				pstmt.setInt(6, p.getLiving().getBoardGames());
 				
 				pstmt.executeUpdate();
 			}
@@ -481,11 +481,11 @@ public class DatabaseCommunication {
 				pstmt = con.prepareStatement(statement);
 				
 				pstmt.setString(1, getPropertyID(p.getPostCode()));
-				pstmt.setBoolean(2, p.getOutdoor().getFreeOnsiteParking());
-				pstmt.setBoolean(3, p.getOutdoor().getOnRoadParking());
-				pstmt.setBoolean(4, p.getOutdoor().getPaidParking());
-				pstmt.setBoolean(5, p.getOutdoor().getPatio());
-				pstmt.setBoolean(6, p.getOutdoor().getBarbecue());
+				pstmt.setInt(2, p.getOutdoor().getFreeOnsiteParking());
+				pstmt.setInt(3, p.getOutdoor().getOnRoadParking());
+				pstmt.setInt(4, p.getOutdoor().getPaidParking());
+				pstmt.setInt(5, p.getOutdoor().getPatio());
+				pstmt.setInt(6, p.getOutdoor().getBarbecue());
 				
 				pstmt.executeUpdate();
 			}
@@ -508,8 +508,8 @@ public class DatabaseCommunication {
 				pstmt = con.prepareStatement(statement);
 				
 				pstmt.setString(1, getPropertyID(p.getPostCode()));
-				pstmt.setBoolean(2, p.getSleeping().getBedLinen());
-				pstmt.setBoolean(3, p.getSleeping().getTowels());
+				pstmt.setInt(2, p.getSleeping().getBedLinen());
+				pstmt.setInt(3, p.getSleeping().getTowels());
 				
 				pstmt.executeUpdate();
 			}
@@ -532,12 +532,12 @@ public class DatabaseCommunication {
 				pstmt = con.prepareStatement(statement);
 				
 				pstmt.setString(1, getPropertyID(p.getPostCode()));
-				pstmt.setBoolean(2, p.getUtility().getCentralHeating());
-				pstmt.setBoolean(3, p.getUtility().getWashingMachine());
-				pstmt.setBoolean(4, p.getUtility().getDryingMachine());
-				pstmt.setBoolean(5, p.getUtility().getFireExtinguisher());
-				pstmt.setBoolean(6, p.getUtility().getSmokeAlarm());
-				pstmt.setBoolean(7, p.getUtility().getFirstAidKit());
+				pstmt.setInt(2, p.getUtility().getCentralHeating());
+				pstmt.setInt(3, p.getUtility().getWashingMachine());
+				pstmt.setInt(4, p.getUtility().getDryingMachine());
+				pstmt.setInt(5, p.getUtility().getFireExtinguisher());
+				pstmt.setInt(6, p.getUtility().getSmokeAlarm());
+				pstmt.setInt(7, p.getUtility().getFirstAidKit());
 				
 				pstmt.executeUpdate();
 			}
@@ -558,11 +558,11 @@ public class DatabaseCommunication {
 			try {
 				pstmt = con.prepareStatement(statement);
 				
-				pstmt.setString(1, p.getBathing().getBathingFacilityID(getPropertyID(p.getPostCode())));
-				pstmt.setBoolean(2, b.getToilet());
-				pstmt.setBoolean(3, b.getBath());
-				pstmt.setBoolean(4, b.getShower());
-				pstmt.setBoolean(5, b.getShared());
+				pstmt.setInt(1, getBathingFacilityID(getPropertyID(p.getPostCode())));
+				pstmt.setInt(2, b.getToilet());
+				pstmt.setInt(3, b.getBath());
+				pstmt.setInt(4, b.getShower());
+				pstmt.setInt(5, b.getShared());
 				
 				pstmt.executeUpdate();
 			}
@@ -584,9 +584,79 @@ public class DatabaseCommunication {
 			try {
 				pstmt = con.prepareStatement(statement);
 				
-				pstmt.setString(1, p.getSleeping().getSleepingFacilityID(getPropertyID(p.getPostCode())));
+				pstmt.setInt(1, getSleepingFacilityID(getPropertyID(p.getPostCode())));
 				pstmt.setString(2, b.getBed1());
 				pstmt.setString(3, b.getBed2());
+				
+				pstmt.executeUpdate();
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
+	}
+	
+	public int getSleepingFacilityID(String propertyID) {
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				String query = "SELECT sleepingFacilityID FROM Sleeping Facility WHERE propertyID == " + propertyID + ";";
+				
+				pstmt = con.prepareStatement(query);
+				
+				ResultSet rs = pstmt.executeQuery();
+				return rs.getInt(1);
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
+		return 0;
+	}
+	
+	public int getBathingFacilityID(String propertyID) {
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				String query = "SELECT bathingFacilityID FROM Bathing Facility WHERE propertyID == " + propertyID;
+				
+				pstmt = con.prepareStatement(query);
+				
+				ResultSet rs = pstmt.executeQuery();
+				return rs.getInt(1);
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
+		return 0;
+	}
+
+	public void addChargeBandInDatabase(Property p, ChargeBand cb, String statement) {
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(statement);
+				
+				pstmt.setInt(1, getSleepingFacilityID(getPropertyID(p.getPostCode())));
+				pstmt.setDate(2, java.sql.Date.valueOf(cb.getStartDate()));
+				pstmt.setDate(3, java.sql.Date.valueOf(cb.getEndDate()));
+				pstmt.setDouble(4, cb.getPricePerNight());
 				
 				pstmt.executeUpdate();
 			}

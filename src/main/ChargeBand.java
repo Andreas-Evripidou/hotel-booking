@@ -1,5 +1,7 @@
 package main;
 
+import java.text.DateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ChargeBand {
@@ -17,6 +19,13 @@ public class ChargeBand {
 		this.pricePerNight = pricePerNight;
 		this.serviceCharge = serviceCharge;
 		this.cleaningCharge = cleaningCharge;
+	}
+	
+	public LocalDate getStartDate() {
+		return LocalDate.parse(startDate);
+	}
+	public LocalDate getEndDate() {
+		return LocalDate.parse(endDate);
 	}
 	
 	

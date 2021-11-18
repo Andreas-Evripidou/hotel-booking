@@ -30,42 +30,30 @@ public class Bathing {
 		return bathrooms;
 	}
 	
-	public boolean getHairDryer() {
-		return hasHairDryer;
+	public int getHairDryer() {
+		if(hasHairDryer) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getShampoo() {
-		return hasShampoo;
+	public int getShampoo() {
+		if(hasShampoo) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getToiletPaper() {
-		return hasToiletPaper;
+	public int getToiletPaper() {
+		if(hasToiletPaper) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
 	
-	public String getBathingFacilityID(String propertyID) {
-		DatabaseCommunication dc = new DatabaseCommunication();
-		
-		Connection con = null;
-		ResultSet res = null;
-		Statement stmt = null;
-		PreparedStatement pstmt = null;
-		try {
-			con = DriverManager.getConnection(dc.SERVER, dc.DBUSER, dc.PASSWORD);
-			try {
-				String query = "SELECT bathingFacilityID FROM Bathing Facility WHERE propertyID == " + propertyID;
-				
-				pstmt = con.prepareStatement(query);
-				
-				ResultSet rs = pstmt.executeQuery();
-				return rs.getString(1);
-			}
-			catch (SQLException ex) {
-				ex.printStackTrace();
-			}
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			dc.closeAll(res, stmt, pstmt, con);
-		}
-		return null;
-	}
+	
 }

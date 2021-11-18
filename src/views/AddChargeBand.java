@@ -24,7 +24,7 @@ public class AddChargeBand extends JPanel {
 	public AddChargeBand() {
 		setLayout(null);
 		
-		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		startDateTxt = new JFormattedTextField(df);
 		startDateTxt.setBounds(107, 52, 87, 19);
 		add(startDateTxt);

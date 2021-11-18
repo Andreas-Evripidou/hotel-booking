@@ -34,39 +34,22 @@ public class Sleeping {
 		return count;
 	}
 	
-	public boolean getBedLinen() {
-		return hasBedLinen;
+	public int getBedLinen() {
+		if(hasBedLinen) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getTowels() {
-		return hasTowels;
+	public int getTowels() {
+		if(hasTowels) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
 	
-	public String getSleepingFacilityID(String propertyID) {
-		DatabaseCommunication dc = new DatabaseCommunication();
-		
-		Connection con = null;
-		ResultSet res = null;
-		Statement stmt = null;
-		PreparedStatement pstmt = null;
-		try {
-			con = DriverManager.getConnection(dc.SERVER, dc.DBUSER, dc.PASSWORD);
-			try {
-				String query = "SELECT sleepingFacilityID FROM Sleeping Facility WHERE propertyID == " + propertyID;
-				
-				pstmt = con.prepareStatement(query);
-				
-				ResultSet rs = pstmt.executeQuery();
-				return rs.getString(1);
-			}
-			catch (SQLException ex) {
-				ex.printStackTrace();
-			}
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			dc.closeAll(res, stmt, pstmt, con);
-		}
-		return null;
-	}
+	
 }

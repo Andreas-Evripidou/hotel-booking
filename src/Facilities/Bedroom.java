@@ -34,9 +34,9 @@ public class Bedroom {
 	}
 	
 	public String getBed1() {
-		return bed1.toString();
+		return Bed.bedToString(bed1);
 	}
 	public String getBed2() {
-		return bed2.toString();
+		return Bed.bedToString(bed2);
 	}
 }

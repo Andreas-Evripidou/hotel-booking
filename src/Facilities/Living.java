@@ -17,22 +17,52 @@ public class Living {
 		this.hasBoardGames = hasBoardGames;
 	}
 	
-	public boolean getWifi() {
-		return hasWifi;
+	public int getWifi() {
+		if(hasWifi) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getTV() {
-		return hasTV;
+	public int getTV() {
+		if(hasTV) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getSatellite() {
-		return hasSatellite;
+	public int getSatellite() {
+		if(hasSatellite) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getStreaming() {
-		return hasStreaming;
+	public int getStreaming() {
+		if(hasStreaming) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getDVDPlayer() {
-		return hasDVDPlayer;
+	public int getDVDPlayer() {
+		if(hasDVDPlayer) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
-	public boolean getBoardGames() {
-		return hasBoardGames;
+	public int getBoardGames() {
+		if(hasBoardGames) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
 }

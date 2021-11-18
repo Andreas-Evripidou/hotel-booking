@@ -34,9 +34,9 @@ import java.awt.event.ActionEvent;
 
 public class AddPropertyPage extends JFrame {
 	
-	private List<Bedroom> bedrooms;
-	private List<Bathroom> bathrooms;
-	private List<ChargeBand> chargeBands;
+	private List<Bedroom> bedrooms = new ArrayList<Bedroom>();
+	private List<Bathroom> bathrooms = new ArrayList<Bathroom>();
+	private List<ChargeBand> chargeBands = new ArrayList<ChargeBand>();
 
 	private JPanel contentPane;
 	private JTextField descriptionTxt;
@@ -228,6 +228,7 @@ public class AddPropertyPage extends JFrame {
 				}
 			}
 		});
+		
 		btnAddBedroom.setBounds(10, 79, 124, 21);
 		sleepingPanel.add(btnAddBedroom);
 		
