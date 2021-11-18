@@ -134,7 +134,7 @@ public class AddPropertyPage extends JFrame {
 		
 		JButton CancelBtn = new JButton("Cancel");
 		CancelBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		CancelBtn.setBounds(1060, 762, 96, 21);
+		CancelBtn.setBounds(1065, 741, 96, 21);
 		panel.add(CancelBtn);
 		
 		JButton btnNewButton = new JButton("OK");
@@ -183,7 +183,7 @@ public class AddPropertyPage extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnNewButton.setBounds(994, 762, 61, 21);
+		btnNewButton.setBounds(994, 741, 61, 21);
 		panel.add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel("Facilities");
@@ -422,7 +422,7 @@ public class AddPropertyPage extends JFrame {
 		
 		chckbxFreeOnsiteParking = new JCheckBox("Free On-Site Parking");
 		chckbxFreeOnsiteParking.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		chckbxFreeOnsiteParking.setBounds(6, 24, 158, 21);
+		chckbxFreeOnsiteParking.setBounds(6, 24, 188, 21);
 		panel_1_3.add(chckbxFreeOnsiteParking);
 		
 		chckbxOnroadParking = new JCheckBox("On-Road Parking");
@@ -509,7 +509,7 @@ public class AddPropertyPage extends JFrame {
 				}
 			}
 		});
-		btnNewButton_1.setBounds(33, 739, 184, 25);
+		btnNewButton_1.setBounds(33, 724, 184, 25);
 		panel.add(btnNewButton_1);
 		
 		JLabel lblNewLabel_3 = new JLabel("Name:");
