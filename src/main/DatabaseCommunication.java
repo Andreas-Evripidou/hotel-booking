@@ -628,7 +628,7 @@ public class DatabaseCommunication {
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
 			try {
-				String query = "SELECT bathingFacilityID FROM Bathing Facility WHERE propertyID == " + propertyID;
+				String query = "SELECT bathingFacilityID FROM Bathing Facility WHERE propertyID == " + propertyID + ";";
 				
 				pstmt = con.prepareStatement(query);
 				

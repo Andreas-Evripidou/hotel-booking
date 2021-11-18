@@ -107,34 +107,34 @@ public class AddPropertyPage extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 10, 559, 572);
+		panel.setBounds(10, 10, 1166, 793);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		JLabel descriptionLabel = new JLabel("Description:");
-		descriptionLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		descriptionLabel.setBounds(220, 47, 207, 25);
+		descriptionLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		descriptionLabel.setBounds(630, 46, 207, 25);
 		panel.add(descriptionLabel);
 		
 		JLabel locationLabel = new JLabel("Address");
-		locationLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		locationLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		locationLabel.setBounds(10, 6, 121, 13);
 		panel.add(locationLabel);
 		
 		breakfastChk = new JCheckBox("Breakfast Offered");
-		breakfastChk.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		breakfastChk.setBounds(10, 87, 144, 21);
+		breakfastChk.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		breakfastChk.setBounds(10, 87, 161, 21);
 		panel.add(breakfastChk);
 		
 		descriptionTxt = new JTextField();
 		descriptionTxt.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		descriptionTxt.setBounds(287, 49, 266, 20);
+		descriptionTxt.setBounds(737, 49, 368, 20);
 		panel.add(descriptionTxt);
 		descriptionTxt.setColumns(10);
 		
 		JButton CancelBtn = new JButton("Cancel");
-		CancelBtn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		CancelBtn.setBounds(468, 541, 85, 21);
+		CancelBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		CancelBtn.setBounds(1060, 762, 96, 21);
 		panel.add(CancelBtn);
 		
 		JButton btnNewButton = new JButton("OK");
@@ -182,36 +182,37 @@ public class AddPropertyPage extends JFrame {
 				}
 			}
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton.setBounds(397, 541, 61, 21);
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnNewButton.setBounds(994, 762, 61, 21);
 		panel.add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel("Facilities");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel.setBounds(242, 108, 78, 13);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblNewLabel.setBounds(443, 107, 121, 13);
 		panel.add(lblNewLabel);
 		
 		JPanel sleepingPanel = new JPanel();
-		sleepingPanel.setBounds(10, 130, 144, 152);
+		sleepingPanel.setBounds(10, 130, 207, 152);
 		panel.add(sleepingPanel);
 		sleepingPanel.setLayout(null);
 		
 		JLabel sleepingLabel = new JLabel("Sleeping");
-		sleepingLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		sleepingLabel.setBounds(48, 10, 61, 13);
+		sleepingLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		sleepingLabel.setBounds(51, 0, 75, 40);
 		sleepingPanel.add(sleepingLabel);
 		
 		chckbxBedLinen = new JCheckBox("Bed Linen");
-		chckbxBedLinen.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxBedLinen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxBedLinen.setBounds(0, 29, 109, 21);
 		sleepingPanel.add(chckbxBedLinen);
 		
 		chckbxTowels = new JCheckBox("Towels");
-		chckbxTowels.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxTowels.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxTowels.setBounds(0, 52, 109, 21);
 		sleepingPanel.add(chckbxTowels);
 		
 		JButton btnAddBedroom = new JButton("Add Bedroom Info");
+		btnAddBedroom.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnAddBedroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddBedroom addBedroom = new AddBedroom();
@@ -229,35 +230,36 @@ public class AddPropertyPage extends JFrame {
 			}
 		});
 		
-		btnAddBedroom.setBounds(10, 79, 124, 21);
+		btnAddBedroom.setBounds(22, 121, 161, 21);
 		sleepingPanel.add(btnAddBedroom);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(210, 130, 144, 152);
+		panel_1.setBounds(363, 130, 246, 152);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Bathing");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1.setBounds(49, 5, 55, 13);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_1.setBounds(85, -11, 78, 40);
 		panel_1.add(lblNewLabel_1);
 		
 		chckbxHairDryer = new JCheckBox("Hair Dryer");
-		chckbxHairDryer.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxHairDryer.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxHairDryer.setBounds(6, 24, 109, 21);
 		panel_1.add(chckbxHairDryer);
 		
 		chckbxShampoo = new JCheckBox("Shampoo");
-		chckbxShampoo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxShampoo.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxShampoo.setBounds(6, 47, 109, 21);
 		panel_1.add(chckbxShampoo);
 		
 		chckbxToiletPaper = new JCheckBox("Toilet Paper");
-		chckbxToiletPaper.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxToiletPaper.setBounds(6, 70, 109, 21);
+		chckbxToiletPaper.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		chckbxToiletPaper.setBounds(6, 70, 127, 21);
 		panel_1.add(chckbxToiletPaper);
 		
 		JButton btnAddBathroom = new JButton("Add Bathroom Info");
+		btnAddBathroom.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnAddBathroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddBathroom addBathroom = new AddBathroom();
@@ -275,215 +277,220 @@ public class AddPropertyPage extends JFrame {
 				}
 			}
 		});
-		btnAddBathroom.setBounds(6, 97, 128, 21);
+		btnAddBathroom.setBounds(35, 121, 186, 21);
 		panel_1.add(btnAddBathroom);
 		
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setLayout(null);
-		panel_1_1.setBounds(10, 292, 144, 208);
+		panel_1_1.setBounds(10, 341, 252, 256);
 		panel.add(panel_1_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Kitchen");
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_1.setBounds(49, 5, 66, 13);
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_1_1.setBounds(79, 5, 66, 13);
 		panel_1_1.add(lblNewLabel_1_1);
 		
 		chckbxRefrigerator = new JCheckBox("Refrigerator");
-		chckbxRefrigerator.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxRefrigerator.setBounds(6, 24, 109, 21);
+		chckbxRefrigerator.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		chckbxRefrigerator.setBounds(6, 24, 139, 21);
 		panel_1_1.add(chckbxRefrigerator);
 		
 		chckbxMicrowave = new JCheckBox("Microwave");
-		chckbxMicrowave.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxMicrowave.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxMicrowave.setBounds(6, 47, 109, 21);
 		panel_1_1.add(chckbxMicrowave);
 		
 		chckbxOven = new JCheckBox("Oven");
-		chckbxOven.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxOven.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxOven.setBounds(6, 70, 109, 21);
 		panel_1_1.add(chckbxOven);
 		
 		chckbxStove = new JCheckBox("Stove");
-		chckbxStove.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxStove.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxStove.setBounds(6, 93, 109, 21);
 		panel_1_1.add(chckbxStove);
 		
 	    chckbxDishwasher = new JCheckBox("Dishwasher");
-		chckbxDishwasher.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxDishwasher.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxDishwasher.setBounds(6, 116, 109, 21);
 		panel_1_1.add(chckbxDishwasher);
 		
 		chckbxTableware = new JCheckBox("Tableware");
-		chckbxTableware.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxTableware.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxTableware.setBounds(6, 139, 109, 21);
 		panel_1_1.add(chckbxTableware);
 		
 		chckbxCookware = new JCheckBox("Cookware");
-		chckbxCookware.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxCookware.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxCookware.setBounds(6, 162, 109, 21);
 		panel_1_1.add(chckbxCookware);
 		
 		chckbxProvisions = new JCheckBox("Provisions");
-		chckbxProvisions.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxProvisions.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxProvisions.setBounds(6, 185, 109, 21);
 		panel_1_1.add(chckbxProvisions);
 		
 		JPanel panel_1_2 = new JPanel();
 		panel_1_2.setLayout(null);
-		panel_1_2.setBounds(210, 293, 144, 207);
+		panel_1_2.setBounds(363, 341, 246, 207);
 		panel.add(panel_1_2);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Living");
-		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_2.setBounds(49, 5, 45, 13);
+		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_1_2.setBounds(93, 0, 66, 31);
 		panel_1_2.add(lblNewLabel_1_2);
 		
 		chckbxWifi = new JCheckBox("Wifi");
-		chckbxWifi.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxWifi.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxWifi.setBounds(6, 24, 109, 21);
 		panel_1_2.add(chckbxWifi);
 		
 		chckbxTelevision = new JCheckBox("Television");
-		chckbxTelevision.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxTelevision.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxTelevision.setBounds(6, 47, 109, 21);
 		panel_1_2.add(chckbxTelevision);
 		
 		chckbxSatellite = new JCheckBox("Satellite");
-		chckbxSatellite.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxSatellite.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxSatellite.setBounds(6, 70, 109, 21);
 		panel_1_2.add(chckbxSatellite);
 		
 		chckbxStreaming = new JCheckBox("Streaming");
-		chckbxStreaming.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxStreaming.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxStreaming.setBounds(6, 93, 109, 21);
 		panel_1_2.add(chckbxStreaming);
 		
 		chckbxDvdPlayer = new JCheckBox("DVD Player");
-		chckbxDvdPlayer.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxDvdPlayer.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxDvdPlayer.setBounds(6, 116, 109, 21);
 		panel_1_2.add(chckbxDvdPlayer);
 		
 		chckbxBoardGames = new JCheckBox("Board Games");
-		chckbxBoardGames.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxBoardGames.setBounds(6, 139, 109, 21);
+		chckbxBoardGames.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		chckbxBoardGames.setBounds(6, 139, 131, 21);
 		panel_1_2.add(chckbxBoardGames);
 		
 		JPanel panel_1_2_1 = new JPanel();
 		panel_1_2_1.setLayout(null);
-		panel_1_2_1.setBounds(409, 292, 144, 207);
+		panel_1_2_1.setBounds(851, 341, 220, 207);
 		panel.add(panel_1_2_1);
 		
 		JLabel lblNewLabel_1_2_1 = new JLabel("Utility");
-		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_2_1.setBounds(49, 5, 45, 13);
+		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_1_2_1.setBounds(95, 5, 66, 13);
 		panel_1_2_1.add(lblNewLabel_1_2_1);
 		
 		chckbxHeating = new JCheckBox("Heating");
-		chckbxHeating.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxHeating.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxHeating.setBounds(6, 24, 109, 21);
 		panel_1_2_1.add(chckbxHeating);
 		
 		chckbxWashingMachine = new JCheckBox("Washing Machine");
-		chckbxWashingMachine.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxWashingMachine.setBounds(6, 47, 132, 21);
+		chckbxWashingMachine.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		chckbxWashingMachine.setBounds(6, 47, 155, 21);
 		panel_1_2_1.add(chckbxWashingMachine);
 		
 		chckbxDryingMachine = new JCheckBox("Drying Machine");
-		chckbxDryingMachine.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxDryingMachine.setBounds(6, 70, 109, 21);
+		chckbxDryingMachine.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		chckbxDryingMachine.setBounds(6, 70, 135, 21);
 		panel_1_2_1.add(chckbxDryingMachine);
 		
 		chckbxFireExtinguisher = new JCheckBox("Fire Extinguisher");
-		chckbxFireExtinguisher.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxFireExtinguisher.setBounds(6, 93, 119, 21);
+		chckbxFireExtinguisher.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		chckbxFireExtinguisher.setBounds(6, 93, 155, 21);
 		panel_1_2_1.add(chckbxFireExtinguisher);
 		
 		chckbxSmokeAlarm = new JCheckBox("Smoke Alarm");
-		chckbxSmokeAlarm.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxSmokeAlarm.setBounds(6, 116, 109, 21);
+		chckbxSmokeAlarm.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		chckbxSmokeAlarm.setBounds(6, 116, 135, 21);
 		panel_1_2_1.add(chckbxSmokeAlarm);
 		
 		chckbxFirstAidKit = new JCheckBox("First Aid Kit");
-		chckbxFirstAidKit.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxFirstAidKit.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxFirstAidKit.setBounds(6, 139, 109, 21);
 		panel_1_2_1.add(chckbxFirstAidKit);
 		
 		JPanel panel_1_3 = new JPanel();
 		panel_1_3.setLayout(null);
-		panel_1_3.setBounds(409, 130, 144, 152);
+		panel_1_3.setBounds(851, 130, 220, 152);
 		panel.add(panel_1_3);
 		
 		JLabel lblNewLabel_1_3 = new JLabel("Outdoor");
-		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_3.setBounds(49, 5, 55, 13);
+		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel_1_3.setBounds(49, 5, 89, 13);
 		panel_1_3.add(lblNewLabel_1_3);
 		
 		chckbxFreeOnsiteParking = new JCheckBox("Free On-Site Parking");
-		chckbxFreeOnsiteParking.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxFreeOnsiteParking.setBounds(6, 24, 132, 21);
+		chckbxFreeOnsiteParking.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		chckbxFreeOnsiteParking.setBounds(6, 24, 158, 21);
 		panel_1_3.add(chckbxFreeOnsiteParking);
 		
 		chckbxOnroadParking = new JCheckBox("On-Road Parking");
-		chckbxOnroadParking.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxOnroadParking.setBounds(6, 47, 132, 21);
+		chckbxOnroadParking.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		chckbxOnroadParking.setBounds(6, 47, 158, 21);
 		panel_1_3.add(chckbxOnroadParking);
 		
 		chckbxPaidParking = new JCheckBox("Paid Parking");
-		chckbxPaidParking.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxPaidParking.setBounds(6, 70, 109, 21);
+		chckbxPaidParking.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		chckbxPaidParking.setBounds(6, 70, 132, 21);
 		panel_1_3.add(chckbxPaidParking);
 		
 		chckbxPatio = new JCheckBox("Patio");
-		chckbxPatio.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxPatio.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxPatio.setBounds(6, 93, 109, 21);
 		panel_1_3.add(chckbxPatio);
 		
 		chckbxBarbecue = new JCheckBox("Barbecue");
-		chckbxBarbecue.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		chckbxBarbecue.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chckbxBarbecue.setBounds(6, 116, 109, 21);
 		panel_1_3.add(chckbxBarbecue);
 		
 		JLabel lblNewLabel_2 = new JLabel("House Name/Number:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_2.setBounds(104, 8, 138, 13);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2.setBounds(104, 8, 220, 13);
 		panel.add(lblNewLabel_2);
 		
 		txtbxHouse = new JTextField();
-		txtbxHouse.setBounds(242, 5, 96, 19);
+		txtbxHouse.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtbxHouse.setBounds(268, 3, 136, 19);
 		panel.add(txtbxHouse);
 		txtbxHouse.setColumns(10);
 		
 		JLabel cityLabel = new JLabel("City:");
-		cityLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		cityLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		cityLabel.setBounds(200, 29, 138, 13);
 		panel.add(cityLabel);
 		
 		JLabel lblNewLabel_2_2 = new JLabel("Street Name:");
-		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_2_2.setBounds(363, 7, 138, 13);
+		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2_2.setBounds(414, 7, 138, 13);
 		panel.add(lblNewLabel_2_2);
 		
 		JLabel lblNewLabel_2_3 = new JLabel("Post Code:");
-		lblNewLabel_2_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_2_3.setBounds(363, 29, 138, 13);
+		lblNewLabel_2_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2_3.setBounds(424, 29, 138, 13);
 		panel.add(lblNewLabel_2_3);
 		
 		txtbxStreetName = new JTextField();
+		txtbxStreetName.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtbxStreetName.setColumns(10);
-		txtbxStreetName.setBounds(457, 5, 96, 19);
+		txtbxStreetName.setBounds(513, 3, 161, 19);
 		panel.add(txtbxStreetName);
 		
 		txtbxPostCode = new JTextField();
+		txtbxPostCode.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtbxPostCode.setColumns(10);
-		txtbxPostCode.setBounds(457, 27, 96, 19);
+		txtbxPostCode.setBounds(513, 25, 121, 19);
 		panel.add(txtbxPostCode);
 		
 		txtbxCity = new JTextField();
+		txtbxCity.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtbxCity.setColumns(10);
-		txtbxCity.setBounds(242, 27, 96, 19);
+		txtbxCity.setBounds(242, 27, 144, 19);
 		panel.add(txtbxCity);
 		
 		JButton btnNewButton_1 = new JButton("Add Charge Band");
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddChargeBand a = new AddChargeBand();
@@ -502,15 +509,16 @@ public class AddPropertyPage extends JFrame {
 				}
 			}
 		});
-		btnNewButton_1.setBounds(10, 523, 121, 21);
+		btnNewButton_1.setBounds(33, 739, 184, 25);
 		panel.add(btnNewButton_1);
 		
 		JLabel lblNewLabel_3 = new JLabel("Name:");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_3.setBounds(10, 54, 45, 13);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_3.setBounds(10, 54, 61, 13);
 		panel.add(lblNewLabel_3);
 		
 		txtbxName = new JTextField();
+		txtbxName.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtbxName.setBounds(58, 51, 121, 19);
 		panel.add(txtbxName);
 		txtbxName.setColumns(10);
