@@ -79,7 +79,8 @@ public class RegistrationPage {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1200, 850);
+		frame.setResizable(false);
+		frame.setBounds(100, 100, 1200, 800);
 		frame.setMinimumSize(new Dimension(1200, 850));
 		frame.setTitle("Registration Page");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -252,6 +253,7 @@ public class RegistrationPage {
 		panelRegister.setBackground(Color.LIGHT_GRAY);
 		
 		JButton btnRegister = new JButton("Register");
+		btnRegister.setBackground(Color.LIGHT_GRAY);
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -334,6 +336,7 @@ public class RegistrationPage {
 		panelRegister.add(btnRegister);
 		
 		JButton btnRedirectToLogin = new JButton("Log in");
+		btnRedirectToLogin.setBackground(Color.LIGHT_GRAY);
 		btnRedirectToLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginPage window = new LoginPage();

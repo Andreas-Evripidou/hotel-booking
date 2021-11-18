@@ -142,6 +142,20 @@ public class HostProfilePage {
 		reservationRequestTable = new JTable(data,requestColumnNames);
 		
 		reservationRequestsScrollPanel.setViewportView(reservationRequestTable);
+		
+		JButton btnLogOut = new JButton("LOGOUT");
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoginPage newFrame = new LoginPage();
+				newFrame.getFrame().setVisible(true);
+				newFrame.getFrame().pack();
+				newFrame.getFrame().setLocationRelativeTo(null);
+				frmHostProfile.dispose();
+				
+			}
+		});
+		btnLogOut.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		btnLogOut.setBackground(Color.LIGHT_GRAY);
 		GroupLayout gl_hostProfilePanel = new GroupLayout(hostProfilePanel);
 		gl_hostProfilePanel.setHorizontalGroup(
 			gl_hostProfilePanel.createParallelGroup(Alignment.LEADING)
@@ -154,7 +168,8 @@ public class HostProfilePage {
 								.addComponent(btnAddProperty, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
 								.addGap(6)
 								.addComponent(btnMyProperties, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-								.addGap(828))
+								.addGap(663)
+								.addComponent(btnLogOut, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE))
 							.addComponent(acceptedReservationsPanel, GroupLayout.PREFERRED_SIZE, 1164, GroupLayout.PREFERRED_SIZE)
 							.addGroup(gl_hostProfilePanel.createSequentialGroup()
 								.addComponent(lblAcceptedReservations, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -165,8 +180,8 @@ public class HostProfilePage {
 					.addGap(20))
 		);
 		gl_hostProfilePanel.setVerticalGroup(
-			gl_hostProfilePanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_hostProfilePanel.createSequentialGroup()
+			gl_hostProfilePanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_hostProfilePanel.createSequentialGroup()
 					.addContainerGap(58, Short.MAX_VALUE)
 					.addComponent(lblReservationRequest)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -178,7 +193,8 @@ public class HostProfilePage {
 					.addGap(18)
 					.addGroup(gl_hostProfilePanel.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnAddProperty, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnMyProperties, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnMyProperties, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnLogOut, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
 					.addGap(34))
 		);
 		hostProfilePanel.setLayout(gl_hostProfilePanel);
