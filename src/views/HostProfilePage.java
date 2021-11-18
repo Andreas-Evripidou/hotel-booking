@@ -31,22 +31,6 @@ public class HostProfilePage {
 	private JTable reservationRequestTable;
 	private JTable acceptRequestTable;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					HostProfilePage window = new HostProfilePage(new Person("a", "a", "a", "a", 12343, 1, 1, "a"));
-					window.frmHostProfile.setLocationRelativeTo(null);
-					window.frmHostProfile.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -111,6 +95,7 @@ public class HostProfilePage {
 		
 		
 		String[] requestColumnNames = {"Proeprty Name","Guest Name","Start Date","End Date","Accept","Reject"};
+		
 		
 //		getHostAllProperties(String hostUserId);
 //		getHostNameByPropertyId();
