@@ -13,12 +13,16 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.TableModel;
 
+import controllers.HostProfileController;
+import controllers.PropertyController;
 import main.Person;
+import main.Property;
 
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Rectangle;
 import java.awt.Dimension;
@@ -31,22 +35,6 @@ public class HostProfilePage {
 	private JTable reservationRequestTable;
 	private JTable acceptRequestTable;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					HostProfilePage window = new HostProfilePage(new Person("a", "a", "a", "a", 12343, 1, 1, "a"));
-					window.frmHostProfile.setLocationRelativeTo(null);
-					window.frmHostProfile.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -110,10 +98,21 @@ public class HostProfilePage {
 		acceptedReservationsPanel.add(acceptedReservationsScrollPane);
 		
 		
-		String[] requestColumnNames = {"Proeprty Name","Guest Name","Start Date","End Date","Accept","Reject"};
-		
-//		getHostAllProperties(String hostUserId);
-//		getHostNameByPropertyId();
+		String[] requestColumnNames = {"Proeprty Name", "Guest Name", "Start Date", "End Date", "Accept", "Reject"};
+//		Object[][] requestColumnData = {};
+//		
+//		PropertyController hpc = new PropertyController();
+//		ArrayList<Property> properties = hpc.getPropertiesByHostID(p.getEmail());
+//		
+//		for (int i=0; i< properties.size() ; i++) {
+//			requestColumnData[i][0] = properties.get(i).getName();
+//			requestColumnData[i][1] = "General Name";
+//			requestColumnData[i][2] = "Start Date";
+//			requestColumnData[i][3] = "End Date";
+//			requestColumnData[i][4] = "Button";
+//			requestColumnData[i][5] = "Button";
+//		}
+//		
 //		String[][] requests = getRequestReservations(propertyId);
 //		
 //		for (int i = 0; i < numOfRequests; i++) {
@@ -124,7 +123,7 @@ public class HostProfilePage {
 //		}
 		
 		Object[][] data = {
-				{"Villa anarita","Thomas Smith","19/02/2021","12/04/2021","","",""},
+				{"Villa anarita","Thomas Smith","19/02/2021","12/04/2021",555,222,111},
 		};
 		String[] reservationColumnNames = {"Proeprty Name","Guest Name","Start Date","End Date","Contact Details"};
 		

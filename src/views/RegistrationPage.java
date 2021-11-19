@@ -81,7 +81,7 @@ public class RegistrationPage {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 1200, 800);
-		frame.setMinimumSize(new Dimension(1200, 850));
+		frame.setMinimumSize(new Dimension(1200, 800));
 		frame.setTitle("Registration Page");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -89,12 +89,10 @@ public class RegistrationPage {
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
-		JScrollPane scrollPane = new JScrollPane();
-		panel.add(scrollPane);
-		
 		JPanel panel_1 = new JPanel();
+		panel_1.setMaximumSize(new Dimension(1200, 850));
 		panel_1.setBackground(Color.LIGHT_GRAY);
-		scrollPane.setViewportView(panel_1);
+		panel.add(panel_1);
 		
 		JLabel lblPageTitle = new JLabel("Registration Page");
 		lblPageTitle.setBackground(Color.LIGHT_GRAY);
@@ -355,58 +353,58 @@ public class RegistrationPage {
 		
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
-					.addGap(31)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblPageTitle, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1105, Short.MAX_VALUE)
-						.addComponent(panelForename, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
-						.addComponent(panelSurname, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
-						.addComponent(panelMobileNumber, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
-						.addComponent(panelEmail, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
-						.addComponent(panelPassword, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
-						.addComponent(panelRole, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
-						.addComponent(panelAddress, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
-						.addComponent(panelHouse, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
-						.addComponent(panelPlaceName, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
-						.addComponent(panelStreetNumber, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
-						.addComponent(panelPostcode, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
-						.addComponent(panelRegister, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
-						.addComponent(panelTitle, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE))
-					.addContainerGap())
+			gl_panel_1.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panel_1.createSequentialGroup()
+					.addGap(21)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(panelRole, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
+						.addComponent(lblPageTitle, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
+						.addComponent(panelTitle, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
+						.addComponent(panelForename, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
+						.addComponent(panelSurname, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
+						.addComponent(panelMobileNumber, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
+						.addComponent(panelEmail, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
+						.addComponent(panelPassword, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
+						.addComponent(panelAddress, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
+						.addComponent(panelHouse, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
+						.addComponent(panelPlaceName, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
+						.addComponent(panelStreetNumber, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
+						.addComponent(panelPostcode, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
+						.addComponent(panelRegister, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE))
+					.addGap(20))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap()
+					.addGap(9)
 					.addComponent(lblPageTitle, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(panelTitle, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelTitle, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+					.addGap(1)
 					.addComponent(panelForename, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelSurname, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelMobileNumber, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelEmail, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelPassword, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(panelRole, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(panelAddress, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
+					.addGap(1)
+					.addComponent(panelRole, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelAddress, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelHouse, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelPlaceName, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelStreetNumber, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelPostcode, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addGap(11)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelRegister, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(69, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
 	}
