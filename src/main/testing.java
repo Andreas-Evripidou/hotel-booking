@@ -10,7 +10,7 @@ public class testing {
 		DatabaseCommunication db = new DatabaseCommunication();
 		Validation v = new Validation();
 		Person m = new Person("a", "a", "d", "a", 12343, 1, 1, "a");
-		Address a = new Address("1", "s", "a", "h");
+		Address a = new Address("1", "s", "a", "i");
 		
 		
 		ArrayList<Bathroom> baths = new ArrayList<>();
