@@ -80,15 +80,10 @@ public class DatabaseCommunication {
 	}
 	
 	public ResultSet queryExecute(String query) throws SQLException, Exception {
-		
-//		Connection con = null;
-		
 		try {
 			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
-//			Statement stmt = null;
 			try {
 				stmt = con.createStatement();
-//				ResultSet res = stmt.executeQuery(query);
 				res = stmt.executeQuery(query);
 				
 				return res;
@@ -102,6 +97,26 @@ public class DatabaseCommunication {
 		}
 		return null;
 	}
+	
+	public int updateExecute(String updateQuery) throws SQLException, Exception {
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				stmt = con.createStatement();
+				int count = stmt.executeUpdate(updateQuery);
+				
+				return count;
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return 0;
+	}
+	
 	
 	public ResultSet getUserById(String query, String userId) {
 		try {
