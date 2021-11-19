@@ -13,6 +13,7 @@ public class Living {
 		this.hasWifi = hasWifi;
 		this.hasTV = hasTV;
 		this.hasSatellite = hasSatellite;
+		this.hasStreaming = hasStreaming;
 		this.hasDVDPlayer = hasDVDPlayer;
 		this.hasBoardGames = hasBoardGames;
 	}

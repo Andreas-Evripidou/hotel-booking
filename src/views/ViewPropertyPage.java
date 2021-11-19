@@ -26,6 +26,8 @@ import main.Person;
 import main.Property;
 
 import javax.swing.JCheckBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ViewPropertyPage extends JFrame {
 	private Property property;
@@ -221,6 +223,10 @@ public class ViewPropertyPage extends JFrame {
 		frmViewProperty.getContentPane().add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("Request to book property");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton.setBounds(40, 735, 286, 44);
 		frmViewProperty.getContentPane().add(btnNewButton);

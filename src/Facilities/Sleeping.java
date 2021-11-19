@@ -16,7 +16,7 @@ public class Sleeping {
 	private boolean hasTowels;
 	
 	public Sleeping(List<Bedroom> bedrooms,
-			boolean hasBedLinem, boolean hasTowels) {
+			boolean hasBedLinen, boolean hasTowels) {
 		this.bedrooms = bedrooms;
 		this.hasBedLinen = hasBedLinen;
 		this.hasTowels = hasTowels;
