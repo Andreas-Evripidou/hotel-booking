@@ -11,6 +11,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
+import main.BookingsController;
 import main.DatabaseCommunication;
 import main.Person;
 import main.Validation;
@@ -226,7 +227,16 @@ public class LoginPage {
 							window.getFrame().setVisible(true);
 							frmLogInPage.dispose();
 						}
+						else {
+
+							BookingsController bController = new BookingsController();
 							
+							GuestProfilePage window = new GuestProfilePage(bController.getAllReservations(p.getEmail()));
+							window.getFrame().setVisible(true);
+							window.getFrame().pack();
+							window.getFrame().setLocationRelativeTo(null);
+							frmLogInPage.dispose();
+						}
 						
 					}
 				}

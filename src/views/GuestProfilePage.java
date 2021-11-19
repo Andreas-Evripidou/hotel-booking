@@ -47,7 +47,10 @@ public class GuestProfilePage {
 			}
 		});
 	}
-
+	
+	public JFrame getFrame() {
+		return frame;
+	}
 	/**
 	 * Create the application.
 	 */
@@ -93,6 +96,21 @@ public class GuestProfilePage {
         JLabel lblPReview = new JLabel("My Reservations");
         lblPReview.setFont(new Font("Lucida Grande", Font.PLAIN, 35));
         panel_1.add(lblPReview);
+        
+        JButton btnLogOut = new JButton("LOGOUT");
+        btnLogOut.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		LoginPage newFrame = new LoginPage();
+				newFrame.getFrame().setVisible(true);
+				newFrame.getFrame().pack();
+				newFrame.getFrame().setLocationRelativeTo(null);
+				frame.dispose();
+        	}
+        });
+        btnLogOut.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        btnLogOut.setBackground(Color.LIGHT_GRAY);
+        btnLogOut.setBounds(985, 832, 165, 57);
+        contentPane.add(btnLogOut);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
