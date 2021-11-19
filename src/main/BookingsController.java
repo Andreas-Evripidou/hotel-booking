@@ -1,8 +1,19 @@
 package main;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+
+import com.mysql.cj.conf.ConnectionUrlParser.Pair;
+
+import Facilities.Bathing;
+import Facilities.Kitchen;
+import Facilities.Living;
+import Facilities.Outdoor;
+import Facilities.Sleeping;
+import Facilities.Utility;
 
 public class BookingsController {
 
@@ -60,10 +71,58 @@ public class BookingsController {
 		return true;
 	}
 	
+	public Pair<ArrayList<Reservation>, ArrayList<ArrayList<String>>> getAllReservations(String userID) {
+		String query = "SELECT propertyID, startDate, endDate, accepted FROM team023.Reservation WHERE userID='" + userID + "';";
+		DatabaseCommunication db = new DatabaseCommunication();
+		
+		
+		ArrayList<Reservation> allReservations = new ArrayList<>();
+		ArrayList<ArrayList<String>> propertyInfo = new ArrayList<>();
+		
+		try {
+			ResultSet results = db.queryExecute(query);
+			while (results.next()) {
+				String propertyQuery = "SELECT shortName, description, generalLocation FROM team023.Property WHERE propertyID='" + results.getInt(1) + "';";
+				
+				int propertyID = results.getInt(1);
+				Date startDate = results.getDate(2);
+				Date endDate = results.getDate(3);
+				Boolean accepted = results.getBoolean(4);
+				
+				
+				ResultSet pResults = db.queryExecute(propertyQuery);
+				while (pResults.next()) {
+					String shortNameString = pResults.getString(1);
+					String description = pResults.getString(2);
+					String generalLocation = pResults.getString(3);
+					
+					ArrayList<String> info = new ArrayList<>();
+					info.add(shortNameString);
+					info.add(description);
+					info.add(generalLocation);
+					
+					propertyInfo.add(info);
+				}
+						
+				Reservation reservation = new Reservation(userID, String.valueOf(propertyID), startDate, endDate, accepted);
+				allReservations.add(reservation);
+			}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+			}
+		Pair<ArrayList<Reservation>, ArrayList<ArrayList<String>>> reservations = new Pair<ArrayList<Reservation>, ArrayList<ArrayList<String>>>(allReservations, propertyInfo);
+	
+		return reservations;
+	}
+	
+	
 	public static void main(String [] args) {
 		BookingsController bc = new BookingsController();
 		bc.acceptBooking("amatoli@email.com", 33);
-		System.out.println(bc.isPropertyAvailable(33,LocalDate.parse("2021-12-21"), LocalDate.parse("2021-12-31")));
+		System.out.println(bc.isPropertyAvailable(33, LocalDate.parse("2021-12-21"), LocalDate.parse("2021-12-31")));
+		System.out.println(bc.getAllReservations("amatoli@email.com").left.get(0).getPropertyID());
 		
 	}
 }
