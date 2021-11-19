@@ -45,13 +45,13 @@ public class BookingsController {
 		for (int i = 0; i < startDates.size(); i++) {
 			if (start.isEqual(startDates.get(i)) || start.isEqual(endDates.get(i)) || end.isEqual(startDates.get(i)) || end.isEqual(endDates.get(i))) {
 				return false;
-			} else if ( start.isAfter(startDates.get(i)) && end.isBefore(endDates.get(i))) {
+			} else if (start.isAfter(startDates.get(i)) && end.isBefore(endDates.get(i))) {
 				return false;
-			} else if ( start.isAfter(startDates.get(i)) &&  start.isBefore(endDates.get(i))) {
+			} else if (start.isAfter(startDates.get(i)) && start.isBefore(endDates.get(i))) {
 				return false;
-			} else if ( start.isBefore(startDates.get(i)) &&  end.isAfter(endDates.get(i))) {
+			} else if (start.isBefore(startDates.get(i)) && end.isAfter(endDates.get(i))) {
 				return true;
-			} else if ( end.isAfter(startDates.get(i)) &&  end.isBefore(endDates.get(i))) {
+			} else if (end.isAfter(startDates.get(i)) && end.isBefore(endDates.get(i))) {
 				return false;
 			}
 		}
