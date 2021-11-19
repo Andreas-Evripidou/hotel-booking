@@ -1,7 +1,11 @@
 package main;
 
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.omg.CosNaming._BindingIteratorImplBase;
 
 public class ReviewsController {
 
@@ -43,7 +47,7 @@ public class ReviewsController {
 	}	
 	
 	public boolean alreadyExcistsReview(String userID, int propertyID) {
-		String query = "SELECT COUNT(*) FROM team023.Review WHERE userID=? AND propertyID=?";
+		String query = "SELECT COUNT(*) FROM team023.Review WHERE userID=? AND propertyID=?;";
 		DatabaseCommunication db = new DatabaseCommunication();
 		int n = 0;
 		try {
@@ -57,6 +61,26 @@ public class ReviewsController {
 				db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
 			}
 		return n > 0;
+	}
+	
+	public boolean allowedToWriteReview(String userID, int propertyID, String endDate) {
+		String query = "SELECT endDate FROM team023.Reservation WHERE userID='" + userID + "' AND propertyID='" + propertyID + "' AND endDate=' " + endDate + "';";
+		DatabaseCommunication db = new DatabaseCommunication();
+		try {
+			ResultSet results = db.queryExecute(query);
+			while (results.next()) {
+				LocalDate today = LocalDate.now();
+				LocalDate end = LocalDate.parse(results.getDate(1).toString());
+				if (end.isBefore(today)) {
+					return true;
+				}
+			}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+			}
+		return false;
 	}
 	
 	public void writeReview(String guestID, int propertyID, Review review) {
@@ -73,6 +97,53 @@ public class ReviewsController {
 		}	
 	}
 	
+	public HashMap<String, Double> getAverageReviewScores(int propertyID) {
+		String query = "SELECT cleanliness, communication, checkIn, accuracy, location, value FROM team023.Review WHERE propertyID='" + propertyID + "';";
+		DatabaseCommunication db = new DatabaseCommunication();
+		HashMap<String, Double> allScoresHashMap = new HashMap<>();
+		double cleanliness = 0;
+		double communication = 0;
+		double checkIn = 0;
+		double accuracy = 0; 
+		double location = 0;
+		double value = 0;
+
+		int numberOfReviews = 0;
+		try {
+			ResultSet results = db.queryExecute(query);
+			while (results.next()) {
+				cleanliness += results.getDouble(1); 
+				communication += results.getDouble(2); 
+				checkIn += results.getDouble(3); 
+				accuracy += results.getDouble(4); 
+				location += results.getDouble(5); 
+				value += results.getDouble(6); 
+				numberOfReviews += 1;
+			}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+			}
+		double averageCleanliness = cleanliness / numberOfReviews;
+		double averageCommunication = communication / numberOfReviews;
+		double averageCheckIn = checkIn / numberOfReviews;
+		double averageAccuracy = accuracy / numberOfReviews; 
+		double averageLocation = location / numberOfReviews;
+		double averageValue = value / numberOfReviews;
+		double totalAverage = (cleanliness + communication + checkIn + accuracy + location + value) / 6 / numberOfReviews;
+		
+		allScoresHashMap.put("cleanliness", averageCleanliness);
+		allScoresHashMap.put("communication", averageCommunication);
+		allScoresHashMap.put("checkIn", averageCheckIn);
+		allScoresHashMap.put("accuracy", averageAccuracy);
+		allScoresHashMap.put("location", averageLocation);
+		allScoresHashMap.put("value", averageValue);
+		allScoresHashMap.put("total", totalAverage);
+		
+		return allScoresHashMap;
+	}
+	
 	public static void main (String [] args) {
 		ReviewsController rc = new ReviewsController();
 		Review r = new Review("Skata!",5,5,5,5,5,5);
@@ -82,6 +153,9 @@ public class ReviewsController {
 			System.out.println("The review is successfully added");
 		}
 		else System.out.println("A user cannot review the same property more than once");
+		
+		System.out.println(rc.allowedToWriteReview("amatoli@email.com", 33, "2021-11-26"));
+		System.out.println(rc.getAverageReviewScores(1));
 		
 	}
 }
