@@ -18,7 +18,7 @@ import main.Property;
 
 public class PropertyController {
 	
-	public static ArrayList<Property> getPropertiesByHostID(String hostID) {
+	public ArrayList<Property> getPropertiesByHostID(String hostID) {
 		String query = "SELECT * FROM team023.Property WHERE userID='" + hostID + "'";
 		DatabaseCommunication db = new DatabaseCommunication();
 		ChargeBandController cb = new ChargeBandController();
@@ -59,7 +59,6 @@ public class PropertyController {
 				Outdoor outdoorFac = fc.getOutdoorFacByPropertyID(propertyID);
 				Utility utilityFac = fc.getUtilityFacByPropertyID(propertyID);
 				
-				System.out.println("eimai dame");
 				Property property = new Property(chargeBands, address, shortName, description, isBreakfastOffered, bathingFac, kitchenFac, livingFac, outdoorFac, sleepingFac, utilityFac);
 				allProperties.add(property);
 			}
@@ -73,5 +72,53 @@ public class PropertyController {
 		return null;
 	}
 	
+	public ArrayList<String> getAllPropertIDByHostID(String hostID) {
+		String query = "SELECT propertyID FROM team023.Property WHERE userID='" + hostID + "'";
+		DatabaseCommunication db = new DatabaseCommunication();
+		
+		
+		String propertyID;
+		
+		ArrayList<String> allPropertyID = new ArrayList<>();
+		
+		try {
+			ResultSet results = db.queryExecute(query);
+			while (results.next()) {
+				propertyID = results.getString(1);
+
+				allPropertyID.add(propertyID);
+			}
+			
+			return allPropertyID;
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+			}
+		return null;
+	}
+	
+	public String getPropertyNameByPropertyID(String propertyID) {
+		String query = "SELECT shortName FROM team023.Property WHERE propertyID='" + propertyID + "'";
+		DatabaseCommunication db = new DatabaseCommunication();
+		
+		
+		String shortName = null;
+		
+		try {
+			ResultSet results = db.queryExecute(query);
+			while (results.next()) {
+				shortName = results.getString(1);
+
+			}
+			
+			return shortName;
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+			}
+		return null;
+	}
 
 }
