@@ -12,7 +12,9 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JTextField;
 
+import main.BookingsController;
 import main.Review;
+import main.ReviewsController;
 
 import javax.swing.JTextArea;
 import javax.swing.JButton;
@@ -36,7 +38,7 @@ public class GuestWriteReviewPage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GuestWriteReviewPage window = new GuestWriteReviewPage();
+					GuestWriteReviewPage window = new GuestWriteReviewPage("amatoli@email.com", 1);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,14 +50,18 @@ public class GuestWriteReviewPage {
 	/**
 	 * Create the application.
 	 */
-	public GuestWriteReviewPage() {
-		initialize();
+	public GuestWriteReviewPage(String userID, int propertyID) {
+		initialize(userID,propertyID);
+	}
+	
+	public JFrame getFrame() {
+		return frame;
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(String userID, int propertyID) {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 1200, 850);
@@ -78,7 +84,6 @@ public class GuestWriteReviewPage {
 		panel.add(lblCleanliness);
 		
 		textFieldCleanliness = new JTextField();
-		textFieldCleanliness.setText("0");
 		textFieldCleanliness.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		textFieldCleanliness.setBounds(488, 170, 23, 26);
 		panel.add(textFieldCleanliness);
@@ -95,7 +100,6 @@ public class GuestWriteReviewPage {
 		panel.add(lblCommunication);
 		
 		textFieldCommunication = new JTextField();
-		textFieldCommunication.setText("0");
 		textFieldCommunication.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		textFieldCommunication.setColumns(1);
 		textFieldCommunication.setBounds(824, 170, 23, 26);
@@ -107,7 +111,6 @@ public class GuestWriteReviewPage {
 		panel.add(lblCheckIn);
 		
 		textFieldCheckIn = new JTextField();
-		textFieldCheckIn.setText("0");
 		textFieldCheckIn.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		textFieldCheckIn.setColumns(1);
 		textFieldCheckIn.setBounds(488, 226, 23, 26);
@@ -119,7 +122,6 @@ public class GuestWriteReviewPage {
 		panel.add(lblAccuracy);
 		
 		textFieldAccuracy = new JTextField();
-		textFieldAccuracy.setText("0");
 		textFieldAccuracy.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		textFieldAccuracy.setColumns(1);
 		textFieldAccuracy.setBounds(824, 226, 23, 26);
@@ -131,7 +133,6 @@ public class GuestWriteReviewPage {
 		panel.add(lblLocation);
 		
 		textFieldLocation = new JTextField();
-		textFieldLocation.setText("0");
 		textFieldLocation.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		textFieldLocation.setColumns(1);
 		textFieldLocation.setBounds(488, 282, 23, 26);
@@ -143,7 +144,6 @@ public class GuestWriteReviewPage {
 		panel.add(lblValue);
 		
 		textFieldValue = new JTextField();
-		textFieldValue.setText("0");
 		textFieldValue.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		textFieldValue.setColumns(1);
 		textFieldValue.setBounds(824, 282, 23, 26);
@@ -165,25 +165,41 @@ public class GuestWriteReviewPage {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				
-				int cleanliness = Integer.parseInt(textFieldCleanliness.getText());
-				int communication = Integer.parseInt(textFieldCommunication.getText());
-				int checkIn = Integer.parseInt(textFieldCheckIn.getText());
-				int accuracy = Integer.parseInt(textFieldAccuracy.getText());
-				int location = Integer.parseInt(textFieldLocation.getText());
-				int value = Integer.parseInt(textFieldValue.getText());
-				String comments = textAreaComments.getText();
-				
-				if (cleanliness < 1 || communication < 1 || checkIn < 1 || accuracy < 1 || location < 1 || value < 1 || cleanliness > 5 || communication > 5 || checkIn > 5 || accuracy > 5 || location > 5 || value > 5) {
-					JOptionPane.showMessageDialog(null, "The scores must be between 1 and 5!", "Errors!", JOptionPane.WARNING_MESSAGE);
-				} else if (comments.length() < 1) {
-					JOptionPane.showMessageDialog(null, "Please add some comments!", "Errors!", JOptionPane.WARNING_MESSAGE);
-				} else if (comments.length() > 200) {
-					JOptionPane.showMessageDialog(null, "The comments cannot exceed 200 characters!", "Errors!", JOptionPane.WARNING_MESSAGE);
-				} else {
-					Review review = new Review(comments, cleanliness, communication, checkIn, accuracy, location, value);
+				try {
+					int cleanliness = Integer.parseInt(textFieldCleanliness.getText());
+				    int communication = Integer.parseInt(textFieldCommunication.getText());
+				    int checkIn = Integer.parseInt(textFieldCheckIn.getText());
+				    int accuracy = Integer.parseInt(textFieldAccuracy.getText());
+				    int location = Integer.parseInt(textFieldLocation.getText());
+				    int value = Integer.parseInt(textFieldValue.getText());
+				    String comments = textAreaComments.getText();
+				    if (cleanliness < 1 || communication < 1 || checkIn < 1 || accuracy < 1 || location < 1 || value < 1 || cleanliness > 5 || communication > 5 || checkIn > 5 || accuracy > 5 || location > 5 || value > 5) {
+				    	JOptionPane.showMessageDialog(null, "The scores must be between 1 and 5!", "Errors!", JOptionPane.WARNING_MESSAGE);
+				    } else if (comments.length() < 1) {
+					    JOptionPane.showMessageDialog(null, "Please add some comments!", "Errors!", JOptionPane.WARNING_MESSAGE);
+					} else if (comments.length() > 200) {
+					    JOptionPane.showMessageDialog(null, "The comments cannot exceed 200 characters!", "Errors!", JOptionPane.WARNING_MESSAGE);
+					} else {
+					    Review review = new Review(comments, cleanliness, communication, checkIn, accuracy, location, value);
+					    ReviewsController rc = new ReviewsController();
+					    if (!rc.alreadyExcistsReview(userID, propertyID)) {
+					    	rc.writeReview(userID, propertyID, review);
+					    	
+//					    	needs to update the average score of host and if needed change to superhost
+					    	
+					    	BookingsController bController = new BookingsController();
+							GuestProfilePage newFrame = new GuestProfilePage(bController.getAllReservations(userID));
+							newFrame.getFrame().setVisible(true);
+							newFrame.getFrame().pack();
+							newFrame.getFrame().setLocationRelativeTo(null);
+							frame.dispose();
+					    } else {
+					    	JOptionPane.showMessageDialog(null, "You cannot add a review for the same property more than once!", "Errors!", JOptionPane.WARNING_MESSAGE);
+					    }
+					}
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "The scores must be a number between 1 and 5!", "Errors!", JOptionPane.WARNING_MESSAGE);
 				}
-				
 			}
 		});
 		btnSubmit.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -191,6 +207,16 @@ public class GuestWriteReviewPage {
 		panel.add(btnSubmit);
 		
 		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				BookingsController bController = new BookingsController();
+				GuestProfilePage newFrame = new GuestProfilePage(bController.getAllReservations(userID));
+				newFrame.getFrame().setVisible(true);
+				newFrame.getFrame().pack();
+				newFrame.getFrame().setLocationRelativeTo(null);
+				frame.dispose();
+			}
+		});
 		btnCancel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		btnCancel.setBounds(446, 710, 117, 29);
 		panel.add(btnCancel);

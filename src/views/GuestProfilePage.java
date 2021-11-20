@@ -213,6 +213,11 @@ public class GuestProfilePage {
             	JButton btnAddReview = new JButton("Add Review");
                 btnAddReview.addActionListener(new ActionListener() {
         			public void actionPerformed(ActionEvent e) {
+        				GuestWriteReviewPage newFrame = new GuestWriteReviewPage(reservations.get(0).getUserID(), Integer.parseInt(reservations.get(0).getPropertyID()));
+        				newFrame.getFrame().setVisible(true);
+        				newFrame.getFrame().pack();
+        				newFrame.getFrame().setLocationRelativeTo(null);
+        				frame.dispose();
         				//Do action
         				//redirect to add review page
         				
