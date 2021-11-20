@@ -23,7 +23,7 @@ public class ReservationController {
 			DatabaseCommunication db = new DatabaseCommunication();
 			
 			String userID;
-			String propertyID;
+			int propertyID;
 			Date startDate;
 			Date endDate;
 			Boolean accepted;
@@ -35,7 +35,7 @@ public class ReservationController {
 				ResultSet results = db.queryExecute(query);
 				while (results.next()) {
 					userID = results.getString(1);
-					propertyID = results.getString(2);
+					propertyID = results.getInt(2);
 					startDate = results.getDate(3);
 					endDate = results.getDate(4);
 					accepted = results.getBoolean(5);
@@ -65,7 +65,7 @@ public class ReservationController {
 			DatabaseCommunication db = new DatabaseCommunication();
 			
 			String userID;
-			String propertyID;
+			int propertyID;
 			Date startDate;
 			Date endDate;
 			Boolean accepted;
@@ -77,7 +77,7 @@ public class ReservationController {
 				ResultSet results = db.queryExecute(query);
 				while (results.next()) {
 					userID = results.getString(1);
-					propertyID = results.getString(2);
+					propertyID = results.getInt(2);
 					startDate = results.getDate(3);
 					endDate = results.getDate(4);
 					accepted = results.getBoolean(5);
@@ -107,7 +107,7 @@ public class ReservationController {
 			DatabaseCommunication db = new DatabaseCommunication();
 			
 			String userID;
-			String propertyID;
+			int propertyID;
 			Date startDate;
 			Date endDate;
 			Boolean accepted;
@@ -119,7 +119,7 @@ public class ReservationController {
 				ResultSet results = db.queryExecute(query);
 				while (results.next()) {
 					userID = results.getString(1);
-					propertyID = results.getString(2);
+					propertyID = results.getInt(2);
 					startDate = results.getDate(3);
 					endDate = results.getDate(4);
 					accepted = results.getBoolean(5);
@@ -139,7 +139,7 @@ public class ReservationController {
 		return null;
 	}
 	
-	public ArrayList<Reservation> getReservationsByPropertyID(String propertyID) {
+	public ArrayList<Reservation> getReservationsByPropertyID(int propertyID) {
 		
 		String query = "SELECT * FROM team023.Reservation WHERE propertyID='" + propertyID + "'";
 		DatabaseCommunication db = new DatabaseCommunication();

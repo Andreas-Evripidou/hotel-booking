@@ -104,7 +104,7 @@ public class BookingsController {
 					propertyInfo.add(info);
 				}
 						
-				Reservation reservation = new Reservation(userID, String.valueOf(propertyID), startDate, endDate, accepted);
+				Reservation reservation = new Reservation(userID, propertyID, startDate, endDate, accepted);
 				allReservations.add(reservation);
 			}
 			} catch (Exception e) {

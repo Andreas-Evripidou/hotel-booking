@@ -98,8 +98,8 @@ public class PropertyController {
 		return null;
 	}
 	
-	public String getPropertyNameByPropertyID(String propertyID) {
-		String query = "SELECT shortName FROM team023.Property WHERE propertyID='" + propertyID + "'";
+	public String getPropertyNameByPropertyID(int i) {
+		String query = "SELECT shortName FROM team023.Property WHERE propertyID='" + i + "'";
 		DatabaseCommunication db = new DatabaseCommunication();
 		
 		

@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.util.ArrayList;
 
@@ -19,20 +21,25 @@ import Facilities.Living;
 import Facilities.Outdoor;
 import Facilities.Sleeping;
 import Facilities.Utility;
+import controllers.PropertyController;
+import controllers.RequestController;
 import main.Address;
 import main.ChargeBand;
+import main.DatabaseCommunication;
 import main.Host;
 import main.Person;
 import main.Property;
+import main.Reservation;
 
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.awt.event.ActionEvent;
 
 public class ViewPropertyPage extends JFrame {
-	private Property property;
-	private Person person;
-	private Host host;
+	private Property property; //property to be viewed
+	private Person person; //current user of the system
+	private Host host; //host of the property
 
 	public JFrame frmViewProperty;
 	private JCheckBox chckbxBedLinen;
@@ -225,6 +232,19 @@ public class ViewPropertyPage extends JFrame {
 		JButton btnNewButton = new JButton("Request to book property");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				RequestPropertyPanel r = new RequestPropertyPanel();
+				r.setVisible(true);
+				r.setSize(new Dimension(350, 200));
+				r.setPreferredSize(new Dimension(350, r.getPreferredSize().height));
+				int result = JOptionPane.showConfirmDialog(null, r, "Request " + property.getName(),
+						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+				if(result == JOptionPane.OK_OPTION) {
+					DatabaseCommunication dc = new DatabaseCommunication();
+					Reservation reservation = new Reservation(person.getEmail(), dc.getPropertyID(property.getPostCode()), 
+							Date.valueOf(r.txtbxStartDate.getText()), Date.valueOf(r.txtbxEndDate.getText()), false);
+					RequestController req = new RequestController(reservation);
+					req.makeRequest();
+				}
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -472,6 +492,11 @@ public class ViewPropertyPage extends JFrame {
 		panel_1_2_1.add(chckbxFirstAidKit);
 		
 		JButton btnNewButton_1 = new JButton("OK");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//return to last page
+			}
+		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton_1.setBounds(1101, 742, 75, 31);
 		frmViewProperty.getContentPane().add(btnNewButton_1);

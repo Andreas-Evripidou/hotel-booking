@@ -207,13 +207,13 @@ public class GuestProfilePage {
             
             
             ReviewsController rController = new ReviewsController();
-            Boolean allowedToWriteReview = rController.allowedToWriteReview(reservations.get(i).getUserID(), Integer.parseInt(reservations.get(i).getPropertyID()), reservations.get(i).getEndDate().toString());
+            Boolean allowedToWriteReview = rController.allowedToWriteReview(reservations.get(i).getUserID(), reservations.get(i).getPropertyID(), reservations.get(i).getEndDate().toString());
             
             if (allowedToWriteReview) {
             	JButton btnAddReview = new JButton("Add Review");
                 btnAddReview.addActionListener(new ActionListener() {
         			public void actionPerformed(ActionEvent e) {
-        				GuestWriteReviewPage newFrame = new GuestWriteReviewPage(reservations.get(0).getUserID(), Integer.parseInt(reservations.get(0).getPropertyID()));
+        				GuestWriteReviewPage newFrame = new GuestWriteReviewPage(reservations.get(0).getUserID(), reservations.get(0).getPropertyID());
         				newFrame.getFrame().setVisible(true);
         				newFrame.getFrame().pack();
         				newFrame.getFrame().setLocationRelativeTo(null);

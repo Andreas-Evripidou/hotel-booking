@@ -680,4 +680,33 @@ public class DatabaseCommunication {
 			closeAll(res, stmt, pstmt, con);
 		}
 	}
+
+	public void addReservationInDatabase(Reservation reservation, String statement) {
+		try {
+			con = DriverManager.getConnection(SERVER, DBUSER, PASSWORD);
+			try {
+				pstmt = con.prepareStatement(statement);
+				
+				pstmt.setString(1, reservation.getUserID());
+				pstmt.setInt(2, reservation.getPropertyID());
+				pstmt.setDate(3, reservation.getStartDate());
+				pstmt.setDate(4, reservation.getEndDate());
+				if(reservation.getAccepted()) {
+					pstmt.setInt(5, 1);
+				} else {
+					pstmt.setInt(5, 0);
+				}
+				
+				pstmt.executeUpdate();
+			}
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeAll(res, stmt, pstmt, con);
+		}
+	}
 }
