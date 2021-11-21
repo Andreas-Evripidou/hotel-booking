@@ -34,7 +34,7 @@ public class RequestController {
 	}
 	
 	public void makeRequest() {
-		String statement = "INSERT INTO `team023`.`Reservation` (`userID`, `propertyID`, `startDate`, `endDate`, `accepted` "
+		String statement = "INSERT INTO `team023`.`Reservation` (`userID`, `propertyID`, `startDate`, `endDate`, `accepted`) "
 				+ "VALUES (?, ?, ?, ?, ?);";
 		if(checkPropertyIsAvailable()) {
 			db.addReservationInDatabase(reservation, statement);
