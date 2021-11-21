@@ -11,6 +11,8 @@ import main.ReviewsController;
 import javax.swing.BoxLayout;
 import java.awt.*;
 import java.util.ArrayList;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class ReviewPanels {
@@ -32,6 +34,10 @@ public class ReviewPanels {
 				}
 			}
 		});
+	}
+	
+	public JFrame getFrame() {
+		return frame;
 	}
 
 	/**
@@ -79,6 +85,16 @@ public class ReviewPanels {
 	        JLabel lblPReview = new JLabel("Property Reviews");
 	        lblPReview.setFont(new Font("Lucida Grande", Font.PLAIN, 35));
 	        panel_1.add(lblPReview);
+	        
+	        JButton btnBack = new JButton("Go Back");
+	        btnBack.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent arg0) {
+	        		frame.dispose();
+	        	}
+	        });
+	        btnBack.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+	        btnBack.setBounds(1033, 842, 117, 29);
+	        contentPane.add(btnBack);
 	        frame.pack();
 	        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	        frame.setVisible(true);

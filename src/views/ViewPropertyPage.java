@@ -30,6 +30,7 @@ import main.Host;
 import main.Person;
 import main.Property;
 import main.Reservation;
+import main.ReviewsController;
 
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
@@ -40,6 +41,7 @@ public class ViewPropertyPage extends JFrame {
 	private Property property; //property to be viewed
 	private Person person; //current user of the system
 	private Host host; //host of the property
+	private int propertyID;
 
 	public JFrame frmViewProperty;
 	private JCheckBox chckbxBedLinen;
@@ -107,7 +109,7 @@ public class ViewPropertyPage extends JFrame {
 					
 					Host host = new Host("Mr", "A", "Host", "a@a.com", 77, 1, 0, "password", "A Host", false);
 					
-					ViewPropertyPage frame = new ViewPropertyPage(property, m, host);
+					ViewPropertyPage frame = new ViewPropertyPage(property, m, host, 33);
 					frame.frmViewProperty.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -123,10 +125,11 @@ public class ViewPropertyPage extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	public ViewPropertyPage(Property property, Person person, Host host) {
+	public ViewPropertyPage(Property property, Person person, Host host, int propertyID) {
 		this.property = property;
 		this.person = person;
 		this.host = host;
+		this.propertyID = propertyID;
 		initialize();
 	}
 	
@@ -232,7 +235,6 @@ public class ViewPropertyPage extends JFrame {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 22));
 		lblNewLabel_1.setBounds(523, 10, 147, 43);
 		frmViewProperty.getContentPane().add(lblNewLabel_1);
-		DatabaseCommunication dc2 = new DatabaseCommunication();
 		
 		JButton btnNewButton = new JButton("Request to book property");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -512,6 +514,22 @@ public class ViewPropertyPage extends JFrame {
 		lblSuperHost.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblSuperHost.setBounds(54, 237, 195, 13);
 		frmViewProperty.getContentPane().add(lblSuperHost);
+		
+		JButton btnReviews = new JButton("See Reviews");
+		btnReviews.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {		
+				ReviewsController rc = new ReviewsController();
+				ReviewPanels newFrame = new ReviewPanels(rc.getAllReviewsOfProperty(propertyID));
+				newFrame.getFrame().setVisible(true);
+				newFrame.getFrame().pack();
+				newFrame.getFrame().setLocationRelativeTo(null);
+//				frmViewProperty.dispose();
+				
+			}
+		});
+		btnReviews.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnReviews.setBounds(354, 735, 156, 44);
+		frmViewProperty.getContentPane().add(btnReviews);
 		
 		checkBoxes();
 		setLabels();

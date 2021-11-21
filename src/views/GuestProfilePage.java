@@ -187,6 +187,8 @@ public class GuestProfilePage {
             
 				PropertyController pc = new  PropertyController();
 				Pair<Property, Pair<Person, Host>> pch = pc.getPropertyAndHost(String.valueOf(reservations.get(i).getPropertyID()));
+				
+				int propertyID = reservations.get(i).getPropertyID();
             
 				JButton btnViewProperty = new JButton("More Details");
 				btnViewProperty.addActionListener(new ActionListener() {
@@ -194,7 +196,7 @@ public class GuestProfilePage {
 						Property property = pch.left;
 						Person person = pch.right.left;
 						Host host = pch.right.right;
-						ViewPropertyPage newFrame = new ViewPropertyPage(property, person, host);
+						ViewPropertyPage newFrame = new ViewPropertyPage(property, person, host, propertyID);
 						newFrame.getFrame().setVisible(true);
 						newFrame.getFrame().pack();
 						newFrame.getFrame().setLocationRelativeTo(null);
