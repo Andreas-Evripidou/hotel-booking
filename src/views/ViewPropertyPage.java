@@ -115,6 +115,10 @@ public class ViewPropertyPage extends JFrame {
 			}
 		});
 	}
+	
+	public JFrame getFrame() {
+		return frmViewProperty;
+	}
 
 	/**
 	 * Create the application.
@@ -228,6 +232,7 @@ public class ViewPropertyPage extends JFrame {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 22));
 		lblNewLabel_1.setBounds(523, 10, 147, 43);
 		frmViewProperty.getContentPane().add(lblNewLabel_1);
+		DatabaseCommunication dc2 = new DatabaseCommunication();
 		
 		JButton btnNewButton = new JButton("Request to book property");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -495,6 +500,8 @@ public class ViewPropertyPage extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//return to last page
+				frmViewProperty.dispose();
+				
 			}
 		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
