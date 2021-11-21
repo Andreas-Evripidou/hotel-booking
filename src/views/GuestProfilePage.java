@@ -32,6 +32,7 @@ import main.ReviewsController;
 public class GuestProfilePage {
 
 	private JFrame frame;
+	private JPanel panel;
 
 	/**
 	 * Launch the application.
@@ -59,21 +60,23 @@ public class GuestProfilePage {
 	 * Create the application.
 	 */
 	public GuestProfilePage(Pair<ArrayList<Reservation>, ArrayList<ArrayList<String>>> allResrvations) {
-		initialize(allResrvations);
+		initialize();
+		showAllReservations(panel, allResrvations);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(Pair<ArrayList<Reservation>, ArrayList<ArrayList<String>>> allResrvations) {
+	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 1200, 850);
 		frame.setMinimumSize(new Dimension(1200, 850));
 		frame.setTitle("Guest Profile Page");
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setAutoscrolls(true);
         frame.getContentPane().add(panel,BorderLayout.NORTH);
@@ -87,9 +90,6 @@ public class GuestProfilePage {
         JPanel contentPane = new JPanel(null);
         contentPane.setPreferredSize(new Dimension(900, 900));
         contentPane.add(scrollPane);
-        
-
-        showAllReservations(panel, allResrvations);
 
         frame.getContentPane().add(contentPane, BorderLayout.CENTER);
         
