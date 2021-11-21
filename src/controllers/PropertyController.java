@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.cj.conf.ConnectionUrlParser.Pair;
+
 import Facilities.Bathing;
 import Facilities.Kitchen;
 import Facilities.Living;
@@ -14,7 +16,10 @@ import main.Address;
 import main.ChargeBand;
 import main.ChargeBandController;
 import main.DatabaseCommunication;
+import main.Host;
+import main.Person;
 import main.Property;
+import main.Reservation;
 
 public class PropertyController {
 	
@@ -120,5 +125,60 @@ public class PropertyController {
 			}
 		return null;
 	}
+	
+	public boolean offersBreakfast(String propertyID) {
+		String query = "SELECT breakfast FROM team023.Property WHERE propertyID='" + propertyID + "';";
+		DatabaseCommunication db = new DatabaseCommunication();
+		
+		
+		boolean breakfast = false;
+		
+		try {
+			ResultSet results = db.queryExecute(query);
+			while (results.next()) {
+				breakfast = results.getBoolean(1);
+			}
+			
+			return breakfast;
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+			}
+		return false;
+	}
+	
+	public Pair<Property, Pair<Person, Host>> getPropertyAndHost(String propertyID) {
+		FacilitiesController fController = new FacilitiesController();
+		Bathing bathing = fController.getBathingFacByPropertyID(propertyID);
+		Sleeping sleeping = fController.getSleepingFacByPropertyID(propertyID);
+		Kitchen kitchen = fController.getKitchenFacByPropertyID(propertyID);
+		Living living = fController.getLivingFacByPropertyID(propertyID);
+		Outdoor outdoor = fController.getOutdoorFacByPropertyID(propertyID);
+		Utility utility = fController.getUtilityFacByPropertyID(propertyID);
+		
+		ChargeBandController cbController = new ChargeBandController();
+		List<ChargeBand> chargeBand = cbController.getChargeBandsByPropertyID(propertyID);
+		
+		AddressController aController = new AddressController();
+		Address address = aController.getAddressByPropertyID(propertyID);
+		
+		boolean breakfast = offersBreakfast(propertyID);
+		
+		Property property = new Property(chargeBand, address, propertyID, propertyID, breakfast, bathing, kitchen, living, outdoor, sleeping, utility);
+		
+		PersonController pController = new PersonController();
+		Person person = pController.getPersonByPropertyID(propertyID);
+		Host host = pController.getHostByPropertyID(propertyID);
+		
+		Pair<Property, Pair<Person, Host>> propertyPersonHost = new Pair<>(property, new Pair<Person, Host>(person, host));
+		return propertyPersonHost;
+	}
+	
+//	public static void main (String [] args) {
+//		PropertyController pController = new PropertyController();
+//		System.out.println(pController.getPropertyAndHost("33").left.getAddress());
+//	}
+	
 
 }
