@@ -28,7 +28,7 @@ public class AddressController {
 				streetName = results.getString(3);
 				placeName = results.getString(4);
 				
-				address = new Address(house, postcode, placeName, streetName);
+				address = new Address(house, streetName, placeName, postcode);
 			}
 			
 			
@@ -40,5 +40,32 @@ public class AddressController {
 			}
 		
 		return null;
-	};
+	}
+	
+	public Address getAddressByPropertyID(String propertyID) {
+		String queryProperty = "SELECT house, postcode FROM team023.Property WHERE propertyID='" + propertyID + "';";
+		DatabaseCommunication db = new DatabaseCommunication();	
+		String house = null;
+		String postcode = null;
+		try {
+			
+			ResultSet results = db.queryExecute(queryProperty);
+			while (results.next()) {
+				house = results.getString(1);
+				postcode = results.getString(2);
+			}
+			return getAddress(postcode, house);
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+			}
+		return null;
+	}
+	
+//	public static void main (String [] args) {
+//		AddressController aController = new AddressController();
+//		System.out.println(aController.getAddressByPropertyID("33").getPlaceName());
+//	}
 }
