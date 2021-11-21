@@ -57,6 +57,8 @@ public class SearchPage {
 				try {
 					SearchPage window = new SearchPage(null,null,null);
 					window.frame.setVisible(true);
+					window.getFrame().pack();
+					window.getFrame().setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -142,12 +144,28 @@ public class SearchPage {
 		JButton btnNewButton = new JButton("LOGIN");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				LoginPage window = new LoginPage();
+				window.getFrame().setVisible(true);
+				window.getFrame().pack();
+				window.getFrame().setLocationRelativeTo(null);
+				frame.dispose();
 			}
 		});
+		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		btnNewButton.setBounds(908, 21, 89, 23);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("REGISTER");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrationPage window = new RegistrationPage();
+				window.getFrame().setVisible(true);
+				window.getFrame().pack();
+				window.getFrame().setLocationRelativeTo(null);
+				frame.dispose();
+			}
+		});
+		btnNewButton_1.setBackground(Color.LIGHT_GRAY);
 		btnNewButton_1.setBounds(1002, 21, 109, 23);
 		frame.getContentPane().add(btnNewButton_1);
 		
@@ -215,6 +233,7 @@ public class SearchPage {
 
         frame.getContentPane().add(btnSearchProperties);
 		
+        btnSearchProperties.setBackground(Color.LIGHT_GRAY);
         btnSearchProperties.setBounds(463, 199, 241, 75);
 		frame.getContentPane().add(btnSearchProperties);
 		String nameQuery = "SELECT shortName FROM team023.Property WHERE generalLocation='" + this.getPropertyLocation() + "'";

@@ -17,8 +17,22 @@ import Facilities.Utility;
 
 public class BookingsController {
 
-	public void acceptBooking(String uderID, int propertyID) {
-		String query = "UPDATE `team023`.`Reservation` SET `accepted` = '1' WHERE userID='" + uderID + "' AND propertyID='" + propertyID + "';";
+	public void acceptBooking(String uderID, int propertyID, String startDate, String endDate) {
+		String query = "UPDATE `team023`.`Reservation` SET `accepted` = '1' WHERE userID='" + uderID + "' AND propertyID='" + propertyID + "' AND startDate='"+ startDate +"' AND endDate='"+ endDate+"';";
+		DatabaseCommunication db = new DatabaseCommunication();
+		
+		try {
+			db.updateExecute(query);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+		}	
+	}
+	
+	public void rejectBooking(String uderID, int propertyID, String startDate, String endDate) {
+		String query = "DELETE FROM `team023`.`Reservation` WHERE userID='" + uderID + "' AND propertyID='" + propertyID + "' AND startDate='"+ startDate +"' AND endDate='"+ endDate+"';";
 		DatabaseCommunication db = new DatabaseCommunication();
 		
 		try {
@@ -119,10 +133,10 @@ public class BookingsController {
 	
 	
 	public static void main(String [] args) {
-		BookingsController bc = new BookingsController();
-		bc.acceptBooking("amatoli@email.com", 33);
-		System.out.println(bc.isPropertyAvailable(33, LocalDate.parse("2021-12-21"), LocalDate.parse("2021-12-31")));
-		System.out.println(bc.getAllReservations("amatoli@email.com").left.get(0).getPropertyID());
+//		BookingsController bc = new BookingsController();
+//		bc.acceptBooking("amatoli@email.com", 33);
+//		System.out.println(bc.isPropertyAvailable(33, LocalDate.parse("2021-12-21"), LocalDate.parse("2021-12-31")));
+//		System.out.println(bc.getAllReservations("amatoli@email.com").left.get(0).getPropertyID());
 		
 	}
 }

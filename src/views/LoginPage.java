@@ -143,6 +143,15 @@ public class LoginPage {
 		
 		JButton backToHomeScreen = new JButton("Home");
 		backToHomeScreen.setBackground(Color.LIGHT_GRAY);
+		backToHomeScreen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SearchPage window = new SearchPage(null,null,null);
+				window.getFrame().setVisible(true);
+				window.getFrame().pack();
+				window.getFrame().setLocationRelativeTo(null);
+				frmLogInPage.dispose();
+			}
+		});
 		backToHomeScreen.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
 		logInButtonPanel_1.add(backToHomeScreen);
 		
