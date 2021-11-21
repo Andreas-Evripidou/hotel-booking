@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import controllers.PersonController;
+
 
 public class ReviewsController {
 
@@ -143,6 +145,61 @@ public class ReviewsController {
 		return allScoresHashMap;
 	}
 	
+	public boolean getSuperhostStatus(String userID) {
+		String query = "SELECT propertyID FROM team023.Property WHERE userID='" + userID + "';";
+		DatabaseCommunication db = new DatabaseCommunication();
+		ArrayList<Integer> propertyIDS = new ArrayList<>();
+		double averageScore = 0;
+		int numberOfReviews = 0;
+		try {
+			ResultSet result = db.queryExecute(query);
+			while (result.next()) {
+				int n = result.getInt(1);
+				propertyIDS.add(n);
+			}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+			}
+		if (propertyIDS.size() > 0) {
+			double total = 0;
+			for (int id : propertyIDS) { 
+				double score = getAverageReviewScores(id).get("total");
+				if(!Double.isNaN(score))  {
+					total += score;
+					numberOfReviews += 1;
+				}		
+			}
+			
+			averageScore = total / numberOfReviews;
+		}
+		return averageScore >= 4.7;
+	}
+	
+	public void updateSuperHostStatus(int propertyID) {
+		PersonController pc = new PersonController();
+		String userID = pc.getUserIDByPropertyID(String.valueOf(propertyID));
+		int superhost = 0;
+		if (getSuperhostStatus(userID)) {
+			superhost = 1;
+		}
+		
+		 
+		String update  = "UPDATE `team023`.`Host` SET `superhost` = '" + superhost + "' WHERE userID='" + userID + "';";
+		DatabaseCommunication db = new DatabaseCommunication();
+		
+		try {
+			db.updateExecute(update);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+		}	
+	}
+	
+	
 	public static void main (String [] args) {
 		ReviewsController rc = new ReviewsController();
 		Review r = new Review("Skata!",5,5,5,5,5,5);
@@ -154,7 +211,9 @@ public class ReviewsController {
 		else System.out.println("A user cannot review the same property more than once");
 		
 		System.out.println(rc.allowedToWriteReview("amatoli@email.com", 33, "2021-11-26"));
-		System.out.println(rc.getAverageReviewScores(1));
+//		System.out.println(rc.getAverageReviewScores(33).get("total"));
+		System.out.println(rc.getSuperhostStatus("amatoli@email.com"));
+		rc.updateSuperHostStatus(33);
 		
 	}
 }
