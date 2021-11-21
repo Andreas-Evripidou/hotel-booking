@@ -129,9 +129,12 @@ public class GuestProfilePage {
 		 ArrayList<ArrayList<String>> reservationInfo = allResrvations.right;
 		
 		for(int i = 0; i < numOfReservations; i++) {
+			Reservation reservation = reservations.get(i);
+			ArrayList<String> rInfo = reservationInfo.get(i);
+			
 			ReviewsController rController = new ReviewsController(); 
-			Boolean allowedToWriteReview = rController.allowedToWriteReview(reservations.get(i).getUserID(), reservations.get(i).getPropertyID(), reservations.get(i).getEndDate().toString());
-			if (!rController.alreadyExcistsReview(reservations.get(i).getUserID(), reservations.get(i).getPropertyID()) || !allowedToWriteReview) {
+			Boolean allowedToWriteReview = rController.allowedToWriteReview(reservation.getUserID(), reservation.getPropertyID(), reservation.getEndDate().toString());
+			if (!rController.alreadyExcistsReview(reservation.getUserID(), reservation.getPropertyID()) || !allowedToWriteReview) {
 				JPanel allReservationsPanel = new JPanel();
 				allReservationsPanel.setLayout(new FlowLayout());
 				allReservationsPanel.setBackground(Color.WHITE);
@@ -145,21 +148,21 @@ public class GuestProfilePage {
 				JLabel lblShortName = new JLabel("Short Name: ");
 				lblShortName.setForeground(Color.BLACK);
 				lblShortName.setPreferredSize(new Dimension(110, 20));
-				JTextField textFieldShortName = new JTextField(reservationInfo.get(i).get(0));
+				JTextField textFieldShortName = new JTextField(rInfo.get(0));
 				textFieldShortName.setPreferredSize(new Dimension(320, 20));
 				textFieldShortName.setEditable(false);
 
 				JLabel lblGeneralLocation = new JLabel("General Location: ");
 				lblGeneralLocation.setForeground(Color.BLACK);
 				lblGeneralLocation.setPreferredSize(new Dimension(110, 20));
-				JTextField textFieldGeneralLocation = new JTextField(reservationInfo.get(i).get(2));
+				JTextField textFieldGeneralLocation = new JTextField(rInfo.get(2));
 				textFieldGeneralLocation.setPreferredSize(new Dimension(320, 20));
 				textFieldGeneralLocation.setEditable(false);
             
 				JLabel lblDescription = new JLabel("Description: ");
 				lblDescription.setForeground(Color.BLACK);
 				lblDescription.setPreferredSize(new Dimension(110, 20));
-				JTextArea textAreaDescription = new JTextArea(reservationInfo.get(i).get(1));
+				JTextArea textAreaDescription = new JTextArea(rInfo.get(1));
 				textAreaDescription.setPreferredSize(new Dimension(320, 100));
 				textAreaDescription.setLineWrap(true);
 				textAreaDescription.setEditable(false);
@@ -167,28 +170,29 @@ public class GuestProfilePage {
 				JLabel lblStartDate = new JLabel("Start Date: ");
 				lblStartDate.setForeground(Color.BLACK);
 				lblStartDate.setPreferredSize(new Dimension(110, 20));
-				JTextField textFieldStartDate = new JTextField(reservations.get(i).getStartDate().toString());
+				JTextField textFieldStartDate = new JTextField(reservation.getStartDate().toString());
 				textFieldStartDate.setPreferredSize(new Dimension(320, 20));
 				textFieldStartDate.setEditable(false);
 
 				JLabel lblEndDate = new JLabel("End Date: ");
 				lblEndDate.setForeground(Color.BLACK);
 				lblEndDate.setPreferredSize(new Dimension(110, 20));
-				JTextField textFieldEndDate = new JTextField(reservations.get(i).getEndDate().toString());
+				JTextField textFieldEndDate = new JTextField(reservation.getEndDate().toString());
 				textFieldEndDate.setPreferredSize(new Dimension(320, 20));
 				textFieldEndDate.setEditable(false);
             
 				JLabel lblAccepted = new JLabel("Accepted: ");
 				lblAccepted.setForeground(Color.BLACK);
 				lblAccepted.setPreferredSize(new Dimension(110, 20));
-				JTextField textFieldAccepted = new JTextField(reservations.get(i).getAccepted().toString());
+				JTextField textFieldAccepted = new JTextField(reservation.getAccepted().toString());
 				textFieldAccepted.setPreferredSize(new Dimension(320, 20));
 				textFieldAccepted.setEditable(false);
             
 				PropertyController pc = new  PropertyController();
-				Pair<Property, Pair<Person, Host>> pch = pc.getPropertyAndHost(String.valueOf(reservations.get(i).getPropertyID()));
+				int propertyID = reservation.getPropertyID();
+				Pair<Property, Pair<Person, Host>> pch = pc.getPropertyAndHost(String.valueOf(propertyID));
 				
-				int propertyID = reservations.get(i).getPropertyID();
+				
             
 				JButton btnViewProperty = new JButton("More Details");
 				btnViewProperty.addActionListener(new ActionListener() {
