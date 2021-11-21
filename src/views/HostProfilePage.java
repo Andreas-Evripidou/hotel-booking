@@ -11,23 +11,29 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import controllers.HostProfileController;
 import controllers.PersonController;
 import controllers.PropertyController;
 import controllers.ReservationController;
+import main.BookingsController;
+import main.ButtonColumn;
 import main.Person;
 import main.Property;
 import main.Reservation;
 
 import javax.swing.JScrollPane;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.JTable;
@@ -39,6 +45,23 @@ public class HostProfilePage {
 	private JTable acceptRequestTable;
 
 
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					HostProfilePage window = new HostProfilePage(new Person("Mr.","","","amatoli@email.com",9999999,1,1,"Am123456"));
+					Toolkit toolkit = Toolkit.getDefaultToolkit();
+					Dimension screenDimensions = toolkit.getScreenSize();
+					window.frmHostProfile.setLocationRelativeTo(null);
+//					window.frmLogInPage.setLocation(new Point((screenDimensions.width - 510)/4, (screenDimensions.height - 350)/4));
+					window.frmHostProfile.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	/**
 	 * Create the application.
 	 */
@@ -132,8 +155,8 @@ public class HostProfilePage {
 			requestColumnData[i][1] = personContr.getNameByUserID(requestedReservations.get(i).getUserID());
 			requestColumnData[i][2] = requestedReservations.get(i).getStartDate();
 			requestColumnData[i][3] = requestedReservations.get(i).getEndDate();
-			requestColumnData[i][4] = "Button";
-			requestColumnData[i][5] = "Button";	
+			requestColumnData[i][4] = "Accept";
+			requestColumnData[i][5] = "Reject";	
 		}
 		
 		for (int i=0; i< acceptedReservations.size() ; i++) {
@@ -150,13 +173,49 @@ public class HostProfilePage {
 		reservationRequestPanel.setLayout(new BoxLayout(reservationRequestPanel, BoxLayout.X_AXIS));
 		
 		JScrollPane reservationRequestsScrollPanel = new JScrollPane();
-		reservationRequestPanel.add(reservationRequestsScrollPanel);
+		reservationRequestPanel.add(reservationRequestsScrollPanel);	
 		
-		
-		
-		
-		reservationRequestTable = new JTable(requestColumnData,requestColumnNames);
+		DefaultTableModel model = new DefaultTableModel(requestColumnData,requestColumnNames);
+		reservationRequestTable = new JTable(model);
 		reservationRequestTable.setEnabled(true);
+		
+		BookingsController bc = new BookingsController();
+		
+		Action accept = new AbstractAction()
+		{
+		    public void actionPerformed(ActionEvent e)
+		    {
+		        JTable table = (JTable)e.getSource();
+		        int modelRow = Integer.valueOf( e.getActionCommand() );
+		        int acceptPropertyID = requestedReservations.get(modelRow).getPropertyID();
+		        String acceptUserID = requestedReservations.get(modelRow).getUserID();
+		        String acceptStartDate = requestedReservations.get(modelRow).getStartDate().toString();
+		        String acceptEndDate = requestedReservations.get(modelRow).getEndDate().toString();
+		        bc.acceptBooking(acceptUserID, acceptPropertyID, acceptStartDate, acceptEndDate);
+		        ((DefaultTableModel)table.getModel()).removeRow(modelRow);
+		    }
+		};
+		
+		Action reject = new AbstractAction()
+		{
+		    public void actionPerformed(ActionEvent e)
+		    {
+		        JTable table = (JTable)e.getSource();
+		        int modelRow = Integer.valueOf( e.getActionCommand() );
+		        int deletePropertyID = requestedReservations.get(modelRow).getPropertyID();
+		        String deleteUserID = requestedReservations.get(modelRow).getUserID();
+		        String deleteStartDate = requestedReservations.get(modelRow).getStartDate().toString();
+		        String deleteEndDate = requestedReservations.get(modelRow).getEndDate().toString();
+		        bc.rejectBooking(deleteUserID, deletePropertyID, deleteStartDate, deleteEndDate);
+		        
+		        ((DefaultTableModel)table.getModel()).removeRow(modelRow);
+		        
+		    }
+		};
+		
+		ButtonColumn buttonColumnAccept = new ButtonColumn(reservationRequestTable, accept, 4);
+		ButtonColumn buttonColumnReject = new ButtonColumn(reservationRequestTable, reject, 5);
+//		buttonColumn.setMnemonic(delete.VK_D);
 		
 		reservationRequestsScrollPanel.setViewportView(reservationRequestTable);
 		
