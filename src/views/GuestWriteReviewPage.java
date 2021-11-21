@@ -184,8 +184,7 @@ public class GuestWriteReviewPage {
 					    ReviewsController rc = new ReviewsController();
 					    if (!rc.alreadyExcistsReview(userID, propertyID)) {
 					    	rc.writeReview(userID, propertyID, review);
-					    	
-//					    	needs to update the average score of host and if needed change to superhost
+					    	rc.updateSuperHostStatus(propertyID);
 					    	
 					    	BookingsController bController = new BookingsController();
 							GuestProfilePage newFrame = new GuestProfilePage(bController.getAllReservations(userID));
