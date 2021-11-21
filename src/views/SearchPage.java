@@ -10,10 +10,14 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.table.DefaultTableModel;
 
+import main.ButtonColumn;
 import main.DatabaseCommunication;
 
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.JLabel;
@@ -21,6 +25,8 @@ import java.awt.Font;
 import java.awt.Point;
 
 import javax.swing.JScrollBar;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
@@ -346,6 +352,7 @@ public class SearchPage {
 			currentRow.add(propertyGuests.get(counter));
 			currentRow.add(null);
 			currentRow.add(null);
+			currentRow.add("More Details");
 
 			allRows.add(currentRow);
 
@@ -359,10 +366,31 @@ public class SearchPage {
 		    ArrayList<String> row = allRows.get(i);
 		    rowData[i] = row.toArray(new String[row.size()]);
 		}
-		String[] tableHeaderList = {"Property Name", "Maximum Guest Number", "Availability", "Details"};
-		table_1 = new JTable(rowData,tableHeaderList);
+		String[] tableHeaderList = {"Property Name", "Maximum Guest Number", "Availability", "Details", ""};
+		
+		DefaultTableModel model = new DefaultTableModel(rowData,tableHeaderList);
+		table_1 = new JTable(model);
 		table_1.setRowHeight(table_1.getRowHeight() + 20);
-
+		
+		
+		Action moreDetails = new AbstractAction()
+		{
+		    public void actionPerformed(ActionEvent e)
+		    {
+		        JTable table = (JTable)e.getSource();
+		        int modelRow = Integer.valueOf( e.getActionCommand() );
+		        if ( /* logged in*/ false) {
+		        	
+		        }
+		        else {
+		        	JOptionPane.showMessageDialog(null, "You must be logged in to see more details!", "Errors", JOptionPane.WARNING_MESSAGE);
+		        }	
+		        
+		    }
+		};
+		
+		ButtonColumn buttonColumnAccept = new ButtonColumn(table_1, moreDetails, 4);
+		
 		scrollPane.setViewportView(table_1);
 		
 		JLabel lblNewLabel_3 = new JLabel("Location searched: " + this.getPropertyLocation());
