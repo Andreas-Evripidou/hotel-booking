@@ -21,7 +21,11 @@ import javax.swing.JTextField;
 
 import com.mysql.cj.conf.ConnectionUrlParser.Pair;
 
+import controllers.PropertyController;
 import main.BookingsController;
+import main.Host;
+import main.Person;
+import main.Property;
 import main.Reservation;
 import main.ReviewsController;
 
@@ -125,113 +129,114 @@ public class GuestProfilePage {
 		 ArrayList<ArrayList<String>> reservationInfo = allResrvations.right;
 		
 		for(int i = 0; i < numOfReservations; i++) {
-			
-            JPanel allReservationsPanel = new JPanel();
-            allReservationsPanel.setLayout(new FlowLayout());
-            allReservationsPanel.setBackground(Color.WHITE);
-            allReservationsPanel.setPreferredSize(new Dimension(900, 270));
+			ReviewsController rController = new ReviewsController(); 
+			Boolean allowedToWriteReview = rController.allowedToWriteReview(reservations.get(i).getUserID(), reservations.get(i).getPropertyID(), reservations.get(i).getEndDate().toString());
+			if (!rController.alreadyExcistsReview(reservations.get(i).getUserID(), reservations.get(i).getPropertyID()) || !allowedToWriteReview) {
+				JPanel allReservationsPanel = new JPanel();
+				allReservationsPanel.setLayout(new FlowLayout());
+				allReservationsPanel.setBackground(Color.WHITE);
+				allReservationsPanel.setPreferredSize(new Dimension(900, 270));
 
-            JPanel singleReservationPanel = new JPanel();
-            singleReservationPanel.setLayout(new FlowLayout());
-            singleReservationPanel.setBackground(Color.LIGHT_GRAY);
-            singleReservationPanel.setPreferredSize(new Dimension(500, 270));
+				JPanel singleReservationPanel = new JPanel();
+				singleReservationPanel.setLayout(new FlowLayout());
+				singleReservationPanel.setBackground(Color.LIGHT_GRAY);
+				singleReservationPanel.setPreferredSize(new Dimension(500, 270));
             
-            JLabel lblShortName = new JLabel("Short Name: ");
-            lblShortName.setForeground(Color.BLACK);
-            lblShortName.setPreferredSize(new Dimension(110, 20));
-            JTextField textFieldShortName = new JTextField(reservationInfo.get(i).get(0));
-            textFieldShortName.setPreferredSize(new Dimension(320, 20));
-            textFieldShortName.setEditable(false);
+				JLabel lblShortName = new JLabel("Short Name: ");
+				lblShortName.setForeground(Color.BLACK);
+				lblShortName.setPreferredSize(new Dimension(110, 20));
+				JTextField textFieldShortName = new JTextField(reservationInfo.get(i).get(0));
+				textFieldShortName.setPreferredSize(new Dimension(320, 20));
+				textFieldShortName.setEditable(false);
 
-            JLabel lblGeneralLocation = new JLabel("General Location: ");
-            lblGeneralLocation.setForeground(Color.BLACK);
-            lblGeneralLocation.setPreferredSize(new Dimension(110, 20));
-            JTextField textFieldGeneralLocation = new JTextField(reservationInfo.get(i).get(2));
-            textFieldGeneralLocation.setPreferredSize(new Dimension(320, 20));
-            textFieldGeneralLocation.setEditable(false);
+				JLabel lblGeneralLocation = new JLabel("General Location: ");
+				lblGeneralLocation.setForeground(Color.BLACK);
+				lblGeneralLocation.setPreferredSize(new Dimension(110, 20));
+				JTextField textFieldGeneralLocation = new JTextField(reservationInfo.get(i).get(2));
+				textFieldGeneralLocation.setPreferredSize(new Dimension(320, 20));
+				textFieldGeneralLocation.setEditable(false);
             
-            JLabel lblDescription = new JLabel("Description: ");
-            lblDescription.setForeground(Color.BLACK);
-            lblDescription.setPreferredSize(new Dimension(110, 20));
-            JTextArea textAreaDescription = new JTextArea(reservationInfo.get(i).get(1));
-            textAreaDescription.setPreferredSize(new Dimension(320, 100));
-            textAreaDescription.setLineWrap(true);
-            textAreaDescription.setEditable(false);
+				JLabel lblDescription = new JLabel("Description: ");
+				lblDescription.setForeground(Color.BLACK);
+				lblDescription.setPreferredSize(new Dimension(110, 20));
+				JTextArea textAreaDescription = new JTextArea(reservationInfo.get(i).get(1));
+				textAreaDescription.setPreferredSize(new Dimension(320, 100));
+				textAreaDescription.setLineWrap(true);
+				textAreaDescription.setEditable(false);
             
-            JLabel lblStartDate = new JLabel("Start Date: ");
-            lblStartDate.setForeground(Color.BLACK);
-            lblStartDate.setPreferredSize(new Dimension(110, 20));
-            JTextField textFieldStartDate = new JTextField(reservations.get(i).getStartDate().toString());
-            textFieldStartDate.setPreferredSize(new Dimension(320, 20));
-            textFieldStartDate.setEditable(false);
+				JLabel lblStartDate = new JLabel("Start Date: ");
+				lblStartDate.setForeground(Color.BLACK);
+				lblStartDate.setPreferredSize(new Dimension(110, 20));
+				JTextField textFieldStartDate = new JTextField(reservations.get(i).getStartDate().toString());
+				textFieldStartDate.setPreferredSize(new Dimension(320, 20));
+				textFieldStartDate.setEditable(false);
 
-            JLabel lblEndDate = new JLabel("End Date: ");
-            lblEndDate.setForeground(Color.BLACK);
-            lblEndDate.setPreferredSize(new Dimension(110, 20));
-            JTextField textFieldEndDate = new JTextField(reservations.get(i).getEndDate().toString());
-            textFieldEndDate.setPreferredSize(new Dimension(320, 20));
-            textFieldEndDate.setEditable(false);
+				JLabel lblEndDate = new JLabel("End Date: ");
+				lblEndDate.setForeground(Color.BLACK);
+				lblEndDate.setPreferredSize(new Dimension(110, 20));
+				JTextField textFieldEndDate = new JTextField(reservations.get(i).getEndDate().toString());
+				textFieldEndDate.setPreferredSize(new Dimension(320, 20));
+				textFieldEndDate.setEditable(false);
             
-            JLabel lblAccepted = new JLabel("Accepted: ");
-            lblAccepted.setForeground(Color.BLACK);
-            lblAccepted.setPreferredSize(new Dimension(110, 20));
-            JTextField textFieldAccepted = new JTextField(reservations.get(i).getAccepted().toString());
-            textFieldAccepted.setPreferredSize(new Dimension(320, 20));
-            textFieldAccepted.setEditable(false);
+				JLabel lblAccepted = new JLabel("Accepted: ");
+				lblAccepted.setForeground(Color.BLACK);
+				lblAccepted.setPreferredSize(new Dimension(110, 20));
+				JTextField textFieldAccepted = new JTextField(reservations.get(i).getAccepted().toString());
+				textFieldAccepted.setPreferredSize(new Dimension(320, 20));
+				textFieldAccepted.setEditable(false);
             
-            JButton btnViewProperty = new JButton("More Details");
-            btnViewProperty.addActionListener(new ActionListener() {
-    			public void actionPerformed(ActionEvent e) {
-    				//Do action
-    				//make it view the property profile page
-    				
-    			}
-    		});
-            btnViewProperty.setBackground(Color.LIGHT_GRAY);
-            btnViewProperty.setFont(new Font("Lucida Grande", Font.PLAIN, 14)); 
+				PropertyController pc = new  PropertyController();
+				Pair<Property, Pair<Person, Host>> pch = pc.getPropertyAndHost(String.valueOf(reservations.get(i).getPropertyID()));
             
-            singleReservationPanel.add(lblShortName);
-            singleReservationPanel.add(textFieldShortName);
-            singleReservationPanel.add(lblGeneralLocation);
-            singleReservationPanel.add(textFieldGeneralLocation);
-            singleReservationPanel.add(lblDescription);
-            singleReservationPanel.add(textAreaDescription);
-            singleReservationPanel.add(lblStartDate);
-            singleReservationPanel.add(textFieldStartDate);
-            singleReservationPanel.add(lblEndDate);
-            singleReservationPanel.add(textFieldEndDate);
-            singleReservationPanel.add(lblAccepted);
-            singleReservationPanel.add(textFieldAccepted);
-            singleReservationPanel.add(btnViewProperty);
-
+				JButton btnViewProperty = new JButton("More Details");
+				btnViewProperty.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Property property = pch.left;
+						Person person = pch.right.left;
+						Host host = pch.right.right;
+						ViewPropertyPage newFrame = new ViewPropertyPage(property, person, host);
+						newFrame.getFrame().setVisible(true);
+						newFrame.getFrame().pack();
+						newFrame.getFrame().setLocationRelativeTo(null);
+					}
+				});
+				btnViewProperty.setBackground(Color.LIGHT_GRAY);
+				btnViewProperty.setFont(new Font("Lucida Grande", Font.PLAIN, 14)); 
             
+				singleReservationPanel.add(lblShortName);
+				singleReservationPanel.add(textFieldShortName);
+				singleReservationPanel.add(lblGeneralLocation);
+				singleReservationPanel.add(textFieldGeneralLocation);
+				singleReservationPanel.add(lblDescription);
+				singleReservationPanel.add(textAreaDescription);
+				singleReservationPanel.add(lblStartDate);
+				singleReservationPanel.add(textFieldStartDate);
+				singleReservationPanel.add(lblEndDate);
+				singleReservationPanel.add(textFieldEndDate);
+				singleReservationPanel.add(lblAccepted);
+				singleReservationPanel.add(textFieldAccepted);
+				singleReservationPanel.add(btnViewProperty);
             
-            ReviewsController rController = new ReviewsController();
-            Boolean allowedToWriteReview = rController.allowedToWriteReview(reservations.get(i).getUserID(), reservations.get(i).getPropertyID(), reservations.get(i).getEndDate().toString());
-            
-            if (allowedToWriteReview) {
-            	JButton btnAddReview = new JButton("Add Review");
-                btnAddReview.addActionListener(new ActionListener() {
-        			public void actionPerformed(ActionEvent e) {
-        				GuestWriteReviewPage newFrame = new GuestWriteReviewPage(reservations.get(0).getUserID(), reservations.get(0).getPropertyID());
-        				newFrame.getFrame().setVisible(true);
-        				newFrame.getFrame().pack();
-        				newFrame.getFrame().setLocationRelativeTo(null);
-        				frame.dispose();
-        				//Do action
-        				//redirect to add review page
-        				
-        			}
-        		});
-                btnAddReview.setBackground(Color.LIGHT_GRAY);
-                btnAddReview.setFont(new Font("Lucida Grande", Font.PLAIN, 14)); 
+				if (allowedToWriteReview) {
+					JButton btnAddReview = new JButton("Add Review");
+					btnAddReview.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							GuestWriteReviewPage newFrame = new GuestWriteReviewPage(reservations.get(0).getUserID(), reservations.get(0).getPropertyID());
+							newFrame.getFrame().setVisible(true);
+							newFrame.getFrame().pack();
+							newFrame.getFrame().setLocationRelativeTo(null);
+							frame.dispose();     				
+						}
+					});
+					btnAddReview.setBackground(Color.LIGHT_GRAY);
+					btnAddReview.setFont(new Font("Lucida Grande", Font.PLAIN, 14)); 
                 
-                singleReservationPanel.add(btnAddReview);
-            }
+					singleReservationPanel.add(btnAddReview);
+				}
                        
-            allReservationsPanel.add(singleReservationPanel);
-            panel.add(allReservationsPanel); 
+				allReservationsPanel.add(singleReservationPanel);
+				panel.add(allReservationsPanel); 
+			}
 		}
 	}
-
 }
