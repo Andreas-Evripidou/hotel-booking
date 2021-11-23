@@ -2,6 +2,8 @@ package controllers;
 
 import java.sql.ResultSet;
 
+import org.omg.CORBA.StringHolder;
+
 import main.DatabaseCommunication;
 import main.Host;
 import main.Person;
@@ -78,7 +80,7 @@ import main.Person;
 		
 		public Person getPersonByPropertyID(String propertyID) {
 			String userID = getUserIDByPropertyID(propertyID);
-			String query = "SELECT title, name, surname, userID, contactDetails, host, guest FROM team023.Person WHERE userID='" + userID + "'";
+			String query = "SELECT title, name, surname, userID, contactDetails, host, guest, username FROM team023.Person WHERE userID='" + userID + "'";
 			DatabaseCommunication db = new DatabaseCommunication();
 			
 			
@@ -91,11 +93,12 @@ import main.Person;
 					String forename = results.getString(2);
 					String surnname = results.getString(3);
 					String email = results.getString(4);
-					int contactDetails = results.getInt(5);
+					String contactDetails = results.getString(5);
 					int isHost = results.getInt(6);
 					int isGuest = results.getInt(7);
+					String username = results.getString(8);
 					
-					person = new Person(title, forename, surnname, email, contactDetails, isHost, isGuest, null);
+					person = new Person(title, forename, surnname, username, email, contactDetails, isHost, isGuest, null);
 				}
 				
 				return person;
@@ -120,7 +123,7 @@ import main.Person;
 				while (results.next()) {
 					boolean superhost = results.getBoolean(1);
 					
-					host = new Host(person.getTitle(), person.getForename(), person.getSurname(), person.getEmail(), person.getPhoneNumber(), person.getHost(), person.getGuest(), null, person.getForename(), superhost);
+					host = new Host(person.getTitle(), person.getForename(), person.getSurname(), person.getUsername(), person.getEmail(), person.getPhoneNumber(), person.getHost(), person.getGuest(), null, person.getForename(), superhost);
 				}
 				
 				return host;

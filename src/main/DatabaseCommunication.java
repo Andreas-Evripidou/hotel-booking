@@ -43,7 +43,7 @@ public class DatabaseCommunication {
 //		System.out.println(v.validateUser("a", "a", "Host"));
 //		db.closeAll(db.res, db.stmt, db.pstmt, db.con);
 		
-		Person m = new Person("a", "am", "am", "envlakas", 12343, 1, 0, "am");
+		Person m = new Person("a", "am", "am", "123", "envlakas", "99324899", 1, 0, "am");
 		Address a = new Address("mddd", "am", "am", "am");
 		
 //		if (!v.alreadyExcistsPerson(m.getEmail())) {
@@ -176,11 +176,12 @@ public class DatabaseCommunication {
 				pstmt.setString(3, p.getTitle());
 				pstmt.setString(4, p.getForename());
 				pstmt.setString(5, p.getSurname());
-				pstmt.setInt(6, p.getPhoneNumber());
-				pstmt.setInt(7, p.getHost());
-				pstmt.setInt(8, p.getGuest());
-				pstmt.setString(9, a.getHouse());
-				pstmt.setString(10, a.getPostCode());
+				pstmt.setString(6, p.getUsername());
+				pstmt.setString(7, p.getPhoneNumber());
+				pstmt.setInt(8, p.getHost());
+				pstmt.setInt(9, p.getGuest());
+				pstmt.setString(10, a.getHouse());
+				pstmt.setString(11, a.getPostCode());
 				
 				pstmt.executeUpdate();
 				

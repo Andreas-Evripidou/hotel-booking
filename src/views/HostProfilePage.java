@@ -49,7 +49,7 @@ public class HostProfilePage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HostProfilePage window = new HostProfilePage(new Person("Mr.","","","amatoli@email.com",9999999,1,1,"Am123456"));
+					HostProfilePage window = new HostProfilePage(new Person("Mr.","","", "","amatoli@email.com","34343",1,1,"Am123456"));
 					Toolkit toolkit = Toolkit.getDefaultToolkit();
 					Dimension screenDimensions = toolkit.getScreenSize();
 					window.frmHostProfile.setLocationRelativeTo(null);

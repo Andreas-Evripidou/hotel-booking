@@ -9,7 +9,7 @@ public class testing {
 	public static void main (String [] args) {
 		DatabaseCommunication db = new DatabaseCommunication();
 		Validation v = new Validation();
-		Person m = new Person("a", "a", "d", "a", 12343, 1, 1, "a");
+		Person m = new Person("a", "a", "d", "a", "a", "9934344", 1, 1, "a");
 		Address a = new Address("1", "s", "a", "i");
 		
 		

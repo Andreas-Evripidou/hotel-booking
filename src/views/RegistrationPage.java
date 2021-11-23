@@ -45,6 +45,7 @@ public class RegistrationPage {
 	private JTextField textFieldContact;
 	private JTextField textFieldForename;
 	private JTextField textFieldSurname;
+	private JTextField textFieldUsername;
 
 	/**
 	 * Launch the application.
@@ -80,7 +81,7 @@ public class RegistrationPage {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setBounds(100, 100, 1200, 800);
+		frame.setBounds(100, 100, 1203, 850);
 		frame.setMinimumSize(new Dimension(1200, 800));
 		frame.setTitle("Registration Page");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -260,6 +261,7 @@ public class RegistrationPage {
 				String password = textFieldPassword.getText();
 				String forename = textFieldForename.getText();
 				String surname = textFieldSurname.getText();
+				String username = textFieldUsername.getText();
 				String contact = textFieldContact.getText();
 				int isGuest = chckbxGuest.isSelected() ? 1 : 0;
 				int isHost = chckbxHost.isSelected() ? 1 : 0;
@@ -269,7 +271,7 @@ public class RegistrationPage {
 				String postcode = textFieldPostcode.getText();
 				
 				if( userId.length() != 0 && password.length() != 0 
-						&& forename.length() !=0 && surname.length() != 0 
+						&& forename.length() !=0 && surname.length() != 0 && username.length() != 0
 						&& contact.length() != 0 && (isGuest != 0 || isHost != 0)
 						&& houseNumber.length() !=0 && placeName.length() != 0 
 						&& streetName.length() !=0 && postcode.length() != 0 ) {		
@@ -280,7 +282,7 @@ public class RegistrationPage {
 //					db.closeAll(db.res, db.stmt, db.pstmt, db.con);
 					
 					
-					Person m = new Person(title, forename, surname, userId, Integer.parseInt(contact), isHost, isGuest, ph.hashPassword(password));
+					Person m = new Person(title, forename, surname, username, userId, contact, isHost, isGuest, ph.hashPassword(password));
 					Address a = new Address( houseNumber, streetName, placeName, postcode);
 					
 					if ( forename.length()>20 )
@@ -289,8 +291,11 @@ public class RegistrationPage {
 					else if ( surname.length()>20 )
 						JOptionPane.showMessageDialog(null, "A surname cannot be longer than 20 characters!", "Invalid Surname", JOptionPane.WARNING_MESSAGE);
 					
-					else if ( !(contact.length()>=8 && contact.length()<=11) ) 
-						JOptionPane.showMessageDialog(null, "Your contact number must be between 8 and 11 numbers long!", "Invalid Contact Number", JOptionPane.WARNING_MESSAGE);
+					else if ( username.length()>20 )
+						JOptionPane.showMessageDialog(null, "A username cannot be longer than 20 characters!", "Invalid Username", JOptionPane.WARNING_MESSAGE);
+					
+					else if (v.isValidPhoneNumber(contact) != "" ) 
+						JOptionPane.showMessageDialog(null, v.isValidPhoneNumber(contact), "Invalid Contact Number", JOptionPane.WARNING_MESSAGE);
 					
 					else if (!v.validEmail(userId)) 
 						JOptionPane.showMessageDialog(null, "Please enter a valid email!", "Invalid Email", JOptionPane.WARNING_MESSAGE);
@@ -350,27 +355,47 @@ public class RegistrationPage {
 		btnRedirectToLogin.setHideActionText(true);
 		panelRegister.add(btnRedirectToLogin);
 		
+		JPanel panelUsername = new JPanel();
+		panelUsername.setBackground(Color.LIGHT_GRAY);
+		
+		JLabel lblUsername = new JLabel("Username:");
+		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		panelUsername.add(lblUsername);
+		
+		textFieldUsername = new JTextField();
+		textFieldUsername.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textFieldUsername.setColumns(15);
+		panelUsername.add(textFieldUsername);
+		
 		
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_panel_1.createSequentialGroup()
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
 					.addGap(21)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(panelRole, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
-						.addComponent(lblPageTitle, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
-						.addComponent(panelTitle, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
-						.addComponent(panelForename, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
-						.addComponent(panelSurname, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
-						.addComponent(panelMobileNumber, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
-						.addComponent(panelEmail, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
-						.addComponent(panelPassword, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
-						.addComponent(panelAddress, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
-						.addComponent(panelHouse, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
-						.addComponent(panelPlaceName, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
-						.addComponent(panelStreetNumber, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
-						.addComponent(panelPostcode, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE)
-						.addComponent(panelRegister, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1153, Short.MAX_VALUE))
+						.addComponent(lblPageTitle, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
+						.addComponent(panelTitle, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
+						.addComponent(panelForename, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
+						.addComponent(panelSurname, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE))
+					.addGap(20))
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panelUsername, GroupLayout.PREFERRED_SIZE, 1174, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(20, Short.MAX_VALUE))
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(panelRole, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
+						.addComponent(panelMobileNumber, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
+						.addComponent(panelEmail, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
+						.addComponent(panelPassword, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
+						.addComponent(panelAddress, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
+						.addComponent(panelHouse, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
+						.addComponent(panelPlaceName, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
+						.addComponent(panelStreetNumber, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
+						.addComponent(panelPostcode, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
+						.addComponent(panelRegister, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE))
 					.addGap(20))
 		);
 		gl_panel_1.setVerticalGroup(
@@ -384,6 +409,8 @@ public class RegistrationPage {
 					.addComponent(panelForename, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelSurname, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(panelUsername, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelMobileNumber, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -404,7 +431,7 @@ public class RegistrationPage {
 					.addComponent(panelPostcode, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelRegister, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(14))
 		);
 		panel_1.setLayout(gl_panel_1);
 	}

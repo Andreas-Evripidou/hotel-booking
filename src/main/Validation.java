@@ -31,7 +31,7 @@ public class Validation {
 	
 	public boolean validateUser(String userID, String password, String whatUser) {
 		if (whatUser != null) {
-			String query = "SELECT * FROM team023." + whatUser + " WHERE userID=?";
+			String query = "SELECT userID, password FROM team023." + whatUser + " WHERE userID=?";
 			DatabaseCommunication db = new DatabaseCommunication();
 			String user = null;
 			String pass = null;
@@ -112,8 +112,8 @@ public class Validation {
 	}
 	
 	public void validateUserRegistration(Person user, Address userAddress) {
-		String insertPerson = "INSERT INTO `team023`.`Person` (`userID`, `password`, `title`, `name`, `surname`, `contactDetails`, `host`, `guest`, `house`, `postcode`) "
-				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		String insertPerson = "INSERT INTO `team023`.`Person` (`userID`, `password`, `title`, `name`, `surname`, `username`, `contactDetails`, `host`, `guest`, `house`, `postcode`) "
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		String insertAddress = "INSERT INTO `team023`.`Address` (`house`, `postcode`, `streetName`, `placeName`) VALUES(?, ?, ?, ?);";
 
 		DatabaseCommunication db = new DatabaseCommunication();
@@ -157,14 +157,15 @@ public class Validation {
 				String title = result.getString(3);
 				String forename = result.getString(4);
 				String surname = result.getString(5);
-				int contactDetails = Integer.parseInt(result.getString(6));
-				int isGuest = Integer.parseInt(result.getString(7));
-				int isHost = Integer.parseInt(result.getString(8));
+				String username = result.getString(6);
+				String contactDetails = result.getString(7);
+				int isGuest = result.getInt(8);
+				int isHost = result.getInt(9);
 				
 				PasswordHash ph = new PasswordHash();
 				password = ph.hashPassword(password);
 				
-				p = new Person(title, forename, surname, userId, contactDetails, isHost, isGuest, password);
+				p = new Person(title, forename, surname, username, userId, contactDetails, isHost, isGuest, password);
 			}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -217,4 +218,17 @@ public class Validation {
             
             return validMsg; 
     }
+	
+	public String isValidPhoneNumber(String phoneNumber) {
+		String msgString = "";
+		
+		if (!(phoneNumber.length()>=8 && phoneNumber.length()<=15))
+			msgString += "Your phone number must be between 8 and 15 numbers long!. \n";
+		
+		String numbers = "(.*[0-9].*)";
+		if (!phoneNumber.matches(numbers))
+			msgString += "Phone number must only have numbers!";
+			 
+		return msgString;
+	}
 }

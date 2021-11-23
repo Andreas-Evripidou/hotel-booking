@@ -85,7 +85,7 @@ public class ViewPropertyPage extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Person m = new Person("a", "a", "d", "a", 12343, 1, 1, "a");
+					Person m = new Person("a", "a", "d", "3", "a", "12345", 1, 1, "a");
 					Address a = new Address("1", "s", "a", "i");
 					
 					
@@ -107,7 +107,7 @@ public class ViewPropertyPage extends JFrame {
 							
 					Property property = new Property(cb, a, "Property2", "pellares", true, bathing, k, l, o, sleeping, u);
 					
-					Host host = new Host("Mr", "A", "Host", "a@a.com", 77, 1, 0, "password", "A Host", false);
+					Host host = new Host("Mr", "A", "Host", "erf", "a@a.com", "88839", 1, 0, "password", "A Host", false);
 					
 					ViewPropertyPage frame = new ViewPropertyPage(property, m, host, 33);
 					frame.frmViewProperty.setVisible(true);

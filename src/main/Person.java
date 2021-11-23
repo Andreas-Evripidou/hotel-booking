@@ -4,19 +4,21 @@ public class Person {
 	private String title;
 	private String forename;
 	private String surname;
+	private String username;
 	private String emailAddress;
-	private int phoneNumber;
+	private String phoneNumber;
 	private int host;
 	private int guest;
 	private String password;
 	
 	public Person() {}
 	
-	public Person(String title, String forename, String surname,
-			String emailAddress, int phoneNumber, int host, int guest, String password) {
+	public Person(String title, String forename, String surname, String username,
+			String emailAddress, String phoneNumber, int host, int guest, String password) {
 		this.title = title;
 		this.forename = forename;
 		this.surname = surname;
+		this.username = username;
 		this.emailAddress = emailAddress;
 		this.phoneNumber = phoneNumber;
 		this.host = host;
@@ -45,6 +47,14 @@ public class Person {
 		return surname;
 	}
 	
+	private void setUsername(String username) {
+		this.username = username;
+	}
+	public String getUsername() {
+		return username;
+	}
+	
+	
 	private void setEmail(String email) {
 		this.emailAddress = email;
 	}
@@ -52,10 +62,10 @@ public class Person {
 		return emailAddress;
 	}
 	
-	private void setPhoneNumber(int phoneNumber) {
+	private void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 	

@@ -4,10 +4,10 @@ public class Host extends Person {
 	public String hostName;
 	public boolean isSuperHost;
 	
-	public Host(String title, String forename, String surname,
-			String emailAddress, int phoneNumber, int host, int guest, String password,
+	public Host(String title, String forename, String surname, String username,
+			String emailAddress, String phoneNumber, int host, int guest, String password,
 			String hostName, boolean isSuperHost) {
-		super(title, forename, surname, emailAddress, phoneNumber, host, guest, password);
+		super(title, forename, surname, username, emailAddress, phoneNumber, host, guest, password);
 		this.hostName = hostName;
 		this.isSuperHost = isSuperHost;
 	}

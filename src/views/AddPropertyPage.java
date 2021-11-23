@@ -82,7 +82,7 @@ public class AddPropertyPage extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddPropertyPage frame = new AddPropertyPage(new Person("a", "a", "a", "a", 12343, 1, 1, "a"));
+					AddPropertyPage frame = new AddPropertyPage(new Person("a", "a", "a", "ed", "a", "122345", 1, 1, "a"));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
