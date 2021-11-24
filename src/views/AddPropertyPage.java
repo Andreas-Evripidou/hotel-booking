@@ -154,44 +154,57 @@ public class AddPropertyPage extends JFrame {
 						&& !(txtbxCity.getText().length() == 0) && !(txtbxPostCode.getText().length() == 0)
 						&& !(bedrooms.isEmpty()) && !(bathrooms.isEmpty()) && !(chargeBands.isEmpty())
 						&& !(txtbxName.getText().length() == 0)) {
-					Address address = new Address(txtbxHouse.getText(),
-							txtbxStreetName.getText(), txtbxCity.getText(), 
-							txtbxPostCode.getText());
-					Sleeping sleeping = new Sleeping(bedrooms,
-							chckbxBedLinen.isSelected(),
-							chckbxTowels.isSelected());
-					Bathing bathing = new Bathing(bathrooms, chckbxHairDryer.isSelected(),
-							chckbxShampoo.isSelected(), chckbxToiletPaper.isSelected());
-					Outdoor outdoor = new Outdoor(chckbxFreeOnsiteParking.isSelected(),
-							chckbxOnroadParking.isSelected(), 
-							chckbxPaidParking.isSelected(),
-							chckbxPatio.isSelected(),
-							chckbxBarbecue.isSelected());
-					Kitchen kitchen = new Kitchen(chckbxRefrigerator.isSelected(),
-							chckbxMicrowave.isSelected(), chckbxOven.isSelected(),
-							chckbxStove.isSelected(), chckbxDishwasher.isSelected(),
-							chckbxTableware.isSelected(), chckbxCookware.isSelected(),
-							chckbxProvisions.isSelected());
-					Living living = new Living(chckbxWifi.isSelected(),
-							chckbxTelevision.isSelected(), chckbxSatellite.isSelected(),
-							chckbxFireExtinguisher.isSelected(), chckbxSmokeAlarm.isSelected(),
-							chckbxFirstAidKit.isSelected());
-					Utility utility = new Utility(chckbxHeating.isSelected(), chckbxWashingMachine.isSelected(),
-							chckbxDryingMachine.isSelected(), chckbxFireExtinguisher.isSelected(),
-							chckbxSmokeAlarm.isSelected(), chckbxFirstAidKit.isSelected());
-					
-					Property property = new Property(chargeBands, address, txtbxName.getText(),
-							descriptionTxt.getText(), breakfastChk.isSelected(), bathing,
-							kitchen, living, outdoor, sleeping, utility);
-					
-					Validation v = new Validation();
-					v.validateProperty(p, property);
-					
-					HostProfilePage window = new HostProfilePage(p);
-					window.getFrame().setVisible(true);
-					window.getFrame().pack();
-					window.getFrame().setLocationRelativeTo(null);
-					dispose();
+					if(txtbxPostCode.getText().length() > 15) {
+						JOptionPane.showMessageDialog(null, "A postcode cannot be longer than 15 characters!", "Invalid Postcode", JOptionPane.WARNING_MESSAGE);
+					}else if(txtbxHouse.getText().length() > 20) { 
+						JOptionPane.showMessageDialog(null, "A House Name/Number cannot be longer than 20 characters!", "Invalid House Name/Number", JOptionPane.WARNING_MESSAGE);
+					}else if(txtbxStreetName.getText().length() > 20) { 
+						JOptionPane.showMessageDialog(null, "A Street Name cannot be longer than 20 characters!", "Invalid Street Name", JOptionPane.WARNING_MESSAGE);
+					}else if(txtbxCity.getText().length() > 20) { 
+						JOptionPane.showMessageDialog(null, "A City name cannot be longer than 20 characters!", "Invalid City", JOptionPane.WARNING_MESSAGE);
+					}else if(descriptionTxt.getText().length() > 200) { 
+						JOptionPane.showMessageDialog(null, "The description cannot be longer than 200 characters!", "Invalid Description", JOptionPane.WARNING_MESSAGE);
+					}else {
+						Sleeping sleeping = new Sleeping(bedrooms,
+								chckbxBedLinen.isSelected(),
+								chckbxTowels.isSelected());
+						Bathing bathing = new Bathing(bathrooms, chckbxHairDryer.isSelected(),
+								chckbxShampoo.isSelected(), chckbxToiletPaper.isSelected());
+						Outdoor outdoor = new Outdoor(chckbxFreeOnsiteParking.isSelected(),
+								chckbxOnroadParking.isSelected(), 
+								chckbxPaidParking.isSelected(),
+								chckbxPatio.isSelected(),
+								chckbxBarbecue.isSelected());
+						Kitchen kitchen = new Kitchen(chckbxRefrigerator.isSelected(),
+								chckbxMicrowave.isSelected(), chckbxOven.isSelected(),
+								chckbxStove.isSelected(), chckbxDishwasher.isSelected(),
+								chckbxTableware.isSelected(), chckbxCookware.isSelected(),
+								chckbxProvisions.isSelected());
+						Living living = new Living(chckbxWifi.isSelected(),
+								chckbxTelevision.isSelected(), chckbxSatellite.isSelected(),
+								chckbxFireExtinguisher.isSelected(), chckbxSmokeAlarm.isSelected(),
+								chckbxFirstAidKit.isSelected());
+						Utility utility = new Utility(chckbxHeating.isSelected(), chckbxWashingMachine.isSelected(),
+								chckbxDryingMachine.isSelected(), chckbxFireExtinguisher.isSelected(),
+								chckbxSmokeAlarm.isSelected(), chckbxFirstAidKit.isSelected());	
+						
+						Address address = new Address(txtbxHouse.getText(),
+								txtbxStreetName.getText(), txtbxCity.getText(), 
+								txtbxPostCode.getText());
+						
+						Property property = new Property(chargeBands, address, txtbxName.getText(),
+								descriptionTxt.getText(), breakfastChk.isSelected(), bathing,
+								kitchen, living, outdoor, sleeping, utility);
+						
+						Validation v = new Validation();
+						v.validateProperty(p, property);
+						
+						HostProfilePage window = new HostProfilePage(p);
+						window.getFrame().setVisible(true);
+						window.getFrame().pack();
+						window.getFrame().setLocationRelativeTo(null);
+						dispose();
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Please fill in all fields!", "Empty fields", JOptionPane.WARNING_MESSAGE);
 				}
