@@ -27,10 +27,10 @@ public enum Bed {
 	
 	public static Bed stringToBed(String bed) {
 		bed = bed.toLowerCase();
-		if(bed=="single bed" || bed=="single") return Bed.SINGLE;
-		if(bed=="double bed" || bed=="double") return Bed.DOUBLE;
-		if(bed=="king sized bed" || bed=="king") return Bed.KING;
-		if(bed=="bunk bed" || bed=="bunk") return Bed.BUNK;
+		if(bed.equals("single bed") || bed.equals("single")) return Bed.SINGLE;
+		if(bed.equals("double bed") || bed.equals("double")) return Bed.DOUBLE;
+		if(bed.equals("king sized bed") || bed.equals("king")) return Bed.KING;
+		if(bed.equals("bunk bed") || bed.equals("bunk")) return Bed.BUNK;
 		return null;
 	}
 }

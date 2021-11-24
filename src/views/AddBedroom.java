@@ -34,7 +34,7 @@ public class AddBedroom extends JPanel {
 		add(cmbBed1);
 		
 		cmbBed2 = new JComboBox();
-		cmbBed2.setModel(new DefaultComboBoxModel(new String[] {"Single Bed", "Double Bed", "King Sized Bed", "Bunk Bed"}));
+		cmbBed2.setModel(new DefaultComboBoxModel(new String[] {"", "Single Bed", "Double Bed", "King Sized Bed", "Bunk Bed"}));
 		cmbBed2.setBounds(83, 108, 111, 21);
 		add(cmbBed2);
 		
