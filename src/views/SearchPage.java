@@ -292,7 +292,7 @@ public class SearchPage {
 			}
 		
 
-		
+		ArrayList<String> propertyOccupation = new ArrayList<String>();
 		for(int i = 0; i < numberOfProperties; i++) { 
 			boolean isOccupied = false;
 			String startDatesQuery = "SELECT startDate FROM team023.Reservation WHERE propertyID='" + propertyIDS.get(i) + "'";
@@ -302,7 +302,7 @@ public class SearchPage {
 			try {
 				ResultSet results = db4.queryExecute(startDatesQuery);
 				while (results.next()) {
-					startDates.add(results.getString(1));
+					startDates.add(results.getString(1).substring(8,10) + " " +  results.getString(1).substring(5,7) + " " + results.getString(1).substring(0,4));
 				}
 				
 				} catch (Exception e) {
@@ -317,7 +317,7 @@ public class SearchPage {
 			try {
 				ResultSet results = db5.queryExecute(endDatesQuery);
 				while (results.next()) {
-					endDates.add(results.getString(1));
+					endDates.add(results.getString(1).substring(8,10) + " " +  results.getString(1).substring(5,7) + " " + results.getString(1).substring(0,4));
 				}
 				
 				} catch (Exception e) {
@@ -331,11 +331,21 @@ public class SearchPage {
 				try {
 				    LocalDate date1 = LocalDate.parse(startDateToUse, datetimeformat);
 				    LocalDate date2 = LocalDate.parse(endDateToUse, datetimeformat);
-				    long daysBetween = ChronoUnit.DAYS.between(date1, date2);
-				    System.out.println ("Days: " + daysBetween);
+				    LocalDate bookedDate1 = LocalDate.parse(startDates.get(booking), datetimeformat);
+				    LocalDate bookedDate2 = LocalDate.parse(endDates.get(booking), datetimeformat);
+				    
+				    if ((date1.isBefore(bookedDate2)) & (date2.isAfter(bookedDate1)) == true) {
+				    	isOccupied = true;
+				    }
 				} catch (Exception e) {
 				    e.printStackTrace();
 				}
+			}
+			if (isOccupied == true) {
+				propertyOccupation.add("Unavailable");
+				
+			} else {
+				propertyOccupation.add("Available");
 			}
 		}
 		
@@ -350,8 +360,8 @@ public class SearchPage {
 			ArrayList<String> currentRow = new ArrayList<String>();
 			currentRow.add(propertyNames.get(counter));
 			currentRow.add(propertyGuests.get(counter));
-			currentRow.add(null);
-			currentRow.add(null);
+			currentRow.add(propertyOccupation.get(counter));
+
 			currentRow.add("More Details");
 
 			allRows.add(currentRow);
@@ -366,7 +376,7 @@ public class SearchPage {
 		    ArrayList<String> row = allRows.get(i);
 		    rowData[i] = row.toArray(new String[row.size()]);
 		}
-		String[] tableHeaderList = {"Property Name", "Maximum Guest Number", "Availability", "Details", ""};
+		String[] tableHeaderList = {"Property Name", "Maximum Guest Number", "Availability", "Details"};
 		
 		DefaultTableModel model = new DefaultTableModel(rowData,tableHeaderList);
 		table_1 = new JTable(model);
@@ -389,7 +399,7 @@ public class SearchPage {
 		    }
 		};
 		
-		ButtonColumn buttonColumnAccept = new ButtonColumn(table_1, moreDetails, 4);
+		ButtonColumn buttonColumnAccept = new ButtonColumn(table_1, moreDetails, 3);
 		
 		scrollPane.setViewportView(table_1);
 		
