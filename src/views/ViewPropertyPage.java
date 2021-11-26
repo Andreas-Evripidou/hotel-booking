@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import Facilities.Bathing;
 import Facilities.Bathroom;
@@ -36,12 +37,14 @@ import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class ViewPropertyPage extends JFrame {
 	private Property property; //property to be viewed
 	private Person person; //current user of the system
 	private Host host; //host of the property
 	private int propertyID;
+	private boolean accepted;
 
 	public JFrame frmViewProperty;
 	private JCheckBox chckbxBedLinen;
@@ -76,10 +79,14 @@ public class ViewPropertyPage extends JFrame {
 	private JCheckBox chckbxBarbecue;
 	
 	private JLabel lblPropertyName;
-	private JLabel lblDescription;
+	private JTextArea lblDescription;
 	private JLabel lblHostName;
 	private JLabel lblBreakfastOffered;
 	private JLabel lblSuperHost;
+	private JTextField textFieldHouse;
+	private JTextField textFieldStreet;
+	private JTextField textFieldPlace;
+	private JTextField textFieldPostcode;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -109,7 +116,7 @@ public class ViewPropertyPage extends JFrame {
 					
 					Host host = new Host("Mr", "A", "Host", "erf", "a@a.com", "88839", 1, 0, "password", "A Host", false);
 					
-					ViewPropertyPage frame = new ViewPropertyPage(property, m, host, 33);
+					ViewPropertyPage frame = new ViewPropertyPage(property, m, host, 33, true);
 					frame.frmViewProperty.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -125,11 +132,12 @@ public class ViewPropertyPage extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	public ViewPropertyPage(Property property, Person person, Host host, int propertyID) {
+	public ViewPropertyPage(Property property, Person person, Host host, int propertyID, boolean accepted) {
 		this.property = property;
 		this.person = person;
 		this.host = host;
 		this.propertyID = propertyID;
+		this.accepted = accepted;
 		initialize();
 	}
 	
@@ -186,11 +194,14 @@ public class ViewPropertyPage extends JFrame {
 	}
 	
 	private void setLabels() {
-		lblPropertyName.setText(property.getName());
-		lblDescription.setText(property.getDescription());
+		lblPropertyName.setText(property.getName() + ", " + property.getAddress().getPlaceName());
 		lblHostName.setText(host.getHostName());
 		if(!(property.getBreakfastOffered())) lblBreakfastOffered.setText("");
 		if(!(host.getIsSuperHost())) lblSuperHost.setText("");
+	}
+	
+	private void setTextAreas() {
+		lblDescription.setText(property.getDescription());
 	}
 
 	/**
@@ -211,19 +222,21 @@ public class ViewPropertyPage extends JFrame {
 		lblPropertyName.setBounds(10, 10, 316, 72);
 		frmViewProperty.getContentPane().add(lblPropertyName);
 		
-		lblDescription = new JLabel("(Property Description)");
-		lblDescription.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblDescription.setBounds(10, 66, 336, 103);
+		lblDescription = new JTextArea("(Property Description)");
+		lblDescription.setEditable(false);
+		lblDescription.setLineWrap(true);
+		lblDescription.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblDescription.setBounds(10, 66, 336, 128);
 		frmViewProperty.getContentPane().add(lblDescription);
 		
 		JLabel lblNewLabel = new JLabel("Hosted By:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel.setBounds(10, 179, 104, 48);
+		lblNewLabel.setBounds(10, 189, 104, 48);
 		frmViewProperty.getContentPane().add(lblNewLabel);
 		
 		lblHostName = new JLabel("(Host Name)");
 		lblHostName.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblHostName.setBounds(124, 179, 233, 48);
+		lblHostName.setBounds(124, 189, 233, 48);
 		frmViewProperty.getContentPane().add(lblHostName);
 		
 		lblBreakfastOffered = new JLabel("Breakfast is offered by this property host");
@@ -512,7 +525,7 @@ public class ViewPropertyPage extends JFrame {
 		
 		lblSuperHost = new JLabel("This host is a Super Host.");
 		lblSuperHost.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblSuperHost.setBounds(54, 237, 195, 13);
+		lblSuperHost.setBounds(10, 230, 195, 13);
 		frmViewProperty.getContentPane().add(lblSuperHost);
 		
 		JButton btnReviews = new JButton("See Reviews");
@@ -530,7 +543,62 @@ public class ViewPropertyPage extends JFrame {
 		btnReviews.setBounds(354, 735, 156, 44);
 		frmViewProperty.getContentPane().add(btnReviews);
 		
+		JPanel panelAddress = new JPanel();
+		panelAddress.setBounds(9, 272, 325, 205);
+		if(accepted)
+			frmViewProperty.getContentPane().add(panelAddress);
+		panelAddress.setLayout(null);
+		
+		JLabel lblHouseNumber = new JLabel("House:");
+		lblHouseNumber.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lblHouseNumber.setBounds(11, 10, 61, 16);
+		panelAddress.add(lblHouseNumber);
+		
+		JLabel lblStreetName = new JLabel("Street Name:");
+		lblStreetName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lblStreetName.setBounds(11, 59, 101, 16);
+		panelAddress.add(lblStreetName);
+		
+		JLabel lblPlaceName = new JLabel("Place Name:");
+		lblPlaceName.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lblPlaceName.setBounds(11, 110, 101, 16);
+		panelAddress.add(lblPlaceName);
+		
+		JLabel lblPostCode = new JLabel("Postcode:");
+		lblPostCode.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lblPostCode.setBounds(11, 161, 83, 16);
+		panelAddress.add(lblPostCode);
+		
+		textFieldHouse = new JTextField(property.getAddress().getHouse());
+		textFieldHouse.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		textFieldHouse.setEditable(false);
+		textFieldHouse.setBounds(116, 6, 203, 26);
+		panelAddress.add(textFieldHouse);
+		textFieldHouse.setColumns(10);
+		
+		textFieldStreet = new JTextField(property.getAddress().getStreetName());
+		textFieldStreet.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		textFieldStreet.setEditable(false);
+		textFieldStreet.setColumns(10);
+		textFieldStreet.setBounds(116, 54, 203, 26);
+		panelAddress.add(textFieldStreet);
+		
+		textFieldPlace = new JTextField(property.getAddress().getPlaceName());
+		textFieldPlace.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		textFieldPlace.setEditable(false);
+		textFieldPlace.setColumns(10);
+		textFieldPlace.setBounds(116, 105, 203, 26);
+		panelAddress.add(textFieldPlace);
+		
+		textFieldPostcode = new JTextField(property.getAddress().getPostCode());
+		textFieldPostcode.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		textFieldPostcode.setEditable(false);
+		textFieldPostcode.setColumns(10);
+		textFieldPostcode.setBounds(116, 156, 203, 26);
+		panelAddress.add(textFieldPostcode);
+		
 		checkBoxes();
 		setLabels();
+		setTextAreas();
 	}
 }

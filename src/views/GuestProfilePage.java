@@ -229,7 +229,7 @@ public class GuestProfilePage {
 				JButton btnViewProperty = new JButton("More Details");
 				btnViewProperty.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						ViewPropertyPage newFrame = new ViewPropertyPage(property, person, host, propertyID);
+						ViewPropertyPage newFrame = new ViewPropertyPage(property, person, host, propertyID, reservation.getAccepted());
 						newFrame.getFrame().setVisible(true);
 						newFrame.getFrame().pack();
 						newFrame.getFrame().setLocationRelativeTo(null);

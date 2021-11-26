@@ -126,6 +126,29 @@ public class PropertyController {
 		return null;
 	}
 	
+	public String getPropertyDescriptionByPropertyID(int i) {
+		String query = "SELECT description FROM team023.Property WHERE propertyID='" + i + "'";
+		DatabaseCommunication db = new DatabaseCommunication();
+		
+		
+		String description = null;
+		
+		try {
+			ResultSet results = db.queryExecute(query);
+			while (results.next()) {
+				description = results.getString(1);
+
+			}
+			
+			return description;
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+			}
+		return null;
+	}
+	
 	public boolean offersBreakfast(String propertyID) {
 		String query = "SELECT breakfast FROM team023.Property WHERE propertyID='" + propertyID + "';";
 		DatabaseCommunication db = new DatabaseCommunication();
@@ -165,7 +188,7 @@ public class PropertyController {
 		
 		boolean breakfast = offersBreakfast(propertyID);
 		
-		Property property = new Property(chargeBand, address, propertyID, propertyID, breakfast, bathing, kitchen, living, outdoor, sleeping, utility);
+		Property property = new Property(chargeBand, address, getPropertyNameByPropertyID(Integer.parseInt(propertyID)), getPropertyDescriptionByPropertyID(Integer.parseInt(propertyID)), breakfast, bathing, kitchen, living, outdoor, sleeping, utility);
 		
 		PersonController pController = new PersonController();
 		Person person = pController.getPersonByPropertyID(propertyID);
