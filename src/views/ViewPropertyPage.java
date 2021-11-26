@@ -518,8 +518,7 @@ public class ViewPropertyPage extends JFrame {
 		JButton btnReviews = new JButton("See Reviews");
 		btnReviews.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {		
-				ReviewsController rc = new ReviewsController();
-				ReviewPanels newFrame = new ReviewPanels(rc.getAllReviewsOfProperty(propertyID));
+				ReviewPanels newFrame = new ReviewPanels(propertyID);
 				newFrame.getFrame().setVisible(true);
 				newFrame.getFrame().pack();
 				newFrame.getFrame().setLocationRelativeTo(null);
