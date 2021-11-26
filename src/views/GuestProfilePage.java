@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 
 import com.mysql.cj.conf.ConnectionUrlParser.Pair;
 
+import controllers.PersonController;
 import controllers.PropertyController;
 import main.BookingsController;
 import main.Host;
@@ -84,7 +85,7 @@ public class GuestProfilePage {
         JScrollPane scrollPane = new JScrollPane(panel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBounds(50, 79, 1100, 751);
+        scrollPane.setBounds(50, 105, 1100, 725);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
         JPanel contentPane = new JPanel(null);
@@ -94,12 +95,17 @@ public class GuestProfilePage {
         frame.getContentPane().add(contentPane, BorderLayout.CENTER);
         
         JPanel panel_1 = new JPanel();
-        panel_1.setBounds(450, 0, 299, 67);
+        panel_1.setBounds(198, 0, 804, 93);
         contentPane.add(panel_1);
+        panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         
         JLabel lblPReview = new JLabel("My Reservations");
         lblPReview.setFont(new Font("Lucida Grande", Font.PLAIN, 35));
         panel_1.add(lblPReview);
+        
+        JLabel lblIfYouCannot = new JLabel("If you cannot find your request below it means it was rejected by the host!");
+        lblIfYouCannot.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+        panel_1.add(lblIfYouCannot);
         
         JButton btnLogOut = new JButton("LOGOUT");
         btnLogOut.addActionListener(new ActionListener() {
@@ -138,12 +144,12 @@ public class GuestProfilePage {
 				JPanel allReservationsPanel = new JPanel();
 				allReservationsPanel.setLayout(new FlowLayout());
 				allReservationsPanel.setBackground(Color.WHITE);
-				allReservationsPanel.setPreferredSize(new Dimension(900, 270));
+				allReservationsPanel.setPreferredSize(new Dimension(900, 320));
 
 				JPanel singleReservationPanel = new JPanel();
 				singleReservationPanel.setLayout(new FlowLayout());
 				singleReservationPanel.setBackground(Color.LIGHT_GRAY);
-				singleReservationPanel.setPreferredSize(new Dimension(500, 270));
+				singleReservationPanel.setPreferredSize(new Dimension(500, 320));
             
 				JLabel lblShortName = new JLabel("Short Name: ");
 				lblShortName.setForeground(Color.BLACK);
@@ -187,20 +193,43 @@ public class GuestProfilePage {
 				JTextField textFieldAccepted = new JTextField(reservation.getAccepted().toString());
 				textFieldAccepted.setPreferredSize(new Dimension(320, 20));
 				textFieldAccepted.setEditable(false);
-            
+				
 				PropertyController pc = new  PropertyController();
 				int propertyID = reservation.getPropertyID();
 				Pair<Property, Pair<Person, Host>> pch = pc.getPropertyAndHost(String.valueOf(propertyID));
+				Property property = pch.left;
+				Person person = pch.right.left;
+				Host host = pch.right.right;
 				
+				JLabel lblHostEmail = new JLabel("Host's Email: ");
+				lblHostEmail.setForeground(Color.BLACK);
+				lblHostEmail.setPreferredSize(new Dimension(110, 20));
+				JTextField textFieldHostEmail = new JTextField();
+				textFieldHostEmail.setPreferredSize(new Dimension(320, 20));
+				if (reservation.getAccepted()) {
+					textFieldHostEmail.setText(person.getEmail());
+				} else {
+					textFieldHostEmail.setText("Request needs to be accepted to see this field");
+				}
 				
+				textFieldHostEmail.setEditable(false);
+				
+				JLabel lblHostContact = new JLabel("Host's Number: ");
+				lblHostContact.setForeground(Color.BLACK);
+				lblHostContact.setPreferredSize(new Dimension(110, 20));
+				JTextField textFieldContact = new JTextField();
+				textFieldContact.setPreferredSize(new Dimension(320, 20));
+				if (reservation.getAccepted()) {
+					textFieldContact.setText(person.getPhoneNumber());
+				} else {
+					textFieldContact.setText("Request needs to be accepted to see this field");
+				}
+				textFieldContact.setEditable(false);
             
 				JButton btnViewProperty = new JButton("More Details");
 				btnViewProperty.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Property property = pch.left;
-						Person person = pch.right.left;
-						Host host = pch.right.right;
-						ViewPropertyPage newFrame = new ViewPropertyPage(property, person, host, propertyID);
+						ViewPropertyPage newFrame = new ViewPropertyPage(property, person, host, propertyID, reservation.getAccepted());
 						newFrame.getFrame().setVisible(true);
 						newFrame.getFrame().pack();
 						newFrame.getFrame().setLocationRelativeTo(null);
@@ -221,6 +250,10 @@ public class GuestProfilePage {
 				singleReservationPanel.add(textFieldEndDate);
 				singleReservationPanel.add(lblAccepted);
 				singleReservationPanel.add(textFieldAccepted);
+				singleReservationPanel.add(lblHostEmail);
+				singleReservationPanel.add(textFieldHostEmail);
+				singleReservationPanel.add(lblHostContact);
+				singleReservationPanel.add(textFieldContact);
 				singleReservationPanel.add(btnViewProperty);
             
 				if (allowedToWriteReview) {
