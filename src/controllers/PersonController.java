@@ -1,9 +1,6 @@
 package controllers;
 
 import java.sql.ResultSet;
-
-import org.omg.CORBA.StringHolder;
-
 import main.DatabaseCommunication;
 import main.Host;
 import main.Person;
