@@ -69,7 +69,7 @@ public class RequestPropertyPanel extends JPanel {
 					double totalCost = cbc.getTotalCost(property.getChargeBands(),
 							LocalDate.parse(txtbxStartDate.getText()),
 							LocalDate.parse(txtbxEndDate.getText()));
-					lblTotalCost.setText("£" + String.valueOf(totalCost));
+					lblTotalCost.setText("ï¿½" +  String.format("%.2f", totalCost));
 					} catch(Exception ex) {
 						JOptionPane.showMessageDialog(null, "Dates out of range for property charge bands", "Error", JOptionPane.WARNING_MESSAGE);
 					}

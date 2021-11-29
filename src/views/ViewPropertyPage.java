@@ -277,7 +277,7 @@ public class ViewPropertyPage extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				RequestPropertyPanel r = new RequestPropertyPanel(property);
 				r.setVisible(true);
-				r.setSize(new Dimension(350, 200));
+				r.setSize(new Dimension(350, 300));
 				r.setPreferredSize(new Dimension(350, r.getPreferredSize().height));
 				int result = JOptionPane.showConfirmDialog(null, r, "Request " + property.getName(),
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
