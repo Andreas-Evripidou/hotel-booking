@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -105,7 +106,7 @@ public class AddChargeBand extends JPanel {
 		
 		ChargeBandController cbc = new ChargeBandController();
 		if(existingChargeBands.size() == 0) {
-			startDateTxt.setText("2021-10-01");
+			startDateTxt.setText(LocalDate.now().toString());
 		}
 	}
 }
