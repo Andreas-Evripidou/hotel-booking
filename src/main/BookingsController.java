@@ -75,7 +75,7 @@ public class BookingsController {
 			} else if (start.isAfter(startDates.get(i)) && start.isBefore(endDates.get(i))) {
 				return false;
 			} else if (start.isBefore(startDates.get(i)) && end.isAfter(endDates.get(i))) {
-				return true;
+				return false;
 			} else if (end.isAfter(startDates.get(i)) && end.isBefore(endDates.get(i))) {
 				return false;
 			}
