@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Facilities.*;
+import controllers.ChargeBandController;
 import main.Address;
 import main.ChargeBand;
 import main.Person;
@@ -30,6 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 
 public class AddPropertyPage extends JFrame {
@@ -76,6 +78,8 @@ public class AddPropertyPage extends JFrame {
 	private JCheckBox chckbxBarbecue;
 	private JCheckBox breakfastChk;
 	private JTextField txtbxName;
+	private JLabel lblChargeBandStatus;
+	private JLabel lblOKButtonStatus;
 	
 	
 	public static void main(String[] args) {
@@ -113,7 +117,7 @@ public class AddPropertyPage extends JFrame {
 		
 		JLabel descriptionLabel = new JLabel("Description:");
 		descriptionLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		descriptionLabel.setBounds(630, 46, 207, 25);
+		descriptionLabel.setBounds(273, 46, 207, 25);
 		panel.add(descriptionLabel);
 		
 		JLabel locationLabel = new JLabel("Address");
@@ -128,7 +132,7 @@ public class AddPropertyPage extends JFrame {
 		
 		descriptionTxt = new JTextField();
 		descriptionTxt.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		descriptionTxt.setBounds(737, 49, 368, 20);
+		descriptionTxt.setBounds(381, 49, 466, 20);
 		panel.add(descriptionTxt);
 		descriptionTxt.setColumns(10);
 		
@@ -147,9 +151,11 @@ public class AddPropertyPage extends JFrame {
 		panel.add(CancelBtn);
 		
 		JButton btnNewButton = new JButton("OK");
+		btnNewButton.setEnabled(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//check for filled in form
+				ChargeBandController cbc = new ChargeBandController();
 				if(!(txtbxHouse.getText().length() == 0) && !(txtbxStreetName.getText().length() == 0) 
 						&& !(txtbxCity.getText().length() == 0) && !(txtbxPostCode.getText().length() == 0)
 						&& !(bedrooms.isEmpty()) && !(bathrooms.isEmpty()) && !(chargeBands.isEmpty())
@@ -164,7 +170,11 @@ public class AddPropertyPage extends JFrame {
 						JOptionPane.showMessageDialog(null, "A City name cannot be longer than 20 characters!", "Invalid City", JOptionPane.WARNING_MESSAGE);
 					}else if(descriptionTxt.getText().length() > 200) { 
 						JOptionPane.showMessageDialog(null, "The description cannot be longer than 200 characters!", "Invalid Description", JOptionPane.WARNING_MESSAGE);
+					}else if(cbc.allDatesCovered(chargeBands) == false){
+						JOptionPane.showMessageDialog(null, "Charge bands incomplete.", "Invalid Charge Bands", JOptionPane.WARNING_MESSAGE);
 					}else {
+						
+						
 						Sleeping sleeping = new Sleeping(bedrooms,
 								chckbxBedLinen.isSelected(),
 								chckbxTowels.isSelected());
@@ -217,11 +227,11 @@ public class AddPropertyPage extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Facilities");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel.setBounds(443, 107, 121, 13);
+		lblNewLabel.setBounds(617, 90, 121, 13);
 		panel.add(lblNewLabel);
 		
 		JPanel sleepingPanel = new JPanel();
-		sleepingPanel.setBounds(10, 130, 207, 152);
+		sleepingPanel.setBounds(273, 130, 207, 152);
 		panel.add(sleepingPanel);
 		sleepingPanel.setLayout(null);
 		
@@ -259,11 +269,11 @@ public class AddPropertyPage extends JFrame {
 			}
 		});
 		
-		btnAddBedroom.setBounds(22, 121, 161, 21);
+		btnAddBedroom.setBounds(10, 121, 187, 21);
 		sleepingPanel.add(btnAddBedroom);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(363, 130, 246, 152);
+		panel_1.setBounds(544, 130, 246, 152);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -311,7 +321,7 @@ public class AddPropertyPage extends JFrame {
 		
 		JPanel panel_1_1 = new JPanel();
 		panel_1_1.setLayout(null);
-		panel_1_1.setBounds(10, 341, 252, 256);
+		panel_1_1.setBounds(273, 341, 207, 256);
 		panel.add(panel_1_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Kitchen");
@@ -361,7 +371,7 @@ public class AddPropertyPage extends JFrame {
 		
 		JPanel panel_1_2 = new JPanel();
 		panel_1_2.setLayout(null);
-		panel_1_2.setBounds(363, 341, 246, 207);
+		panel_1_2.setBounds(544, 341, 246, 207);
 		panel.add(panel_1_2);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Living");
@@ -492,49 +502,74 @@ public class AddPropertyPage extends JFrame {
 		
 		JLabel lblNewLabel_2_2 = new JLabel("Street Name:");
 		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_2.setBounds(414, 7, 138, 13);
+		lblNewLabel_2_2.setBounds(564, 7, 138, 13);
 		panel.add(lblNewLabel_2_2);
 		
 		JLabel lblNewLabel_2_3 = new JLabel("Post Code:");
 		lblNewLabel_2_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_3.setBounds(424, 29, 138, 13);
+		lblNewLabel_2_3.setBounds(578, 26, 138, 13);
 		panel.add(lblNewLabel_2_3);
 		
 		txtbxStreetName = new JTextField();
 		txtbxStreetName.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtbxStreetName.setColumns(10);
-		txtbxStreetName.setBounds(513, 3, 161, 19);
+		txtbxStreetName.setBounds(686, 3, 161, 19);
 		panel.add(txtbxStreetName);
 		
 		txtbxPostCode = new JTextField();
 		txtbxPostCode.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtbxPostCode.setColumns(10);
-		txtbxPostCode.setBounds(513, 25, 121, 19);
+		txtbxPostCode.setBounds(726, 25, 121, 19);
 		panel.add(txtbxPostCode);
 		
 		txtbxCity = new JTextField();
 		txtbxCity.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtbxCity.setColumns(10);
-		txtbxCity.setBounds(242, 27, 144, 19);
+		txtbxCity.setBounds(260, 25, 144, 19);
 		panel.add(txtbxCity);
 		
 		JButton btnNewButton_1 = new JButton("Add Charge Band");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddChargeBand a = new AddChargeBand();
+				AddChargeBand a = new AddChargeBand(chargeBands);
 				a.setVisible(true);
 				a.setSize(new Dimension(450, 200));
 				a.setPreferredSize(new Dimension(450, a.getPreferredSize().height));
 				int result = JOptionPane.showConfirmDialog(null, a, "Add Charge Band", 
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 				if(result == JOptionPane.OK_OPTION) {
-					ChargeBand cb = new ChargeBand(a.startDateTxt.getText(),
-							a.endDateTxt.getText(), 
-							Double.parseDouble(a.serviceChargeTxt.getText()),
-							Double.parseDouble(a.cleaningChargeTxt.getText()),
-							Double.parseDouble(a.pppTxt.getText()));
-					chargeBands.add(cb);
+					ChargeBandController cbc = new ChargeBandController();
+					if(a.serviceChargeTxt.getText().length() <= 1) {
+						JOptionPane.showMessageDialog(null, "Invalid inputs. Please try again.", "Error", JOptionPane.WARNING_MESSAGE);
+					}
+					else if(a.cleaningChargeTxt.getText().length() <= 1) {
+						JOptionPane.showMessageDialog(null, "Invalid inputs. Please try again.", "Error", JOptionPane.WARNING_MESSAGE);
+					}
+					else if(a.pppTxt.getText().length() <= 1) {
+						JOptionPane.showMessageDialog(null, "Invalid inputs. Please try again.", "Error", JOptionPane.WARNING_MESSAGE);
+					}
+					else if(LocalDate.parse(a.startDateTxt.getText()).isAfter(LocalDate.parse(a.endDateTxt.getText()))){
+						JOptionPane.showMessageDialog(null, "Invalid inputs. Please try again.", "Error", JOptionPane.WARNING_MESSAGE);
+					} else {
+						ChargeBand cb = new ChargeBand(a.startDateTxt.getText(),
+								a.endDateTxt.getText(), 
+								Double.parseDouble(a.serviceChargeTxt.getText().substring(1)),
+								Double.parseDouble(a.cleaningChargeTxt.getText().substring(1)),
+								Double.parseDouble(a.pppTxt.getText().substring(1)));
+						if(cbc.chargeBandsOverlap(chargeBands, cb)) {
+							JOptionPane.showMessageDialog(null, "Charge band overlaps with"
+									+ "existing charge bands. Please try again.", "Error", JOptionPane.WARNING_MESSAGE);
+						} else {
+							chargeBands.add(cb);
+							if(cbc.allDatesCovered(chargeBands)) {
+								lblChargeBandStatus.setText("Charge bands complete.");
+								btnNewButton_1.setEnabled(false);
+								btnNewButton.setEnabled(true);
+								lblOKButtonStatus.setVisible(false);
+							}
+						}
+					}
 				}
 			}
 		});
@@ -551,5 +586,14 @@ public class AddPropertyPage extends JFrame {
 		txtbxName.setBounds(58, 51, 121, 19);
 		panel.add(txtbxName);
 		txtbxName.setColumns(10);
+		
+		lblChargeBandStatus = new JLabel("Charge bands are incomplete");
+		lblChargeBandStatus.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblChargeBandStatus.setBounds(33, 689, 207, 25);
+		panel.add(lblChargeBandStatus);
+		
+		lblOKButtonStatus = new JLabel("Complete charge bands to add property");
+		lblOKButtonStatus.setBounds(738, 741, 246, 20);
+		panel.add(lblOKButtonStatus);
 	}
 }
