@@ -275,7 +275,7 @@ public class ViewPropertyPage extends JFrame {
 		btnNewButton = new JButton("Request to book property");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RequestPropertyPanel r = new RequestPropertyPanel();
+				RequestPropertyPanel r = new RequestPropertyPanel(property);
 				r.setVisible(true);
 				r.setSize(new Dimension(350, 200));
 				r.setPreferredSize(new Dimension(350, r.getPreferredSize().height));

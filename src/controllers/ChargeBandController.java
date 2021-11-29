@@ -8,8 +8,36 @@ import java.util.List;
 
 import main.ChargeBand;
 import main.DatabaseCommunication;
+import main.Property;
 
 public class ChargeBandController {
+	
+	public double getTotalCost(List<ChargeBand> chargeBands, LocalDate startDate, LocalDate endDate) {
+		ChargeBand cb = getChargeBandReference(chargeBands, startDate);
+		return getPrice(chargeBands, startDate, endDate)
+				+ cb.getCleaningCharge()
+				+ cb.getServiceCharge();
+	}
+	
+	public ChargeBand getChargeBandReference(List<ChargeBand> chargeBands, LocalDate day) {
+		for(ChargeBand cb : chargeBands) {
+			if(day.isAfter(cb.getStartDate()) && day.isBefore(cb.getEndDate())
+				|| day.isEqual(cb.getStartDate()) || day.isEqual(cb.getEndDate())) {
+				return cb;
+			}
+		}
+		return null;
+	}
+	
+	public double getPrice(List<ChargeBand> chargeBands, LocalDate startDate, LocalDate endDate) {
+		double price = 0.0;
+		do {
+			ChargeBand cb = getChargeBandReference(chargeBands, startDate);
+			price += cb.getPricePerNight();
+			startDate = startDate.plusDays(1);
+		} while (startDate.isBefore(endDate));
+		return price;
+	}
 	
 	/**
 	 * A method to get the next date,
