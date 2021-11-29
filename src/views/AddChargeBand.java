@@ -107,6 +107,9 @@ public class AddChargeBand extends JPanel {
 		ChargeBandController cbc = new ChargeBandController();
 		if(existingChargeBands.size() == 0) {
 			startDateTxt.setText(LocalDate.now().toString());
+		} else {
+			LocalDate lastDateAdded = existingChargeBands.get(existingChargeBands.size() - 1).getEndDate().plusDays(1);
+			startDateTxt.setText(lastDateAdded.toString());
 		}
 	}
 }
