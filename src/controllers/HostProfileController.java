@@ -7,7 +7,6 @@ import java.util.List;
 import Facilities.*;
 import main.Address;
 import main.ChargeBand;
-import main.ChargeBandController;
 import main.DatabaseCommunication;
 import main.Property;
 import main.Review;

@@ -1,11 +1,64 @@
-package main;
+package controllers;
 
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.ChargeBand;
+import main.DatabaseCommunication;
+
 public class ChargeBandController {
+	
+	/**
+	 * A method to get the next date,
+	 * from the furthest date added to a property
+	 * @return
+	 */
+	public LocalDate getNextDate(List<ChargeBand> chargeBands) {
+		LocalDate last = chargeBands.get(0).getEndDate();
+		for(ChargeBand cb : chargeBands) {
+			if(cb.getEndDate().isAfter(last)) {
+				last = cb.getEndDate();
+			}
+		}
+		return last.plusDays(1);
+	}
+	
+	public boolean chargeBandsOverlap(List<ChargeBand> chargeBands, ChargeBand newBand) {
+		for(ChargeBand cb : chargeBands) {
+			if(cb.getEndDate().isEqual(newBand.getStartDate()) ||
+				cb.getEndDate().isAfter(newBand.getStartDate())) {
+				return true;
+			}
+			if(cb.getStartDate().isEqual(newBand.getEndDate()) ||
+				cb.getStartDate().isBefore(newBand.getEndDate())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean dayInChargeBands(LocalDate day, List<ChargeBand> chargeBands) {
+		for(ChargeBand cb : chargeBands) {
+			if(day.isAfter(cb.getStartDate()) && day.isBefore(cb.getEndDate())) {
+				return true;
+			}
+		}
+		return false;	
+	}
+	
+	public boolean allDatesCovered(List<ChargeBand> chargeBands) {
+		LocalDate today = LocalDate.now();
+		while((today.isBefore(LocalDate.parse("2022-12-31")))) {
+			if(!(dayInChargeBands(today, chargeBands))) {
+				return false;
+			}
+			today = today.plusDays(1);
+		}
+		return true;
+	}
 
 	public void getDate() {
 	String query = "SELECT * FROM team023.Charge Band WHERE propertyID=1;";
