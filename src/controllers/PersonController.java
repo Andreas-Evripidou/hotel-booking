@@ -1,7 +1,6 @@
 package controllers;
 
 import java.sql.ResultSet;
-
 import main.DatabaseCommunication;
 import main.Host;
 import main.Person;

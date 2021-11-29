@@ -88,6 +88,9 @@ public class ViewPropertyPage extends JFrame {
 	private JTextField textFieldPlace;
 	private JTextField textFieldPostcode;
 	
+	JButton btnNewButton; //the request button
+	JLabel lblRequestInfo; //label to inform user to log in as guest
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -200,6 +203,17 @@ public class ViewPropertyPage extends JFrame {
 		if(!(host.getIsSuperHost())) lblSuperHost.setText("");
 	}
 	
+	private void setButtonVisibility() {
+		if(person.getGuest() == 0) {
+			//disable request button if user is not a guest
+			btnNewButton.setEnabled(false);
+			//display text to inform user
+		}
+		else {
+			lblRequestInfo.setVisible(false);
+		}
+	}
+	
 	private void setTextAreas() {
 		lblDescription.setText(property.getDescription());
 	}
@@ -249,7 +263,7 @@ public class ViewPropertyPage extends JFrame {
 		lblNewLabel_1.setBounds(523, 10, 147, 43);
 		frmViewProperty.getContentPane().add(lblNewLabel_1);
 		
-		JButton btnNewButton = new JButton("Request to book property");
+		btnNewButton = new JButton("Request to book property");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RequestPropertyPanel r = new RequestPropertyPanel();
@@ -543,6 +557,11 @@ public class ViewPropertyPage extends JFrame {
 		btnReviews.setBounds(354, 735, 156, 44);
 		frmViewProperty.getContentPane().add(btnReviews);
 		
+		lblRequestInfo = new JLabel("Log in as a guest to request this property.");
+		lblRequestInfo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblRequestInfo.setBounds(36, 704, 290, 31);
+		frmViewProperty.getContentPane().add(lblRequestInfo);
+		
 		JPanel panelAddress = new JPanel();
 		panelAddress.setBounds(9, 272, 325, 205);
 		if(accepted)
@@ -600,5 +619,6 @@ public class ViewPropertyPage extends JFrame {
 		checkBoxes();
 		setLabels();
 		setTextAreas();
+		setButtonVisibility();
 	}
 }
