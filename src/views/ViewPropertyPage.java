@@ -90,6 +90,12 @@ public class ViewPropertyPage extends JFrame {
 	
 	JButton btnNewButton; //the request button
 	JLabel lblRequestInfo; //label to inform user to log in as guest
+	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_3;
+	private JLabel lblNewLabel_4;
+	private JLabel lblBathroomCount;
+	private JLabel lblBedroomCount;
+	private JLabel lblMaxGuests;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -201,6 +207,9 @@ public class ViewPropertyPage extends JFrame {
 		lblHostName.setText(host.getHostName());
 		if(!(property.getBreakfastOffered())) lblBreakfastOffered.setText("");
 		if(!(host.getIsSuperHost())) lblSuperHost.setText("");
+		lblBathroomCount.setText(String.valueOf(property.getBathroomCount()));
+		lblBedroomCount.setText(String.valueOf(property.getBedroomCount()));
+		lblMaxGuests.setText(String.valueOf(property.getSleeping().getTotalSleepers()));
 	}
 	
 	private void setButtonVisibility() {
@@ -561,6 +570,36 @@ public class ViewPropertyPage extends JFrame {
 		lblRequestInfo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblRequestInfo.setBounds(36, 704, 290, 31);
 		frmViewProperty.getContentPane().add(lblRequestInfo);
+		
+		lblNewLabel_2 = new JLabel("Number of bathrooms:");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2.setBounds(10, 563, 195, 24);
+		frmViewProperty.getContentPane().add(lblNewLabel_2);
+		
+		lblNewLabel_3 = new JLabel("Number of bedrooms:");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_3.setBounds(10, 604, 195, 20);
+		frmViewProperty.getContentPane().add(lblNewLabel_3);
+		
+		lblNewLabel_4 = new JLabel("Max. Guests:");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_4.setBounds(79, 645, 104, 20);
+		frmViewProperty.getContentPane().add(lblNewLabel_4);
+		
+		lblBathroomCount = new JLabel("");
+		lblBathroomCount.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblBathroomCount.setBounds(181, 566, 53, 21);
+		frmViewProperty.getContentPane().add(lblBathroomCount);
+		
+		lblBedroomCount = new JLabel("");
+		lblBedroomCount.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblBedroomCount.setBounds(181, 603, 53, 21);
+		frmViewProperty.getContentPane().add(lblBedroomCount);
+		
+		lblMaxGuests = new JLabel("");
+		lblMaxGuests.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblMaxGuests.setBounds(181, 644, 53, 21);
+		frmViewProperty.getContentPane().add(lblMaxGuests);
 		
 		JPanel panelAddress = new JPanel();
 		panelAddress.setBounds(9, 272, 325, 205);

@@ -45,6 +45,13 @@ public class Property {
 		return chargeBands;
 	}
 	
+	public int getBedroomCount() {
+		return sleeping.getBedrooms().size();
+	}
+	public int getBathroomCount() {
+		return bathing.getBathrooms().size();
+	}
+	
 	public Address getAddress() {
 		return address;
 	}
