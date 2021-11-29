@@ -54,7 +54,7 @@ public class HostProfilePage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HostProfilePage window = new HostProfilePage(new Person("Mr.","","", "","test1","34343",1,1,"test1"));
+					HostProfilePage window = new HostProfilePage(new Person("Mr.","","", "","amatoli@email.com","34343",1,1,"test1"));
 					Toolkit toolkit = Toolkit.getDefaultToolkit();
 					Dimension screenDimensions = toolkit.getScreenSize();
 					window.frmHostProfile.setLocationRelativeTo(null);
@@ -123,8 +123,7 @@ public class HostProfilePage {
 		JButton btnMyProperties = new JButton("My Properties");
 		btnMyProperties.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Property> properties = pc.getPropertiesByHostID(p.getEmail());
-				PropertiesPage window = new PropertiesPage(properties, frmHostProfile);
+				PropertiesPage window = new PropertiesPage(p.getEmail(), frmHostProfile);
 				window.getFrame().setVisible(true);
 				window.getFrame().setLocationRelativeTo(null);
 				frmHostProfile.setVisible(false);
@@ -217,7 +216,6 @@ public class HostProfilePage {
 		
 		DefaultTableModel model = new DefaultTableModel(requestColumnData,requestColumnNames);
 		reservationRequestTable = new JTable(model);
-		reservationRequestTable.setEnabled(true);
 		
 		Action accept = new AbstractAction()
 		{
@@ -229,7 +227,7 @@ public class HostProfilePage {
 		        String acceptUserID = requestedReservations.get(modelRow).getUserID();
 		        String acceptStartDate = requestedReservations.get(modelRow).getStartDate().toString();
 		        String acceptEndDate = requestedReservations.get(modelRow).getEndDate().toString();
-		        bc.acceptBooking(acceptUserID, acceptPropertyID, acceptStartDate, acceptEndDate);
+		        bc.acceptBooking(acceptUserID, acceptPropertyID, acceptStartDate, acceptEndDate); 
 		        ((DefaultTableModel)table.getModel()).removeRow(modelRow);
 		    }
 		};

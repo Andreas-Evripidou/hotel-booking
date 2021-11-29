@@ -13,6 +13,7 @@ import controllers.PropertyController;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import main.Person;
 import main.Property;
 
 import java.awt.Font;
@@ -35,22 +36,29 @@ public class PropertiesPage {
 	/**
 	 * Create the application.
 	 */
-	public PropertiesPage(ArrayList<Property> ps, JFrame previousFrame) {
-		initialize(ps,previousFrame);
+	public PropertiesPage(String hostID, JFrame previousFrame) {
+		initialize();
+		showProperties(hostID,previousFrame);
 	}
 	public JFrame getFrame() {
 		return frame;
 	}
 
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(ArrayList<Property> ps, JFrame previousFrame) {
+	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1200, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 		
+	}
+	
+	private void showProperties(String hostID,JFrame previousFrame){
+
+	
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
 		frame.getContentPane().add(panel);
@@ -59,6 +67,27 @@ public class PropertiesPage {
 		panel_1.setBackground(Color.LIGHT_GRAY);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		
+		
+		PropertyController pc = new PropertyController();
+		ArrayList<String> properties = pc.getAllPropertIDByHostID(hostID);
+		
+		String[] requestColumnNames = {"Proeprty Name"};
+		Object[][] requestColumnData = new Object[0][0];
+		
+		
+		if(properties != null){
+			requestColumnData = new Object[properties.size()][1];
+			
+			for (int i = 0; i < properties.size() ; i++) {
+				requestColumnData[i][0] = pc.getPropertyNameByPropertyID(Integer.parseInt(properties.get(i)));
+			}
+		}
+			
+		
+		table = new JTable(requestColumnData, requestColumnNames);
+		scrollPane.setViewportView(table);
+		
 		
 		JButton btnNewButton = new JButton("Go Back");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -71,6 +100,7 @@ public class PropertiesPage {
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		GroupLayout gl_panel = new GroupLayout(panel);
+		panel.setLayout(gl_panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
@@ -100,19 +130,5 @@ public class PropertiesPage {
 		JLabel lblMyProperties = new JLabel("My Properties");
 		lblMyProperties.setFont(new Font("Tahoma", Font.BOLD, 24));
 		panel_1.add(lblMyProperties);
-		
-		String[] requestColumnNames = {"Proeprty Name", "Location", "Breakfast"};
-		Object[][] requestColumnData = new Object[ps.size()][3];
-		
-		for (int i = 0; i < ps.size() ; i++) {
-			requestColumnData[i][0] = ps.get(i).getName();
-			requestColumnData[i][1] = ps.get(i).getAddress().getPlaceName();
-			requestColumnData[i][2] = ps.get(i).getBreakfastOffered();
-		}
-		
-		
-		table = new JTable(requestColumnData, requestColumnNames);
-		scrollPane.setViewportView(table);
-		panel.setLayout(gl_panel);
 	}
 }
