@@ -56,21 +56,22 @@ public class ChargeBandController {
 	
 	public boolean chargeBandsOverlap(List<ChargeBand> chargeBands, ChargeBand newBand) {
 		for(ChargeBand cb : chargeBands) {
-			if(cb.getEndDate().isEqual(newBand.getStartDate()) ||
-				cb.getEndDate().isAfter(newBand.getStartDate())) {
-				return true;
-			}
-			if(cb.getStartDate().isEqual(newBand.getEndDate()) ||
-				cb.getStartDate().isBefore(newBand.getEndDate())) {
-				return true;
-			}
+			LocalDate date = newBand.getStartDate();
+			do {
+				if(date.isAfter(cb.getStartDate()) && date.isBefore(cb.getEndDate())
+						|| date.isEqual(cb.getStartDate()) || date.isEqual(cb.getEndDate())) {
+					return true;
+				}
+				date = date.plusDays(1);
+			} while(date.isBefore(newBand.getEndDate()));
 		}
 		return false;
 	}
 	
 	public boolean dayInChargeBands(LocalDate day, List<ChargeBand> chargeBands) {
 		for(ChargeBand cb : chargeBands) {
-			if(day.isAfter(cb.getStartDate()) && day.isBefore(cb.getEndDate())) {
+			if(day.isAfter(cb.getStartDate()) && day.isBefore(cb.getEndDate())
+					|| day.isEqual(cb.getStartDate()) || day.isEqual(cb.getEndDate())) {
 				return true;
 			}
 		}
