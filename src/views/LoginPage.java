@@ -237,10 +237,8 @@ public class LoginPage {
 							frmLogInPage.dispose();
 						}
 						else {
-
-							BookingsController bController = new BookingsController();
 							
-							GuestProfilePage window = new GuestProfilePage(bController.getAllReservations(p.getEmail()));
+							GuestProfilePage window = new GuestProfilePage(p);
 							window.getFrame().setVisible(true);
 							window.getFrame().pack();
 							window.getFrame().setLocationRelativeTo(null);

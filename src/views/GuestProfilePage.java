@@ -38,21 +38,21 @@ public class GuestProfilePage {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					
-					BookingsController bController = new BookingsController();
-					
-					GuestProfilePage window = new GuestProfilePage(bController.getAllReservations("amatoli@email.com"));
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					
+//					BookingsController bController = new BookingsController();
+//					
+//					GuestProfilePage window = new GuestProfilePage(bController.getAllReservations("amatoli@email.com"));
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 	
 	public JFrame getFrame() {
 		return frame;
@@ -60,9 +60,11 @@ public class GuestProfilePage {
 	/**
 	 * Create the application.
 	 */
-	public GuestProfilePage(Pair<ArrayList<Reservation>, ArrayList<ArrayList<String>>> allResrvations) {
+	public GuestProfilePage(Person p) {
 		initialize();
-		showAllReservations(panel, allResrvations);
+		BookingsController bController = new BookingsController();
+		Pair<ArrayList<Reservation>, ArrayList<ArrayList<String>>> allResrvations = bController.getAllReservations(p.getEmail());
+		showAllReservations(panel, allResrvations, p);
 	}
 
 	/**
@@ -128,7 +130,7 @@ public class GuestProfilePage {
 		
 	}
 
-	private void showAllReservations(JPanel panel, Pair<ArrayList<Reservation>, ArrayList<ArrayList<String>>> allResrvations) {
+	private void showAllReservations(JPanel panel, Pair<ArrayList<Reservation>, ArrayList<ArrayList<String>>> allResrvations, Person p) {
 		
 		int numOfReservations = allResrvations.left.size();
 		ArrayList<Reservation> reservations = allResrvations.left;
@@ -229,7 +231,7 @@ public class GuestProfilePage {
 				JButton btnViewProperty = new JButton("More Details");
 				btnViewProperty.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						ViewPropertyPage newFrame = new ViewPropertyPage(property, person, host, propertyID, reservation.getAccepted());
+						ViewPropertyPage newFrame = new ViewPropertyPage(property, p, host, propertyID, reservation.getAccepted());
 						newFrame.getFrame().setVisible(true);
 						newFrame.getFrame().pack();
 						newFrame.getFrame().setLocationRelativeTo(null);
