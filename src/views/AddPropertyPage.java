@@ -100,6 +100,7 @@ public class AddPropertyPage extends JFrame {
 	 * Create the frame.
 	 */
 	public AddPropertyPage(Person p) {
+		setResizable(false);
 		setTitle("Add Property");
 		setBounds(100, 100, 1200, 850);
 		setMinimumSize(new Dimension(1200, 850));
@@ -117,7 +118,7 @@ public class AddPropertyPage extends JFrame {
 		
 		JLabel descriptionLabel = new JLabel("Description:");
 		descriptionLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		descriptionLabel.setBounds(273, 46, 207, 25);
+		descriptionLabel.setBounds(273, 63, 207, 25);
 		panel.add(descriptionLabel);
 		
 		JLabel locationLabel = new JLabel("Address");
@@ -132,7 +133,7 @@ public class AddPropertyPage extends JFrame {
 		
 		descriptionTxt = new JTextField();
 		descriptionTxt.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		descriptionTxt.setBounds(381, 49, 466, 20);
+		descriptionTxt.setBounds(381, 66, 466, 20);
 		panel.add(descriptionTxt);
 		descriptionTxt.setColumns(10);
 		
@@ -227,7 +228,7 @@ public class AddPropertyPage extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Facilities");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel.setBounds(617, 90, 121, 13);
+		lblNewLabel.setBounds(618, 91, 121, 13);
 		panel.add(lblNewLabel);
 		
 		JPanel sleepingPanel = new JPanel();
@@ -486,46 +487,46 @@ public class AddPropertyPage extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("House Name/Number:");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2.setBounds(104, 8, 220, 13);
+		lblNewLabel_2.setBounds(104, 8, 220, 18);
 		panel.add(lblNewLabel_2);
 		
 		txtbxHouse = new JTextField();
 		txtbxHouse.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtbxHouse.setBounds(268, 3, 136, 19);
+		txtbxHouse.setBounds(268, 3, 136, 25);
 		panel.add(txtbxHouse);
 		txtbxHouse.setColumns(10);
 		
 		JLabel cityLabel = new JLabel("City:");
 		cityLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		cityLabel.setBounds(200, 29, 138, 13);
+		cityLabel.setBounds(226, 38, 136, 20);
 		panel.add(cityLabel);
 		
 		JLabel lblNewLabel_2_2 = new JLabel("Street Name:");
 		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_2.setBounds(564, 7, 138, 13);
+		lblNewLabel_2_2.setBounds(588, 7, 138, 13);
 		panel.add(lblNewLabel_2_2);
 		
 		JLabel lblNewLabel_2_3 = new JLabel("Post Code:");
 		lblNewLabel_2_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_3.setBounds(578, 26, 138, 13);
+		lblNewLabel_2_3.setBounds(601, 42, 138, 13);
 		panel.add(lblNewLabel_2_3);
 		
 		txtbxStreetName = new JTextField();
 		txtbxStreetName.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtbxStreetName.setColumns(10);
-		txtbxStreetName.setBounds(686, 3, 161, 19);
+		txtbxStreetName.setBounds(686, 3, 161, 25);
 		panel.add(txtbxStreetName);
 		
 		txtbxPostCode = new JTextField();
 		txtbxPostCode.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtbxPostCode.setColumns(10);
-		txtbxPostCode.setBounds(726, 25, 121, 19);
+		txtbxPostCode.setBounds(726, 35, 121, 25);
 		panel.add(txtbxPostCode);
 		
 		txtbxCity = new JTextField();
 		txtbxCity.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtbxCity.setColumns(10);
-		txtbxCity.setBounds(260, 25, 144, 19);
+		txtbxCity.setBounds(260, 33, 144, 25);
 		panel.add(txtbxCity);
 		
 		JButton btnNewButton_1 = new JButton("Add Charge Band");
@@ -583,7 +584,7 @@ public class AddPropertyPage extends JFrame {
 		
 		txtbxName = new JTextField();
 		txtbxName.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtbxName.setBounds(58, 51, 121, 19);
+		txtbxName.setBounds(59, 50, 121, 25);
 		panel.add(txtbxName);
 		txtbxName.setColumns(10);
 		
@@ -593,7 +594,7 @@ public class AddPropertyPage extends JFrame {
 		panel.add(lblChargeBandStatus);
 		
 		lblOKButtonStatus = new JLabel("Complete charge bands to add property");
-		lblOKButtonStatus.setBounds(738, 741, 246, 20);
+		lblOKButtonStatus.setBounds(728, 741, 256, 20);
 		panel.add(lblOKButtonStatus);
 	}
 }
