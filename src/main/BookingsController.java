@@ -79,7 +79,12 @@ public class BookingsController {
 			e.printStackTrace();
 		} finally {
 			db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
-		}	
+		}
+		
+		if(start.isBefore(LocalDate.now()))
+			return false;
+		if(start.isAfter(end))
+			return false;
 				
 		for (int i = 0; i < startDates.size(); i++) {
 			if (start.isEqual(startDates.get(i)) || start.isEqual(endDates.get(i)) || end.isEqual(startDates.get(i)) || end.isEqual(endDates.get(i))) {
