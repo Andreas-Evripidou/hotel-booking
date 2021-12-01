@@ -46,9 +46,7 @@ public class BookingsController {
 	}
 	
 	public boolean isPropertyAvailable(int propertyID, LocalDate start, LocalDate end) {
-		String query = "SELECT startDate, endDate  FROM team023.`Reservation` WHERE (propertyID=33);";
-				
-//				"AND startDate BETWEEN '" + start +"' AND '" + end + "') OR (propertyID=33 AND endDate BETWEEN '"+ start +"' AND '" + end + "');";
+		String query = "SELECT startDate, endDate  FROM team023.`Reservation` WHERE (propertyID=" + propertyID + ");";
 		
         DatabaseCommunication db = new DatabaseCommunication();
         ArrayList<LocalDate> startDates = new ArrayList<>();
