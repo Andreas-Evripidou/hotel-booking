@@ -23,6 +23,7 @@ public class BookingsController {
 		
 		try {
 			db.updateExecute(query);
+			rejectOverlappingBookings(propertyID, startDate, endDate);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,8 +46,23 @@ public class BookingsController {
 		}	
 	}
 	
+	public void rejectOverlappingBookings(int propertyID, String startDate, String endDate) {
+		String query = "DELETE FROM `team023`.`Reservation` WHERE propertyID='" + propertyID + 
+				"' AND accepted=0 AND ((startDate>='" + startDate + "' AND endDate<='" + endDate + "') OR "
+				+ "(startDate>='" + startDate + "' AND startDate<='" + endDate + "') OR (startDate<='" + 
+				startDate + "' AND endDate>='" + endDate + "') OR (endDate>='" + startDate + "' AND endDate<='" + endDate + "')) ;";
+		DatabaseCommunication db = new DatabaseCommunication();
+		try {
+			db.updateExecute(query);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+		}
+	}
 	public boolean isPropertyAvailable(int propertyID, LocalDate start, LocalDate end) {
-		String query = "SELECT startDate, endDate  FROM team023.`Reservation` WHERE (propertyID=" + propertyID + ");";
+		String query = "SELECT startDate, endDate  FROM team023.`Reservation` WHERE (propertyID=" + propertyID + ") AND accepted=1;";
 		
         DatabaseCommunication db = new DatabaseCommunication();
         ArrayList<LocalDate> startDates = new ArrayList<>();
@@ -135,6 +151,10 @@ public class BookingsController {
 //		bc.acceptBooking("amatoli@email.com", 33);
 //		System.out.println(bc.isPropertyAvailable(33, LocalDate.parse("2021-12-21"), LocalDate.parse("2021-12-31")));
 //		System.out.println(bc.getAllReservations("amatoli@email.com").left.get(0).getPropertyID());
-		
+//		bc.rejectOverlappingBookings(33, "2027-12-11", "2027-12-15");
+//		System.out.println("OK");
+//		
+//		System.out.println(bc.isPropertyAvailable(33, LocalDate.parse("2021-12-12"), LocalDate.parse("2021-12-31")));
+//		
 	}
 }
