@@ -155,21 +155,21 @@ public class GuestProfilePage {
             
 				JLabel lblShortName = new JLabel("Short Name: ");
 				lblShortName.setForeground(Color.BLACK);
-				lblShortName.setPreferredSize(new Dimension(110, 20));
+				lblShortName.setPreferredSize(new Dimension(120, 20));
 				JTextField textFieldShortName = new JTextField(rInfo.get(0));
 				textFieldShortName.setPreferredSize(new Dimension(320, 20));
 				textFieldShortName.setEditable(false);
 
 				JLabel lblGeneralLocation = new JLabel("General Location: ");
 				lblGeneralLocation.setForeground(Color.BLACK);
-				lblGeneralLocation.setPreferredSize(new Dimension(110, 20));
+				lblGeneralLocation.setPreferredSize(new Dimension(120, 20));
 				JTextField textFieldGeneralLocation = new JTextField(rInfo.get(2));
 				textFieldGeneralLocation.setPreferredSize(new Dimension(320, 20));
 				textFieldGeneralLocation.setEditable(false);
             
 				JLabel lblDescription = new JLabel("Description: ");
 				lblDescription.setForeground(Color.BLACK);
-				lblDescription.setPreferredSize(new Dimension(110, 20));
+				lblDescription.setPreferredSize(new Dimension(120, 20));
 				JTextArea textAreaDescription = new JTextArea(rInfo.get(1));
 				textAreaDescription.setPreferredSize(new Dimension(320, 100));
 				textAreaDescription.setLineWrap(true);
@@ -177,21 +177,21 @@ public class GuestProfilePage {
             
 				JLabel lblStartDate = new JLabel("Start Date: ");
 				lblStartDate.setForeground(Color.BLACK);
-				lblStartDate.setPreferredSize(new Dimension(110, 20));
+				lblStartDate.setPreferredSize(new Dimension(120, 20));
 				JTextField textFieldStartDate = new JTextField(reservation.getStartDate().toString());
 				textFieldStartDate.setPreferredSize(new Dimension(320, 20));
 				textFieldStartDate.setEditable(false);
 
 				JLabel lblEndDate = new JLabel("End Date: ");
 				lblEndDate.setForeground(Color.BLACK);
-				lblEndDate.setPreferredSize(new Dimension(110, 20));
+				lblEndDate.setPreferredSize(new Dimension(120, 20));
 				JTextField textFieldEndDate = new JTextField(reservation.getEndDate().toString());
 				textFieldEndDate.setPreferredSize(new Dimension(320, 20));
 				textFieldEndDate.setEditable(false);
             
 				JLabel lblAccepted = new JLabel("Accepted: ");
 				lblAccepted.setForeground(Color.BLACK);
-				lblAccepted.setPreferredSize(new Dimension(110, 20));
+				lblAccepted.setPreferredSize(new Dimension(120, 20));
 				JTextField textFieldAccepted = new JTextField(reservation.getAccepted().toString());
 				textFieldAccepted.setPreferredSize(new Dimension(320, 20));
 				textFieldAccepted.setEditable(false);
@@ -205,7 +205,7 @@ public class GuestProfilePage {
 				
 				JLabel lblHostEmail = new JLabel("Host's Email: ");
 				lblHostEmail.setForeground(Color.BLACK);
-				lblHostEmail.setPreferredSize(new Dimension(110, 20));
+				lblHostEmail.setPreferredSize(new Dimension(120, 20));
 				JTextField textFieldHostEmail = new JTextField();
 				textFieldHostEmail.setPreferredSize(new Dimension(320, 20));
 				if (reservation.getAccepted()) {
@@ -218,7 +218,7 @@ public class GuestProfilePage {
 				
 				JLabel lblHostContact = new JLabel("Host's Number: ");
 				lblHostContact.setForeground(Color.BLACK);
-				lblHostContact.setPreferredSize(new Dimension(110, 20));
+				lblHostContact.setPreferredSize(new Dimension(120, 20));
 				JTextField textFieldContact = new JTextField();
 				textFieldContact.setPreferredSize(new Dimension(320, 20));
 				if (reservation.getAccepted()) {
