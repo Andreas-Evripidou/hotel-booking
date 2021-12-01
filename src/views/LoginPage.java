@@ -145,7 +145,7 @@ public class LoginPage {
 		backToHomeScreen.setBackground(Color.LIGHT_GRAY);
 		backToHomeScreen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SearchPage window = new SearchPage(null,null,null);
+				SearchPage window = new SearchPage(null,null,null,null);
 				window.getFrame().setVisible(true);
 				window.getFrame().pack();
 				window.getFrame().setLocationRelativeTo(null);
@@ -240,7 +240,7 @@ public class LoginPage {
 
 							BookingsController bController = new BookingsController();
 							
-							GuestProfilePage window = new GuestProfilePage(bController.getAllReservations(p.getEmail()));
+							GuestProfilePage window = new GuestProfilePage(bController.getAllReservations(p.getEmail()), p);
 							window.getFrame().setVisible(true);
 							window.getFrame().pack();
 							window.getFrame().setLocationRelativeTo(null);

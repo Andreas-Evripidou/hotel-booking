@@ -34,7 +34,7 @@ public class GuestProfilePage {
 
 	private JFrame frame;
 	private JPanel panel;
-
+	public Person personLoggedIn;
 	/**
 	 * Launch the application.
 	 */
@@ -44,8 +44,8 @@ public class GuestProfilePage {
 				try {
 					
 					BookingsController bController = new BookingsController();
-					
-					GuestProfilePage window = new GuestProfilePage(bController.getAllReservations("amatoli@email.com"));
+					Person p = new Person();
+					GuestProfilePage window = new GuestProfilePage(bController.getAllReservations("amatoli@email.com"), p);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,11 +60,17 @@ public class GuestProfilePage {
 	/**
 	 * Create the application.
 	 */
-	public GuestProfilePage(Pair<ArrayList<Reservation>, ArrayList<ArrayList<String>>> allResrvations) {
+	public GuestProfilePage(Pair<ArrayList<Reservation>, ArrayList<ArrayList<String>>> allResrvations, Person p) {
+		this.setPerson(p);
+
 		initialize();
 		showAllReservations(panel, allResrvations);
 	}
 
+	
+	public void setPerson(Person person) {
+		this.personLoggedIn = person;
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -76,6 +82,9 @@ public class GuestProfilePage {
 		frame.setTitle("Guest Profile Page");
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+
+		
 		
 		panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -121,6 +130,24 @@ public class GuestProfilePage {
         btnLogOut.setBackground(Color.LIGHT_GRAY);
         btnLogOut.setBounds(985, 832, 165, 57);
         contentPane.add(btnLogOut);
+        
+        JButton btnSearch = new JButton("SEARCH PROPERTIES");
+        btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HomePage newFrame = new HomePage(personLoggedIn);
+				newFrame.getFrame().setVisible(true);
+				newFrame.getFrame().pack();
+				newFrame.getFrame().setLocationRelativeTo(null);
+				frame.dispose();
+			}
+        });
+        btnSearch.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        btnSearch.setBackground(Color.LIGHT_GRAY);
+        btnSearch.setBounds(50, 20, 180, 70);
+        contentPane.add(btnSearch);
+
+
+        
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);

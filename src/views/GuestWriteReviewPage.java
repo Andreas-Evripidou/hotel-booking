@@ -20,7 +20,8 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import main.Person;
+import controllers.PersonController;
 public class GuestWriteReviewPage {
 
 	private JFrame frame;
@@ -187,7 +188,8 @@ public class GuestWriteReviewPage {
 					    	rc.updateSuperHostStatus(propertyID);
 					    	
 					    	BookingsController bController = new BookingsController();
-							GuestProfilePage newFrame = new GuestProfilePage(bController.getAllReservations(userID));
+							Person p = new Person();
+							GuestProfilePage newFrame = new GuestProfilePage(bController.getAllReservations(userID), p);
 							newFrame.getFrame().setVisible(true);
 							newFrame.getFrame().pack();
 							newFrame.getFrame().setLocationRelativeTo(null);
@@ -209,7 +211,9 @@ public class GuestWriteReviewPage {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				BookingsController bController = new BookingsController();
-				GuestProfilePage newFrame = new GuestProfilePage(bController.getAllReservations(userID));
+				Person p = new Person();
+
+				GuestProfilePage newFrame = new GuestProfilePage(bController.getAllReservations(userID), p);
 				newFrame.getFrame().setVisible(true);
 				newFrame.getFrame().pack();
 				newFrame.getFrame().setLocationRelativeTo(null);
