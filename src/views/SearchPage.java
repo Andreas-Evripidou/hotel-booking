@@ -188,24 +188,23 @@ public class SearchPage {
 		JButton btnNewButton = new JButton("LOGIN");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginPage window = new LoginPage();
-				window.getFrame().setVisible(true);
-				window.getFrame().pack();
-				window.getFrame().setLocationRelativeTo(null);
+				LoginPage newFrame = new LoginPage();
+				newFrame.getFrame().setVisible(true);
+				newFrame.getFrame().pack();
+				newFrame.getFrame().setLocationRelativeTo(null);
 				frame.dispose();
 			}
 		});
-		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		btnNewButton.setBounds(908, 21, 89, 23);
 		frame.getContentPane().add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("REGISTER");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrationPage window = new RegistrationPage();
-				window.getFrame().setVisible(true);
-				window.getFrame().pack();
-				window.getFrame().setLocationRelativeTo(null);
+				RegistrationPage newFrame = new RegistrationPage();
+				newFrame.getFrame().setVisible(true);
+				newFrame.getFrame().pack();
+				newFrame.getFrame().setLocationRelativeTo(null);
 				frame.dispose();
 			}
 		});

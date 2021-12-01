@@ -120,12 +120,26 @@ public class HomePage {
 		JButton btnNewButton = new JButton("LOGIN");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				LoginPage newFrame = new LoginPage();
+				newFrame.getFrame().setVisible(true);
+				newFrame.getFrame().pack();
+				newFrame.getFrame().setLocationRelativeTo(null);
+				frame.dispose();
 			}
 		});
 		btnNewButton.setBounds(908, 21, 89, 23);
 		frame.getContentPane().add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("REGISTER");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrationPage newFrame = new RegistrationPage();
+				newFrame.getFrame().setVisible(true);
+				newFrame.getFrame().pack();
+				newFrame.getFrame().setLocationRelativeTo(null);
+				frame.dispose();
+			}
+		});
 		btnNewButton_1.setBounds(1002, 21, 124, 23);
 		frame.getContentPane().add(btnNewButton_1);
 		// database stuff
