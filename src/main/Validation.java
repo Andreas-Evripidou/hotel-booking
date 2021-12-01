@@ -62,7 +62,7 @@ public class Validation {
 				+ "`dishwasher`, `tableware`, `cookware`, `basicProvisions`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		String insertLiving = "INSERT INTO `team023`.`Living Facility` (`propertyID`, `wifi`, `television`, `satelite`, `streaming`, "
 				+ "`dvdplayer`, `boardGames`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-		String insertOutdoor = "INSERT INTO `team023`.`Outdoor Facility` (`propertyID`, `freeOnSideParking_copy4`, `onRoadParking`, "
+		String insertOutdoor = "INSERT INTO `team023`.`Outdoor Facility` (`propertyID`, `freeOnSideParking`, `onRoadParking`, "
 				+ "`paidCarPark`, `patio`, `barbeque`) VALUES (?, ?, ?, ?, ?, ?)";
 		String insertSleeping = "INSERT INTO `team023`.`Sleeping Facility` (`propertyID`, `bedLiner`, `towels`)"
 				+ "VALUES (?, ?, ?)";
