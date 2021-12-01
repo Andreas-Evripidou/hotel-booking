@@ -12,7 +12,9 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JTextField;
 
+import controllers.PersonController;
 import main.BookingsController;
+import main.Person;
 import main.Review;
 import main.ReviewsController;
 
@@ -161,6 +163,8 @@ public class GuestWriteReviewPage {
 		textAreaComments.setLineWrap(true);
 		panel.add(textAreaComments);
 		
+		PersonController personController = new PersonController(); 
+		Person guest = personController.getPersonByUserID(userID);
 		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
@@ -187,9 +191,11 @@ public class GuestWriteReviewPage {
 					    	rc.writeReview(userID, propertyID, review);
 					    	rc.updateSuperHostStatus(propertyID);
 					    	
+
 					    	BookingsController bController = new BookingsController();
 							Person p = new Person();
 							GuestProfilePage newFrame = new GuestProfilePage(bController.getAllReservations(userID), p);
+
 							newFrame.getFrame().setVisible(true);
 							newFrame.getFrame().pack();
 							newFrame.getFrame().setLocationRelativeTo(null);
@@ -210,10 +216,12 @@ public class GuestWriteReviewPage {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
 				BookingsController bController = new BookingsController();
 				Person p = new Person();
 
-				GuestProfilePage newFrame = new GuestProfilePage(bController.getAllReservations(userID), p);
+				GuestProfilePage newFrame = new GuestProfilePage(guest);
+
 				newFrame.getFrame().setVisible(true);
 				newFrame.getFrame().pack();
 				newFrame.getFrame().setLocationRelativeTo(null);

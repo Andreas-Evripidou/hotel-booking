@@ -229,7 +229,6 @@ public class LoginPage {
 					}
 					else {
 						Person p = v.getUserById(textFielduserID);
-						
 						if (userType=="Host") {
 							HostProfilePage window = new HostProfilePage(p);
 							window.getFrame().setLocationRelativeTo(null);
@@ -237,10 +236,8 @@ public class LoginPage {
 							frmLogInPage.dispose();
 						}
 						else {
-
-							BookingsController bController = new BookingsController();
 							
-							GuestProfilePage window = new GuestProfilePage(bController.getAllReservations(p.getEmail()), p);
+							GuestProfilePage window = new GuestProfilePage(p);
 							window.getFrame().setVisible(true);
 							window.getFrame().pack();
 							window.getFrame().setLocationRelativeTo(null);

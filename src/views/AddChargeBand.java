@@ -38,7 +38,8 @@ public class AddChargeBand extends JPanel {
 		
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		startDateTxt = new JFormattedTextField(df);
-		startDateTxt.setBounds(107, 52, 87, 19);
+		startDateTxt.setEditable(false);
+		startDateTxt.setBounds(107, 52, 103, 19);
 		add(startDateTxt);
 		
 		JLabel lblNewLabel = new JLabel("Start Date:");
@@ -48,7 +49,7 @@ public class AddChargeBand extends JPanel {
 		
 		endDateTxt = new JFormattedTextField(df);
 		endDateTxt.setText("2022-12-31");
-		endDateTxt.setBounds(107, 83, 87, 19);
+		endDateTxt.setBounds(107, 83, 105, 19);
 		add(endDateTxt);
 		
 		JLabel lblNewLabel_1 = new JLabel("End Date:");
@@ -91,7 +92,7 @@ public class AddChargeBand extends JPanel {
 		
 		JLabel lblNewLabel_4 = new JLabel("(YYYY-MM-DD)");
 		lblNewLabel_4.setForeground(Color.GRAY);
-		lblNewLabel_4.setBounds(107, 35, 75, 13);
+		lblNewLabel_4.setBounds(107, 35, 100, 13);
 		add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_4_1 = new JLabel("(\u00A30.00)");

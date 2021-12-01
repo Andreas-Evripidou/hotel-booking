@@ -455,6 +455,7 @@ public class SearchPage {
 			public void actionPerformed(ActionEvent e) {
 				JTable table = (JTable) e.getSource();
 				int modelRow = Integer.valueOf(e.getActionCommand());
+
 				try {
 					if ( personToUse != null) {
 				        int tableRow = Integer.valueOf( e.getActionCommand() );

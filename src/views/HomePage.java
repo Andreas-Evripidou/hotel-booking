@@ -215,6 +215,8 @@ public class HomePage {
 					validDates = false;
 				}
 				if (validDates) {
+					System.out.println(personToUse);
+
 					SearchPage newFrame = new SearchPage(locationToUse, startDateToUse, endDateToUse, personToUse);
 					newFrame.getFrame().setVisible(true);
 					newFrame.getFrame().pack();

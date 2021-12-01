@@ -33,7 +33,7 @@ public class AddBathroom extends JPanel {
 		
 		chckbxSharedWithHost = new JCheckBox("Shared with Host");
 		chckbxSharedWithHost.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		chckbxSharedWithHost.setBounds(160, 83, 121, 21);
+		chckbxSharedWithHost.setBounds(160, 83, 129, 21);
 		add(chckbxSharedWithHost);
 
 	}
