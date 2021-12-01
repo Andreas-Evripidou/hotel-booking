@@ -14,10 +14,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import controllers.HostProfileController;
-import controllers.PersonController;
-import controllers.PropertyController;
-import controllers.ReservationController;
+import controllers.*;
+import main.Address;
 import main.BookingsController;
 import main.ButtonColumn;
 import main.Person;
@@ -49,6 +47,7 @@ public class HostProfilePage {
 	private ReservationController rc = new ReservationController();
 	private PersonController personContr = new PersonController();
 	private BookingsController bc = new BookingsController();
+	private AddressController ac= new AddressController();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -198,15 +197,16 @@ public class HostProfilePage {
 	private void showRequestedReservations(Person p) {
 		ArrayList<Reservation> requestedReservations = rc.getNotAcceptedReservationsByHostID(p.getEmail());
 		
-		String[] requestColumnNames = {"Proeprty Name", "Guest Name", "Start Date", "End Date", "Accept", "Reject"};
+		String[] requestColumnNames = {"Proeprty Name", "Guest Username", "Start Date", "End Date", "Accept", "Reject"};
 		Object[][] requestColumnData = new Object[0][0];
 		
 		if(requestedReservations != null){
 			requestColumnData = new Object[requestedReservations.size()][6];
 			
 			for (int i=0; i< requestedReservations.size() ; i++) {
+				Person guest = personContr.getPersonByUserID(requestedReservations.get(i).getUserID());
 				requestColumnData[i][0] = pc.getPropertyNameByPropertyID(requestedReservations.get(i).getPropertyID());
-				requestColumnData[i][1] = personContr.getNameByUserID(requestedReservations.get(i).getUserID());
+				requestColumnData[i][1] = guest.getUsername();
 				requestColumnData[i][2] = requestedReservations.get(i).getStartDate();
 				requestColumnData[i][3] = requestedReservations.get(i).getEndDate();
 				requestColumnData[i][4] = "Accept";
@@ -228,7 +228,11 @@ public class HostProfilePage {
 		        String acceptStartDate = requestedReservations.get(modelRow).getStartDate().toString();
 		        String acceptEndDate = requestedReservations.get(modelRow).getEndDate().toString();
 		        bc.acceptBooking(acceptUserID, acceptPropertyID, acceptStartDate, acceptEndDate); 
+		        
+		        showAcceptedReservations(p);
+//		        showAcceptedReservations(p);
 		        ((DefaultTableModel)table.getModel()).removeRow(modelRow);
+		        
 		    }
 		};
 		
@@ -245,7 +249,7 @@ public class HostProfilePage {
 		        bc.rejectBooking(deleteUserID, deletePropertyID, deleteStartDate, deleteEndDate);
 		        
 		        ((DefaultTableModel)table.getModel()).removeRow(modelRow);
-		        
+		       
 		    }
 		};
 		
@@ -256,6 +260,7 @@ public class HostProfilePage {
 		
 		JScrollPane reservationRequestsScrollPanel = new JScrollPane();
 		reservationRequestsScrollPanel.setViewportView(reservationRequestTable);
+		
 		reservationRequestPanel.add(reservationRequestsScrollPanel);
 	}
 	
@@ -263,19 +268,30 @@ public class HostProfilePage {
 	private void showAcceptedReservations(Person p) {
 		ArrayList<Reservation> acceptedReservations = rc.getAcceptedReservationsByHostID(p.getEmail());
 		
-		String[] reservationColumnNames = {"Proeprty Name","Guest Name","Start Date","End Date","Contact Details"};
+		String[] reservationColumnNames = {"Proeprty Name","Guest Name", "Email", "Contact Details", "Location", "Street", "Postcode", "Start Date","End Date"};
 		Object[][] acceptedColumnData = new Object[0][0];
 		
 		if(acceptedReservations != null){
 			
-			acceptedColumnData = new Object[acceptedReservations.size()][6];
+			acceptedColumnData = new Object[acceptedReservations.size()][10];
 			
 			for (int i=0; i< acceptedReservations.size() ; i++) {
+				
+				Person guest = personContr.getPersonByUserID(acceptedReservations.get(i).getUserID());
+				
 				acceptedColumnData[i][0] = pc.getPropertyNameByPropertyID(acceptedReservations.get(i).getPropertyID());
-				acceptedColumnData[i][1] = personContr.getNameByUserID(acceptedReservations.get(i).getUserID());
-				acceptedColumnData[i][2] = acceptedReservations.get(i).getStartDate();
-				acceptedColumnData[i][3] = acceptedReservations.get(i).getEndDate();
-				acceptedColumnData[i][4] = personContr.getContactNumberByUserID(acceptedReservations.get(i).getUserID());
+				acceptedColumnData[i][1] = guest.getTitle() + " " +guest.getForename()+ " " + guest.getSurname(); //add Surname
+				acceptedColumnData[i][2] = guest.getEmail();//address.getHouse();
+				acceptedColumnData[i][3] = guest.getPhoneNumber();
+				
+				Address address  = ac.getAddressByUserID(guest.getEmail());
+				
+				acceptedColumnData[i][4] =address.getPlaceName(); //address.getPostCode();
+				acceptedColumnData[i][5] = address.getStreetName(); //address.getStreetName();
+				acceptedColumnData[i][6] = address.getPostCode(); //address.getStreetName();
+				acceptedColumnData[i][7] = acceptedReservations.get(i).getStartDate();
+				acceptedColumnData[i][8] = acceptedReservations.get(i).getEndDate();
+				
 			}
 		}		
 		
@@ -284,8 +300,13 @@ public class HostProfilePage {
 		
 		
 		JScrollPane acceptedReservationsScrollPane = new JScrollPane();
+		
 		acceptedReservationsScrollPane.setViewportView(acceptRequestTable);
 		
+		acceptedReservationsPanel.removeAll();
 		acceptedReservationsPanel.add(acceptedReservationsScrollPane);
+		
+		frmHostProfile.revalidate();
+        frmHostProfile.repaint();
 	}
 }

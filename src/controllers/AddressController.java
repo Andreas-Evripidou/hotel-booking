@@ -64,8 +64,30 @@ public class AddressController {
 		return null;
 	}
 	
-//	public static void main (String [] args) {
-//		AddressController aController = new AddressController();
-//		System.out.println(aController.getAddressByPropertyID("33").getPlaceName());
-//	}
+	public Address getAddressByUserID(String userID) {
+		String queryProperty = "SELECT house, postcode FROM team023.Person WHERE userID='" + userID + "';";
+		DatabaseCommunication db = new DatabaseCommunication();	
+		String house = null;
+		String postcode = null;
+		try {
+			
+			ResultSet results = db.queryExecute(queryProperty);
+			while (results.next()) {
+				house = results.getString(1);
+				postcode = results.getString(2);
+			}
+			return getAddress(postcode, house);
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+			}
+		return null;
+	}
+	
+	public static void main (String [] args) {
+		AddressController aController = new AddressController();
+		System.out.println(aController.getAddressByUserID("moisis@gmaail.com").getPlaceName());
+	}
 }
