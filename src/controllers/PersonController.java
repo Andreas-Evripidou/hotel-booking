@@ -6,6 +6,48 @@ import main.Host;
 import main.Person;
 
 	public class PersonController {
+		
+		public Person getPersonByUserID(String userID) {
+			String query = "SELECT * FROM team023.Person WHERE userID='" + userID + "'";
+			DatabaseCommunication db = new DatabaseCommunication();
+			
+			Person p = null;
+			 String title = null;
+			 String forename = null;
+			 String surname = null;
+			 String username = null;
+			 String emailAddress = null;
+			 String phoneNumber = null;
+			 int host = 0;
+			 int guest = 0;
+			 String password = null;
+			
+			try {
+				ResultSet results = db.queryExecute(query);
+				while (results.next()) {
+					emailAddress = results.getString(1);
+					password = results.getString(2);
+					title = results.getString(3);
+					forename = results.getString(4);
+					surname = results.getString(5);
+					username = results.getString(6);
+					phoneNumber = results.getString(7);
+					host = results.getInt(8);
+					guest = results.getInt(9);
+					
+				}
+				
+				p = new Person( title,  forename,  surname,  username, emailAddress,  phoneNumber,  host,  guest,  password);
+				
+				return p;
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+				}
+			return null;
+		}
+		
 		public String getNameByUserID(String userID) {
 			String query = "SELECT name FROM team023.Person WHERE userID='" + userID + "'";
 			DatabaseCommunication db = new DatabaseCommunication();
@@ -133,10 +175,10 @@ import main.Person;
 		}
 		
 		
-//		public static void main(String [] args) {
-//			PersonController pController = new PersonController();
-//			System.out.println(pController.getPersonByPropertyID("33").getEmail());
-//			
-//		}
+		public static void main(String [] args) {
+			PersonController pController = new PersonController();
+			System.out.println(pController.getPersonByUserID("a@gmail.com").getForename());
+			
+		}
 		
 }
