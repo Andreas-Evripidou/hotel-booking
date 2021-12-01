@@ -12,8 +12,28 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
 
+import Facilities.Bathing;
+import Facilities.Bathroom;
+import Facilities.Bed;
+import Facilities.Bedroom;
+import Facilities.Kitchen;
+import Facilities.Living;
+import Facilities.Outdoor;
+import Facilities.Sleeping;
+import Facilities.Utility;
+import main.Address;
 import main.ButtonColumn;
+import main.ChargeBand;
 import main.DatabaseCommunication;
+import main.Host;
+
+import controllers.PropertyController;
+import controllers.RequestController;
+
+import main.Person;
+import main.Property;
+import main.Reservation;
+import main.ReviewsController;
 
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
@@ -33,8 +53,18 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
+import main.Person;
+import main.Property;
+import controllers.AddressController;
+import controllers.ChargeBandController;
+import controllers.FacilitiesController;
+import controllers.PersonController;
+import controllers.PropertyController;
+
+
 
 public class SearchPage {
 
@@ -54,6 +84,7 @@ public class SearchPage {
 	private JTextField endDayField;
 	private JTextField endMonthField;
 	private JTextField endYearField;
+	public Person personToUse;
 
 	/**
 	 * Launch the application.
@@ -62,7 +93,7 @@ public class SearchPage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SearchPage window = new SearchPage(null, null, null);
+					SearchPage window = new SearchPage(null, null, null, null);
 					window.frame.setVisible(true);
 					window.getFrame().pack();
 					window.getFrame().setLocationRelativeTo(null);
@@ -76,10 +107,11 @@ public class SearchPage {
 	/**
 	 * Create the application.
 	 */
-	public SearchPage(String locationToUse, String startDateToUse, String endDateToUse) {
+	public SearchPage(String locationToUse, String startDateToUse, String endDateToUse, Person person) {
 		this.setPropertyLocation(locationToUse);
 		this.setStartDate(startDateToUse);
 		this.setEndDate(endDateToUse);
+		this.setPerson(person);
 		initialize();
 	}
 
@@ -110,6 +142,14 @@ public class SearchPage {
 
 	public String getEndDate() {
 		return endDateToUse;
+	}
+	
+	
+	public void setPerson(Person person) {
+		this.personToUse = person;
+	}
+	public Person getPerson() {
+		return(this.personToUse);
 	}
 
 	/**
@@ -148,24 +188,23 @@ public class SearchPage {
 		JButton btnNewButton = new JButton("LOGIN");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginPage window = new LoginPage();
-				window.getFrame().setVisible(true);
-				window.getFrame().pack();
-				window.getFrame().setLocationRelativeTo(null);
+				LoginPage newFrame = new LoginPage();
+				newFrame.getFrame().setVisible(true);
+				newFrame.getFrame().pack();
+				newFrame.getFrame().setLocationRelativeTo(null);
 				frame.dispose();
 			}
 		});
-		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		btnNewButton.setBounds(908, 21, 89, 23);
 		frame.getContentPane().add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("REGISTER");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrationPage window = new RegistrationPage();
-				window.getFrame().setVisible(true);
-				window.getFrame().pack();
-				window.getFrame().setLocationRelativeTo(null);
+				RegistrationPage newFrame = new RegistrationPage();
+				newFrame.getFrame().setVisible(true);
+				newFrame.getFrame().pack();
+				newFrame.getFrame().setLocationRelativeTo(null);
 				frame.dispose();
 			}
 		});
@@ -254,7 +293,7 @@ public class SearchPage {
 					validDates = false;
 				}
 				if (validDates) {
-					SearchPage newFrame = new SearchPage(locationToUse, startDateToUse, endDateToUse);
+					SearchPage newFrame = new SearchPage(locationToUse, startDateToUse, endDateToUse, personToUse);
 					newFrame.getFrame().setVisible(true);
 					newFrame.getFrame().pack();
 					newFrame.getFrame().setLocationRelativeTo(null);
@@ -412,22 +451,66 @@ public class SearchPage {
 		DefaultTableModel model = new DefaultTableModel(rowData, tableHeaderList);
 		table_1 = new JTable(model);
 		table_1.setRowHeight(table_1.getRowHeight() + 20);
-
 		Action moreDetails = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				JTable table = (JTable) e.getSource();
 				int modelRow = Integer.valueOf(e.getActionCommand());
-				if ( /* logged in */ false) {
-					//ViewPropertyPage propertyPageFrame = new ViewPropertyPage(property, host, 33, true)
-					//propertyPageFrame.getFrame().setVisible(true);
-					//propertyPageFrame.getFrame().pack();
-					//propertyPageFrame.getFrame().setLocationRelativeTo(null);
-					//frame.dispose();
-				} else {
+
+				try {
+					if ( personToUse != null) {
+				        int tableRow = Integer.valueOf( e.getActionCommand() );
+				        String propertyIDClickedOn = propertyIDS.get(tableRow);
+				        FacilitiesController fController = new FacilitiesController();
+						Bathing bathing = fController.getBathingFacByPropertyID(propertyIDClickedOn);
+						Sleeping sleeping = fController.getSleepingFacByPropertyID(propertyIDClickedOn);
+						Kitchen kitchen = fController.getKitchenFacByPropertyID(propertyIDClickedOn);
+						Living living = fController.getLivingFacByPropertyID(propertyIDClickedOn);
+						Outdoor outdoor = fController.getOutdoorFacByPropertyID(propertyIDClickedOn);
+						Utility utility = fController.getUtilityFacByPropertyID(propertyIDClickedOn);
+						
+						ChargeBandController cbController = new ChargeBandController();
+						List<ChargeBand> chargeBand = cbController.getChargeBandsByPropertyID(propertyIDClickedOn);
+						
+						AddressController aController = new AddressController();
+						Address address = aController.getAddressByPropertyID(propertyIDClickedOn);
+						PropertyController pController = new PropertyController(); 
+
+						boolean breakfast = pController.offersBreakfast(propertyIDClickedOn);
+
+						String query = "SELECT userID FROM team023.Property WHERE propertyID =" + propertyIDClickedOn + ";";
+						DatabaseCommunication db = new DatabaseCommunication();
+						String hostID = "";
+						try {
+							ResultSet results = db.queryExecute(query);
+							while (results.next()) {
+								hostID = results.getString(1);
+							}
+
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						} finally {
+							db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
+						}
+						
+						PersonController personController = new PersonController(); 
+
+						Host hostToUse = personController.getHostByPropertyID(propertyIDClickedOn);
+						Property property = new Property(chargeBand, address, pController.getPropertyNameByPropertyID(Integer.parseInt(propertyIDClickedOn)), pController.getPropertyDescriptionByPropertyID(Integer.parseInt(propertyIDClickedOn)), breakfast, bathing, kitchen, living, outdoor, sleeping, utility);
+
+						ViewPropertyPage propertyPageFrame = new ViewPropertyPage(property, personToUse, hostToUse, Integer.parseInt(propertyIDClickedOn), true);
+						propertyPageFrame.getFrame().setVisible(true);
+						propertyPageFrame.getFrame().pack();
+						propertyPageFrame.getFrame().setLocationRelativeTo(null);
+						frame.dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "You must be logged in to see more details!", "Errors",
+								JOptionPane.WARNING_MESSAGE);
+					}
+				}catch(Exception e1) {
 					JOptionPane.showMessageDialog(null, "You must be logged in to see more details!", "Errors",
 							JOptionPane.WARNING_MESSAGE);
-				}
 
+				}
 			}
 		};
 

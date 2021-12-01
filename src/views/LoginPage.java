@@ -145,7 +145,7 @@ public class LoginPage {
 		backToHomeScreen.setBackground(Color.LIGHT_GRAY);
 		backToHomeScreen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SearchPage window = new SearchPage(null,null,null);
+				SearchPage window = new SearchPage(null,null,null,null);
 				window.getFrame().setVisible(true);
 				window.getFrame().pack();
 				window.getFrame().setLocationRelativeTo(null);
@@ -229,7 +229,6 @@ public class LoginPage {
 					}
 					else {
 						Person p = v.getUserById(textFielduserID);
-						
 						if (userType=="Host") {
 							HostProfilePage window = new HostProfilePage(p);
 							window.getFrame().setLocationRelativeTo(null);

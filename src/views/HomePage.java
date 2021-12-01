@@ -25,6 +25,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import java.util.ArrayList;
 import java.util.Arrays;
+import main.Person;
+import main.Property;
+
+import controllers.PersonController;
 
 public class HomePage {
 
@@ -39,6 +43,7 @@ public class HomePage {
 	private JTextField endDayField;
 	private JTextField endMonthField;
 	private JTextField endYearField;
+	public Person personToUse;
 
 	/**
 	 * Launch the application.
@@ -47,8 +52,8 @@ public class HomePage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HomePage window = new HomePage();
-					window.frame.setVisible(true);
+					//HomePage window = new HomePage();
+					//window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -59,13 +64,25 @@ public class HomePage {
 	/**
 	 * Create the application.
 	 */
-	public HomePage() {
+	public HomePage(Person person) {
+		this.setPerson(person);
 		initialize();
 	}
-
+	public JFrame getFrame() {
+		frame.setBounds(100, 100, 1200, 850);
+		return frame;
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
+	public void setPerson(Person person) {
+		this.personToUse = person;
+	}
+	public Person getPerson() {
+		return(this.personToUse);
+	}
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -103,12 +120,26 @@ public class HomePage {
 		JButton btnNewButton = new JButton("LOGIN");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				LoginPage newFrame = new LoginPage();
+				newFrame.getFrame().setVisible(true);
+				newFrame.getFrame().pack();
+				newFrame.getFrame().setLocationRelativeTo(null);
+				frame.dispose();
 			}
 		});
 		btnNewButton.setBounds(908, 21, 89, 23);
 		frame.getContentPane().add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("REGISTER");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrationPage newFrame = new RegistrationPage();
+				newFrame.getFrame().setVisible(true);
+				newFrame.getFrame().pack();
+				newFrame.getFrame().setLocationRelativeTo(null);
+				frame.dispose();
+			}
+		});
 		btnNewButton_1.setBounds(1002, 21, 124, 23);
 		frame.getContentPane().add(btnNewButton_1);
 		// database stuff
@@ -184,14 +215,16 @@ public class HomePage {
 					validDates = false;
 				}
 				if (validDates) {
-					SearchPage newFrame = new SearchPage(locationToUse, startDateToUse, endDateToUse);
+					System.out.println(personToUse);
+
+					SearchPage newFrame = new SearchPage(locationToUse, startDateToUse, endDateToUse, personToUse);
 					newFrame.getFrame().setVisible(true);
 					newFrame.getFrame().pack();
 					newFrame.getFrame().setLocationRelativeTo(null);
 					frame.dispose();
 				} else {
 					JOptionPane.showMessageDialog(frame,
-							"Ensure a date formatted DD/MM/YYYY is entered in both sections");
+							"Ensure a date in the future formatted DD/MM/YYYY is entered in both sections");
 					validDates = true;
 				}
 
