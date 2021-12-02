@@ -152,7 +152,7 @@ public class GuestProfilePage {
         });
         btnSearch.setFont(new Font("Tahoma", Font.PLAIN, 15));
         btnSearch.setBackground(Color.LIGHT_GRAY);
-        btnSearch.setBounds(50, 20, 180, 70);
+        btnSearch.setBounds(40, 832, 180, 57);
         contentPane.add(btnSearch);
 
 
