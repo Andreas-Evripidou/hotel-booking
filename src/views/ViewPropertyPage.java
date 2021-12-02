@@ -213,7 +213,7 @@ public class ViewPropertyPage extends JFrame {
 	}
 	
 	private void setButtonVisibility() {
-		if(person.getGuest() == 0) {
+		if(person == null) {
 			//disable request button if user is not a guest
 			btnNewButton.setEnabled(false);
 			//display text to inform user
