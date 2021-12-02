@@ -433,6 +433,23 @@ public class RegistrationPage {
 					.addComponent(panelRegister, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
 					.addGap(14))
 		);
+		
+		JButton btnRedirectToHome = new JButton("Home");
+		btnRedirectToHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SearchPage window = new SearchPage(null,null,null,null);
+				window.getFrame().setVisible(true);
+				window.getFrame().pack();
+				window.getFrame().setLocationRelativeTo(null);
+				frame.dispose();
+			}
+		});
+		btnRedirectToHome.setPreferredSize(new Dimension(100, 40));
+		btnRedirectToHome.setMinimumSize(new Dimension(100, 40));
+		btnRedirectToHome.setMaximumSize(new Dimension(100, 40));
+		btnRedirectToHome.setHideActionText(true);
+		btnRedirectToHome.setBackground(Color.LIGHT_GRAY);
+		panelRegister.add(btnRedirectToHome);
 		panel_1.setLayout(gl_panel_1);
 	}
 }
