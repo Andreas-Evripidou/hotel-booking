@@ -117,31 +117,48 @@ public class HomePage {
 		lblNewLabel_2.setBounds(462, 128, 241, 86);
 		frame.getContentPane().add(lblNewLabel_2);
 
-		JButton btnNewButton = new JButton("LOGIN");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				LoginPage newFrame = new LoginPage();
-				newFrame.getFrame().setVisible(true);
-				newFrame.getFrame().pack();
-				newFrame.getFrame().setLocationRelativeTo(null);
-				frame.dispose();
-			}
-		});
-		btnNewButton.setBounds(908, 21, 89, 23);
-		frame.getContentPane().add(btnNewButton);
-
+		if(personToUse == null) {
+			JButton btnNewButton = new JButton("LOGIN");
+		
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(personToUse == null) {
+						LoginPage newFrame = new LoginPage();
+						newFrame.getFrame().setVisible(true);
+						newFrame.getFrame().pack();
+						newFrame.getFrame().setLocationRelativeTo(null);
+						frame.dispose();
+					}
+				}
+				});
+			
+			btnNewButton.setBounds(908, 21, 89, 23);
+			frame.getContentPane().add(btnNewButton);
+		}
+		
 		JButton btnNewButton_1 = new JButton("REGISTER");
+		if (personToUse != null)
+			btnNewButton_1.setText("Back");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrationPage newFrame = new RegistrationPage();
-				newFrame.getFrame().setVisible(true);
-				newFrame.getFrame().pack();
-				newFrame.getFrame().setLocationRelativeTo(null);
-				frame.dispose();
+				if(personToUse == null) {
+					RegistrationPage newFrame = new RegistrationPage();
+					newFrame.getFrame().setVisible(true);
+					newFrame.getFrame().pack();
+					newFrame.getFrame().setLocationRelativeTo(null);
+					frame.dispose();
+				}else {
+					GuestProfilePage newFrame = new GuestProfilePage(personToUse);
+					newFrame.getFrame().setVisible(true);
+					newFrame.getFrame().pack();
+					newFrame.getFrame().setLocationRelativeTo(null);
+					frame.dispose();
+				}
 			}
-		});
+			});
 		btnNewButton_1.setBounds(1002, 21, 124, 23);
 		frame.getContentPane().add(btnNewButton_1);
+
 		// database stuff
 
 		String query = "SELECT generalLocation FROM team023.Property";

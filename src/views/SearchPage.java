@@ -12,6 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
 
+import com.mysql.cj.conf.ConnectionUrlParser.Pair;
+
 import Facilities.Bathing;
 import Facilities.Bathroom;
 import Facilities.Bed;
@@ -185,33 +187,47 @@ public class SearchPage {
 		lblNewLabel_2.setBounds(463, 68, 241, 86);
 		frame.getContentPane().add(lblNewLabel_2);
 
-		JButton btnNewButton = new JButton("LOGIN");
-		btnNewButton.addActionListener(new ActionListener() {
+		if(personToUse == null) {
+			JButton btnNewButton = new JButton("LOGIN");
+		
+			btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginPage newFrame = new LoginPage();
 				newFrame.getFrame().setVisible(true);
 				newFrame.getFrame().pack();
 				newFrame.getFrame().setLocationRelativeTo(null);
-				frame.dispose();
+				frame.dispose();					
 			}
-		});
-		btnNewButton.setBounds(908, 21, 89, 23);
-		frame.getContentPane().add(btnNewButton);
+			});
+			btnNewButton.setBounds(908, 21, 89, 23);
+			frame.getContentPane().add(btnNewButton);
+		}
+
 
 		JButton btnNewButton_1 = new JButton("REGISTER");
+		if (personToUse != null)
+			btnNewButton_1.setText("Back");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrationPage newFrame = new RegistrationPage();
-				newFrame.getFrame().setVisible(true);
-				newFrame.getFrame().pack();
-				newFrame.getFrame().setLocationRelativeTo(null);
-				frame.dispose();
+				if(personToUse == null) {
+					RegistrationPage newFrame = new RegistrationPage();
+					newFrame.getFrame().setVisible(true);
+					newFrame.getFrame().pack();
+					newFrame.getFrame().setLocationRelativeTo(null);
+					frame.dispose();
+				} else {
+					GuestProfilePage newFrame = new GuestProfilePage(personToUse);
+					newFrame.getFrame().setVisible(true);
+					newFrame.getFrame().pack();
+					newFrame.getFrame().setLocationRelativeTo(null);
+					frame.dispose();
+				}
 			}
-		});
+			});
 		btnNewButton_1.setBackground(Color.LIGHT_GRAY);
 		btnNewButton_1.setBounds(1002, 21, 109, 23);
 		frame.getContentPane().add(btnNewButton_1);
-
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(86, 307, 983, 420);
 		frame.getContentPane().add(scrollPane);
@@ -497,14 +513,26 @@ public class SearchPage {
 						Host hostToUse = personController.getHostByPropertyID(propertyIDClickedOn);
 						Property property = new Property(chargeBand, address, pController.getPropertyNameByPropertyID(Integer.parseInt(propertyIDClickedOn)), pController.getPropertyDescriptionByPropertyID(Integer.parseInt(propertyIDClickedOn)), breakfast, bathing, kitchen, living, outdoor, sleeping, utility);
 
-						ViewPropertyPage propertyPageFrame = new ViewPropertyPage(property, personToUse, hostToUse, Integer.parseInt(propertyIDClickedOn), true);
+						ViewPropertyPage propertyPageFrame = new ViewPropertyPage(property, personToUse, hostToUse, Integer.parseInt(propertyIDClickedOn), false);
 						propertyPageFrame.getFrame().setVisible(true);
 						propertyPageFrame.getFrame().pack();
 						propertyPageFrame.getFrame().setLocationRelativeTo(null);
-						frame.dispose();
+//						frame.dispose();
 					} else {
-						JOptionPane.showMessageDialog(null, "You must be logged in to see more details!", "Errors",
-								JOptionPane.WARNING_MESSAGE);
+						int tableRow = Integer.valueOf( e.getActionCommand() );
+				        String propertyIDClickedOn = propertyIDS.get(tableRow);
+				        PropertyController pController = new PropertyController();
+				        Pair<Property, Pair<Person, Host>> propertyAndHost =  pController.getPropertyAndHost(propertyIDClickedOn);
+				        Property property = propertyAndHost.left;
+				        Host hostToUse = propertyAndHost.right.right;
+						
+						
+						ViewPropertyPage propertyPageFrame = new ViewPropertyPage(property, null, hostToUse, Integer.parseInt(propertyIDClickedOn), false);
+						propertyPageFrame.getFrame().setVisible(true);
+						propertyPageFrame.getFrame().pack();
+						propertyPageFrame.getFrame().setLocationRelativeTo(null);
+//						JOptionPane.showMessageDialog(null, "You must be logged in to see more details!", "Errors",
+//								JOptionPane.WARNING_MESSAGE);
 					}
 				}catch(Exception e1) {
 					JOptionPane.showMessageDialog(null, "You must be logged in to see more details!", "Errors",
