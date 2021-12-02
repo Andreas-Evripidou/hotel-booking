@@ -1,4 +1,4 @@
-package main;
+package controllers;
 
 /*******************************************************************************
  * Copyright (c) 2017 Pablo Pavon Marino and others.

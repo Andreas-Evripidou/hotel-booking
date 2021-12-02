@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import javax.swing.JTextField;
 
 import controllers.ChargeBandController;
-import main.Property;
+import model.Property;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;

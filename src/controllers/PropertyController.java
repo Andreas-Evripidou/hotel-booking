@@ -6,19 +6,18 @@ import java.util.List;
 
 import com.mysql.cj.conf.ConnectionUrlParser.Pair;
 
-import Facilities.Bathing;
-import Facilities.Kitchen;
-import Facilities.Living;
-import Facilities.Outdoor;
-import Facilities.Sleeping;
-import Facilities.Utility;
-import main.Address;
-import main.ChargeBand;
-import main.DatabaseCommunication;
-import main.Host;
-import main.Person;
-import main.Property;
-import main.Reservation;
+import model.Address;
+import model.Bathing;
+import model.ChargeBand;
+import model.Host;
+import model.Kitchen;
+import model.Living;
+import model.Outdoor;
+import model.Person;
+import model.Property;
+import model.Reservation;
+import model.Sleeping;
+import model.Utility;
 
 public class PropertyController {
 	

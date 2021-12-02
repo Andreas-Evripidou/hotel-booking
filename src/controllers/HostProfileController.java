@@ -4,12 +4,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import Facilities.*;
-import main.Address;
-import main.ChargeBand;
-import main.DatabaseCommunication;
-import main.Property;
-import main.Review;
+import model.*;
 
 public class HostProfileController {
 	

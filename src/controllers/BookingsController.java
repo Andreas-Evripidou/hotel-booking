@@ -1,4 +1,4 @@
-package main;
+package controllers;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -8,12 +8,13 @@ import java.util.List;
 
 import com.mysql.cj.conf.ConnectionUrlParser.Pair;
 
-import Facilities.Bathing;
-import Facilities.Kitchen;
-import Facilities.Living;
-import Facilities.Outdoor;
-import Facilities.Sleeping;
-import Facilities.Utility;
+import model.Bathing;
+import model.Kitchen;
+import model.Living;
+import model.Outdoor;
+import model.Reservation;
+import model.Sleeping;
+import model.Utility;
 
 public class BookingsController {
 

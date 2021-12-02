@@ -9,13 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Facilities.*;
 import controllers.ChargeBandController;
-import main.Address;
-import main.ChargeBand;
-import main.Person;
-import main.Property;
-import main.Validation;
+import controllers.Validation;
+import model.*;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

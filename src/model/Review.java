@@ -1,4 +1,4 @@
-package main;
+package model;
 
 public class Review {
 	private int cleanlinessScore;

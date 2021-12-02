@@ -1,4 +1,4 @@
-package main;
+package model;
 
 public class Address {
 	private String house; //the name or number of the property

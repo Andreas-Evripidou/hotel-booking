@@ -5,8 +5,8 @@ import javax.swing.JPanel;
 import javax.swing.*;
 import javax.swing.JScrollPane;
 
-import main.Review;
-import main.ReviewsController;
+import controllers.ReviewsController;
+import model.Review;
 
 import javax.swing.BoxLayout;
 import java.awt.*;

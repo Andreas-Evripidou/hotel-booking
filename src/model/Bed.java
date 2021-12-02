@@ -1,4 +1,4 @@
-package Facilities;
+package model;
 
 public enum Bed {
 	NO_BED("no bed"),

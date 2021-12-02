@@ -7,9 +7,6 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
-
-import main.DatabaseCommunication;
-
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 
@@ -25,10 +22,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import java.util.ArrayList;
 import java.util.Arrays;
-import main.Person;
-import main.Property;
 
+import controllers.DatabaseCommunication;
 import controllers.PersonController;
+import model.Person;
+import model.Property;
 
 public class HomePage {
 

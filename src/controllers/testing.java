@@ -1,8 +1,8 @@
-package main;
+package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import Facilities.*;
+import model.*;
 
 public class testing {
 	

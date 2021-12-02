@@ -12,17 +12,17 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JTextField;
 
+import controllers.BookingsController;
 import controllers.PersonController;
-import main.BookingsController;
-import main.Person;
-import main.Review;
-import main.ReviewsController;
+import controllers.ReviewsController;
+import model.Person;
+import model.Review;
 
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import main.Person;
+
 import controllers.PersonController;
 public class GuestWriteReviewPage {
 

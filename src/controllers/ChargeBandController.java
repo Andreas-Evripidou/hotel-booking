@@ -6,9 +6,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.ChargeBand;
-import main.DatabaseCommunication;
-import main.Property;
+import model.ChargeBand;
+import model.Property;
 
 public class ChargeBandController {
 	

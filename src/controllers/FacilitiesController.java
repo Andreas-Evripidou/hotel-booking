@@ -5,9 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import Facilities.*;
-import main.ChargeBand;
-import main.DatabaseCommunication;
+import model.*;
 
 public class FacilitiesController {
 	

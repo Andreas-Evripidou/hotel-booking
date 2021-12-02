@@ -2,8 +2,7 @@ package controllers;
 
 import java.sql.ResultSet;
 
-import main.Address;
-import main.DatabaseCommunication;
+import model.Address;
 
 public class AddressController {
 	

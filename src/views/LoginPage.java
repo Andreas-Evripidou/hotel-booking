@@ -11,10 +11,10 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
-import main.BookingsController;
-import main.DatabaseCommunication;
-import main.Person;
-import main.Validation;
+import controllers.BookingsController;
+import controllers.DatabaseCommunication;
+import controllers.Validation;
+import model.Person;
 
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.GroupLayout;

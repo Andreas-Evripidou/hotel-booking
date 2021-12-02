@@ -1,15 +1,10 @@
-package main;
+package controllers;
 
 import java.sql.*;
 
-import Facilities.Bathing;
-import Facilities.Bathroom;
-import Facilities.Bedroom;
-import Facilities.Kitchen;
-import Facilities.Living;
-import Facilities.Outdoor;
-import Facilities.Sleeping;
-import Facilities.Utility;
+import model.*;
+
+import controllers.*;
 import views.AddPropertyPage;
 
 public class DatabaseCommunication {

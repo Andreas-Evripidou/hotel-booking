@@ -1,6 +1,4 @@
 package views;
-import main.ChargeBand;
-
 import javax.swing.JPanel;
 
 import java.text.DateFormat;
@@ -19,6 +17,7 @@ import java.text.NumberFormat;
 import javax.swing.JTextField;
 
 import controllers.ChargeBandController;
+import model.ChargeBand;
 
 import java.awt.Color;
 

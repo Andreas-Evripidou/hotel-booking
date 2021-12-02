@@ -1,4 +1,4 @@
-package Facilities;
+package model;
 
 public class Bedroom {
 	Bed bed1;

@@ -7,12 +7,10 @@ import java.time.ZoneId;
 
 import javax.swing.JOptionPane;
 
-import main.BookingsController;
-import main.DatabaseCommunication;
-import main.Host;
-import main.Person;
-import main.Property;
-import main.Reservation;
+import model.Host;
+import model.Person;
+import model.Property;
+import model.Reservation;
 
 public class RequestController {
 	DatabaseCommunication db = new DatabaseCommunication();

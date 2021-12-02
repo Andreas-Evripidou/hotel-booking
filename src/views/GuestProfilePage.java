@@ -21,14 +21,14 @@ import javax.swing.JTextField;
 
 import com.mysql.cj.conf.ConnectionUrlParser.Pair;
 
+import controllers.BookingsController;
 import controllers.PersonController;
 import controllers.PropertyController;
-import main.BookingsController;
-import main.Host;
-import main.Person;
-import main.Property;
-import main.Reservation;
-import main.ReviewsController;
+import controllers.ReviewsController;
+import model.Host;
+import model.Person;
+import model.Property;
+import model.Reservation;
 
 public class GuestProfilePage {
 

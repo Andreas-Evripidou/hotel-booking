@@ -5,11 +5,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import Facilities.Bathing;
-import Facilities.Bathroom;
-import main.DatabaseCommunication;
-import main.Property;
-import main.Reservation;
+import model.Bathing;
+import model.Bathroom;
+import model.Property;
+import model.Reservation;
 
 public class ReservationController {
 	

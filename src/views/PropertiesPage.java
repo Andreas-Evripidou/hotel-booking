@@ -9,12 +9,11 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
 import controllers.PropertyController;
+import model.Person;
+import model.Property;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-
-import main.Person;
-import main.Property;
 
 import java.awt.Font;
 import java.util.ArrayList;
@@ -24,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

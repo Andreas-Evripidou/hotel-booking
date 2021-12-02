@@ -1,4 +1,4 @@
-package main;
+package model;
 
 public class Person {
 	private String title;

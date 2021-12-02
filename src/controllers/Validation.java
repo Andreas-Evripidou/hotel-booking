@@ -1,9 +1,13 @@
-package main;
+package controllers;
 
 import java.sql.*;
 
-import Facilities.Bathroom;
-import Facilities.Bedroom;
+import model.Address;
+import model.Bathroom;
+import model.Bedroom;
+import model.ChargeBand;
+import model.Person;
+import model.Property;
 
 public class Validation {
 	

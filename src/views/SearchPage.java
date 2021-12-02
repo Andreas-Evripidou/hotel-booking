@@ -14,28 +14,24 @@ import javax.swing.table.DefaultTableModel;
 
 import com.mysql.cj.conf.ConnectionUrlParser.Pair;
 
-import Facilities.Bathing;
-import Facilities.Bathroom;
-import Facilities.Bed;
-import Facilities.Bedroom;
-import Facilities.Kitchen;
-import Facilities.Living;
-import Facilities.Outdoor;
-import Facilities.Sleeping;
-import Facilities.Utility;
-import main.Address;
-import main.ButtonColumn;
-import main.ChargeBand;
-import main.DatabaseCommunication;
-import main.Host;
-
 import controllers.PropertyController;
 import controllers.RequestController;
-
-import main.Person;
-import main.Property;
-import main.Reservation;
-import main.ReviewsController;
+import controllers.ReviewsController;
+import model.Address;
+import model.Bathing;
+import model.Bathroom;
+import model.Bed;
+import model.Bedroom;
+import model.ChargeBand;
+import model.Host;
+import model.Kitchen;
+import model.Living;
+import model.Outdoor;
+import model.Person;
+import model.Property;
+import model.Reservation;
+import model.Sleeping;
+import model.Utility;
 
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
@@ -58,10 +54,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
-import main.Person;
-import main.Property;
+
 import controllers.AddressController;
+import controllers.ButtonColumn;
 import controllers.ChargeBandController;
+import controllers.DatabaseCommunication;
 import controllers.FacilitiesController;
 import controllers.PersonController;
 import controllers.PropertyController;

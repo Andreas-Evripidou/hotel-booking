@@ -11,10 +11,10 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import main.Address;
-import main.PasswordHash;
-import main.Person;
-import main.Validation;
+import controllers.PasswordHash;
+import controllers.Validation;
+import model.Address;
+import model.Person;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

@@ -15,12 +15,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import controllers.*;
-import main.Address;
-import main.BookingsController;
-import main.ButtonColumn;
-import main.Person;
-import main.Property;
-import main.Reservation;
+import model.Address;
+import model.Person;
+import model.Property;
+import model.Reservation;
 
 import javax.swing.JScrollPane;
 import javax.swing.AbstractAction;

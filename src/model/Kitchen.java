@@ -1,4 +1,4 @@
-package Facilities;
+package model;
 
 public class Kitchen {
 	private boolean hasRefrigerator;

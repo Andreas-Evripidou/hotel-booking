@@ -1,8 +1,7 @@
-package main;
+package model;
 
 import java.util.List;
 
-import Facilities.*;
 import views.AddPropertyPage;
 
 public class Property {
