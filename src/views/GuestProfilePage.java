@@ -273,12 +273,14 @@ public class GuestProfilePage extends JPanel {
 				singleReservationPanel.add(lblHostContact);
 				singleReservationPanel.add(textFieldContact);
 				singleReservationPanel.add(btnViewProperty);
+				
+				int index = i;
             
 				if (allowedToWriteReview) {
 					JButton btnAddReview = new JButton("Add Review");
 					btnAddReview.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							GuestWriteReviewPage newFrame = new GuestWriteReviewPage(reservations.get(0).getUserID(), reservations.get(0).getPropertyID());
+							GuestWriteReviewPage newFrame = new GuestWriteReviewPage(reservations.get(0).getUserID(), reservations.get(index).getPropertyID());
 							newFrame.getFrame().setVisible(true);
 							newFrame.getFrame().pack();
 							newFrame.getFrame().setLocationRelativeTo(null);   				
