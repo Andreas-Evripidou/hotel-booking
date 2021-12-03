@@ -62,9 +62,10 @@ public class BookingsController {
 			db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
 		}
 	}
+	
+	//Given the property, a start date and an end date, returns whether or not the property is available
 	public boolean isPropertyAvailable(int propertyID, LocalDate start, LocalDate end) {
 		String query = "SELECT startDate, endDate  FROM team023.`Reservation` WHERE (propertyID=" + propertyID + ") AND accepted=1;";
-		
         DatabaseCommunication db = new DatabaseCommunication();
         ArrayList<LocalDate> startDates = new ArrayList<>();
         ArrayList<LocalDate> endDates = new ArrayList<>();
@@ -74,8 +75,6 @@ public class BookingsController {
 				startDates.add(LocalDate.parse(results.getDate(1).toString()));
 				endDates.add(LocalDate.parse(results.getDate(2).toString()));
 					}
-			
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -88,20 +87,23 @@ public class BookingsController {
 			return false;
 				
 		for (int i = 0; i < startDates.size(); i++) {
+			//if any of the dates are equal with an existing reservation returns false
 			if (start.isEqual(startDates.get(i)) || start.isEqual(endDates.get(i)) || end.isEqual(startDates.get(i)) || end.isEqual(endDates.get(i))) {
 				return false;
+			  //if the dates are between start and end date of an existing booking returns false
 			} else if (start.isAfter(startDates.get(i)) && end.isBefore(endDates.get(i))) {
 				return false;
+			  //if start date is before the end date of an existing booking returns false
 			} else if (start.isAfter(startDates.get(i)) && start.isBefore(endDates.get(i))) {
 				return false;
+			  //if the dates of an existing booking are between the given dates, returns false
 			} else if (start.isBefore(startDates.get(i)) && end.isAfter(endDates.get(i))) {
 				return false;
+			  //if end date is after the starting date of an existing booking and before the ending date returns false
 			} else if (end.isAfter(startDates.get(i)) && end.isBefore(endDates.get(i))) {
 				return false;
 			}
 		}
-		
-		
 		return true;
 	}
 	
