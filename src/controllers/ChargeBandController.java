@@ -96,7 +96,6 @@ public class ChargeBandController {
 			ResultSet results = db.queryExecute(query);
 			while (results.next()) {
 				java.sql.Date dbSqlDate = results.getDate(2);
-				System.out.println(dbSqlDate);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

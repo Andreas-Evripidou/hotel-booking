@@ -85,7 +85,6 @@ public class Validation {
 			for(ChargeBand cb : p.getChargeBands()) {
 				db.addChargeBandInDatabase(p, cb, insertChargeBand, propertyID);
 			}
-			System.out.println("Database updates finished.");
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {

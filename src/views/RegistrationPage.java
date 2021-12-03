@@ -423,7 +423,7 @@ public class RegistrationPage extends JPanel{
 						frame.repaint();
 					}
 					else {
-						System.out.println("already exists");
+						JOptionPane.showMessageDialog(null, "There is a user already exist, change your email or address!", "Already Exist", JOptionPane.WARNING_MESSAGE);
 					}
 				}
 				else {
