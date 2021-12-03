@@ -151,16 +151,4 @@ public class BookingsController {
 		return reservations;
 	}
 	
-	
-	public static void main(String [] args) {
-//		BookingsController bc = new BookingsController();
-//		bc.acceptBooking("amatoli@email.com", 33);
-//		System.out.println(bc.isPropertyAvailable(33, LocalDate.parse("2021-12-21"), LocalDate.parse("2021-12-31")));
-//		System.out.println(bc.getAllReservations("amatoli@email.com").left.get(0).getPropertyID());
-//		bc.rejectOverlappingBookings(33, "2027-12-11", "2027-12-15");
-//		System.out.println("OK");
-//		
-//		System.out.println(bc.isPropertyAvailable(33, LocalDate.parse("2021-12-12"), LocalDate.parse("2021-12-31")));
-//		
-	}
 }

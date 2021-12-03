@@ -11,28 +11,6 @@ import model.Property;
 
 public class Validation {
 	
-//	public boolean validateUser(String userID, String password, String whatUser) {
-//		if (whatUser != null) {
-//			String query = "SELECT * FROM team023." + whatUser + " WHERE userID='" + userID + "'";
-//			DatabaseCommunication db = new DatabaseCommunication();
-//			String user = null;
-//			String pass = null;
-//			try {
-//				ResultSet results = db.queryExecute(query);
-//				while (results.next()) {
-//					user = results.getString(1);
-//					pass = results.getString(2);
-//				}
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				} finally {
-//					db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
-//				}
-//			return user != null && pass != null && user.equals(userID) && pass.equals(password);
-//		}
-//		return false;
-//	}
-	
 	public boolean validateUser(String userID, String password, String whatUser) {
 		if (whatUser != null) {
 			String query = "SELECT userID, password FROM team023." + whatUser + " WHERE userID=?";
@@ -147,36 +125,6 @@ public class Validation {
 				db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
 			}
 		return n > 0;
-	}
-	
-	public Person getUserById(String userID) {
-		String query = "SELECT * FROM team023.Person WHERE userID=?";
-		DatabaseCommunication db = new DatabaseCommunication();
-		Person p = null;
-		try {
-			ResultSet result = db.getUserById(query, userID);
-			while (result.next()) {
-				String userId = result.getString(1);
-				String password = result.getString(2);
-				String title = result.getString(3);
-				String forename = result.getString(4);
-				String surname = result.getString(5);
-				String username = result.getString(6);
-				String contactDetails = result.getString(7);
-				int isGuest = result.getInt(8);
-				int isHost = result.getInt(9);
-				
-				PasswordHash ph = new PasswordHash();
-				password = ph.hashPassword(password);
-				
-				p = new Person(title, forename, surname, username, userId, contactDetails, isHost, isGuest, password);
-			}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
-			}
-		return p;
 	}
 	
 	public boolean alreadyExcistsAddress( String houseName, String postcode) {

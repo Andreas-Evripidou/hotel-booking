@@ -34,9 +34,8 @@ import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.JTable;
 
-public class HostProfilePage {
+public class HostProfilePage extends JPanel{
 
-	private JFrame frmHostProfile;
 	private JTable reservationRequestTable;
 	private JTable acceptRequestTable;
 	private JPanel acceptedReservationsPanel = new JPanel();
@@ -46,57 +45,25 @@ public class HostProfilePage {
 	private PersonController personContr = new PersonController();
 	private BookingsController bc = new BookingsController();
 	private AddressController ac= new AddressController();
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					HostProfilePage window = new HostProfilePage(new Person("Mr.","","", "","amatoli@email.com","34343",1,1,"test1"));
-					Toolkit toolkit = Toolkit.getDefaultToolkit();
-					Dimension screenDimensions = toolkit.getScreenSize();
-					window.frmHostProfile.setLocationRelativeTo(null);
-//					window.frmLogInPage.setLocation(new Point((screenDimensions.width - 510)/4, (screenDimensions.height - 350)/4));
-					window.frmHostProfile.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
 	/**
 	 * Create the application.
 	 */
-	public HostProfilePage(Person p) {
-		initialize(p);
-		showRequestedReservations(p);
-		showAcceptedReservations(p);
+	public HostProfilePage(JFrame frame,Person p) {
+		initialize(frame, p);
+		showRequestedReservations(frame,p);
+		showAcceptedReservations(frame,p);
 	}
 	
-	public JFrame getFrame() {
-		return frmHostProfile;
-	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(Person p) {
-		frmHostProfile = new JFrame();
-		frmHostProfile.setTitle("Host Profile ");
-		frmHostProfile.getContentPane().setBackground(Color.LIGHT_GRAY);
-		frmHostProfile.setResizable(false);
-		frmHostProfile.setMaximumSize(new Dimension(1200, 850));
-		frmHostProfile.setMinimumSize(new Dimension(1200, 850));
-		frmHostProfile.setFont(new Font("Calibri", Font.PLAIN, 14));
-		frmHostProfile.setBounds(100, 100, 1200, 850);
-		frmHostProfile.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmHostProfile.getContentPane().setLayout(new BorderLayout(1200, 800));
-		
-		
-		
+	private void initialize(JFrame frame, Person p) {
+				
 		JPanel hostProfilePanel = new JPanel();
 		hostProfilePanel.setBackground(Color.LIGHT_GRAY);
-		frmHostProfile.getContentPane().add(hostProfilePanel, BorderLayout.CENTER);
+		this.add(hostProfilePanel, BorderLayout.CENTER);
 		
 		JLabel lblReservationRequest = new JLabel("Reservation Requests");
 		lblReservationRequest.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -108,11 +75,12 @@ public class HostProfilePage {
 		btnAddProperty.setBackground(Color.LIGHT_GRAY);
 		btnAddProperty.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddPropertyPage window = new AddPropertyPage(p);
-				window.setVisible(true);
-				window.pack();
-				window.setLocationRelativeTo(null);
-				frmHostProfile.dispose();
+				AddPropertyPage newFrame = new AddPropertyPage(frame, p);
+				frame.getContentPane().removeAll();
+				frame.getContentPane().invalidate();
+				frame.getContentPane().add(newFrame);
+				frame.revalidate();
+				frame.repaint();
 			}
 		});
 		btnAddProperty.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -120,10 +88,12 @@ public class HostProfilePage {
 		JButton btnMyProperties = new JButton("My Properties");
 		btnMyProperties.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PropertiesPage window = new PropertiesPage(p.getEmail(), frmHostProfile);
-				window.getFrame().setVisible(true);
-				window.getFrame().setLocationRelativeTo(null);
-				frmHostProfile.setVisible(false);
+				MyPropertiesPage newFrame = new MyPropertiesPage(frame, hostProfilePanel,p.getEmail());
+				frame.getContentPane().removeAll();
+				frame.getContentPane().invalidate();
+				frame.getContentPane().add(newFrame);
+				frame.revalidate();
+				frame.repaint();
 			}
 		});
 		
@@ -133,11 +103,12 @@ public class HostProfilePage {
 		JButton btnLogOut = new JButton("LOGOUT");
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginPage newFrame = new LoginPage();
-				newFrame.getFrame().setVisible(true);
-				newFrame.getFrame().pack();
-				newFrame.getFrame().setLocationRelativeTo(null);
-				frmHostProfile.dispose();
+				LoginPage newFrame = new LoginPage(frame);
+				frame.getContentPane().removeAll();
+				frame.getContentPane().invalidate();
+				frame.getContentPane().add(newFrame);
+				frame.revalidate();
+				frame.repaint();
 				
 			}
 		});
@@ -192,7 +163,7 @@ public class HostProfilePage {
 		hostProfilePanel.setLayout(gl_hostProfilePanel);
 	}
 	
-	private void showRequestedReservations(Person p) {
+	private void showRequestedReservations(JFrame frame ,Person p) {
 		ArrayList<Reservation> requestedReservations = rc.getNotAcceptedReservationsByHostID(p.getEmail());
 		
 		String[] requestColumnNames = {"Proeprty Name", "Guest Username", "Start Date", "End Date", "Accept", "Reject"};
@@ -227,7 +198,7 @@ public class HostProfilePage {
 		        String acceptEndDate = requestedReservations.get(modelRow).getEndDate().toString();
 		        bc.acceptBooking(acceptUserID, acceptPropertyID, acceptStartDate, acceptEndDate); 
 		        
-		        showAcceptedReservations(p);
+		        showAcceptedReservations(frame ,p);
 //		        showAcceptedReservations(p);
 		        ((DefaultTableModel)table.getModel()).removeRow(modelRow);
 		        
@@ -263,7 +234,7 @@ public class HostProfilePage {
 	}
 	
 	
-	private void showAcceptedReservations(Person p) {
+	private void showAcceptedReservations(JFrame frame, Person p) {
 		ArrayList<Reservation> acceptedReservations = rc.getAcceptedReservationsByHostID(p.getEmail());
 		
 		String[] reservationColumnNames = {"Proeprty Name","Guest Name", "Email", "Contact Details", "Location", "Street", "Postcode", "Start Date","End Date"};
@@ -304,7 +275,7 @@ public class HostProfilePage {
 		acceptedReservationsPanel.removeAll();
 		acceptedReservationsPanel.add(acceptedReservationsScrollPane);
 		
-		frmHostProfile.revalidate();
-        frmHostProfile.repaint();
+		frame.revalidate();
+        frame.repaint();
 	}
 }

@@ -3,7 +3,6 @@ package views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -22,149 +21,130 @@ import javax.swing.JTextField;
 import com.mysql.cj.conf.ConnectionUrlParser.Pair;
 
 import controllers.BookingsController;
-import controllers.PersonController;
 import controllers.PropertyController;
 import controllers.ReviewsController;
 import model.Host;
 import model.Person;
 import model.Property;
 import model.Reservation;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import java.awt.Component;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class GuestProfilePage {
-
-	private JFrame frame;
-	private JPanel panel;
-	public Person personLoggedIn;
-	/**
-	 * Launch the application.
-	 */
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					
-					BookingsController bController = new BookingsController();
-					Person p = new Person();
-					GuestProfilePage window = new GuestProfilePage(bController.getAllReservations("amatoli@email.com"), p);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-
+public class GuestProfilePage extends JPanel {
 	
-	public JFrame getFrame() {
-		return frame;
-	}
-	/**
-	 * Create the application.
-	 */
-
-	public GuestProfilePage(Pair<ArrayList<Reservation>, ArrayList<ArrayList<String>>> allResrvations, Person p) {
+	public Person personLoggedIn;;
+	private JPanel panel;
+	private JPanel reviewsPanel;
+	
+	
+	public GuestProfilePage(JFrame frame, Person p) {
 		this.setPerson(p);
-	}
-
-	public GuestProfilePage(Person p) {
-		this.setPerson(p);
-		initialize();
+		initialize(frame);
 		BookingsController bController = new BookingsController();
 		Pair<ArrayList<Reservation>, ArrayList<ArrayList<String>>> allResrvations = bController.getAllReservations(p.getEmail());
-		showAllReservations(panel, allResrvations, p);
+		showAllReservations(frame ,allResrvations, p);
 	}
 
 	
 	public void setPerson(Person person) {
 		this.personLoggedIn = person;
+		
+		
+	}
+	public JPanel getPanel() {
+		return this;
 	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 1200, 850);
-		frame.setMinimumSize(new Dimension(1200, 850));
-		frame.setTitle("Guest Profile Page");
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+	private void initialize(JFrame frame) {
 
+
+		JPanel titlePanel = new JPanel();
+		titlePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
+		JLabel lblPReview = new JLabel("My Reservations");
+		lblPReview.setFont(new Font("Dialog", Font.PLAIN, 35));
+		titlePanel.add(lblPReview);
+		
+		JLabel lblIfYouCannot = new JLabel("If you cannot find your request below it means it was rejected by the host!");
+		lblIfYouCannot.setFont(new Font("Dialog", Font.PLAIN, 20));
+		titlePanel.add(lblIfYouCannot);
+		
+		JScrollPane scrollPane = new JScrollPane((Component) null);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		JButton btnSearch = new JButton("SEARCH PROPERTIES");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HomePage newFrame = new HomePage(frame, personLoggedIn);
+				frame.getContentPane().removeAll();
+				frame.getContentPane().invalidate();
+				frame.getContentPane().add(newFrame);
+				frame.revalidate();
+				frame.repaint();
+			}
+		});
+		btnSearch.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnSearch.setBackground(Color.LIGHT_GRAY);
+		
+		JButton btnLogOut = new JButton("LOGOUT");
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoginPage newFrame = new LoginPage(frame);
+				frame.getContentPane().removeAll();
+				frame.getContentPane().invalidate();
+				frame.getContentPane().add(newFrame);
+				frame.revalidate();
+				frame.repaint();
+				
+			}
+		});
+		btnLogOut.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		btnLogOut.setBackground(Color.LIGHT_GRAY);
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(43)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(148)
+							.addComponent(titlePanel, GroupLayout.PREFERRED_SIZE, 804, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnLogOut, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE))
+							.addComponent(scrollPane, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 1100, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(57, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(titlePanel, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 623, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnLogOut, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(36, Short.MAX_VALUE))
+		);
+		
+		reviewsPanel = new JPanel();
+		scrollPane.setViewportView(reviewsPanel);
+		reviewsPanel.setLayout(new BoxLayout(reviewsPanel, BoxLayout.X_AXIS));
 		
 		panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setAutoscrolls(true);
-        frame.getContentPane().add(panel,BorderLayout.NORTH);
-
-        JScrollPane scrollPane = new JScrollPane(panel);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBounds(50, 105, 1100, 725);
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-
-        JPanel contentPane = new JPanel(null);
-        contentPane.setPreferredSize(new Dimension(900, 900));
-        contentPane.add(scrollPane);
-
-        frame.getContentPane().add(contentPane, BorderLayout.CENTER);
-        
-        JPanel panel_1 = new JPanel();
-        panel_1.setBounds(198, 0, 804, 93);
-        contentPane.add(panel_1);
-        panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        
-        JLabel lblPReview = new JLabel("My Reservations");
-        lblPReview.setFont(new Font("Lucida Grande", Font.PLAIN, 35));
-        panel_1.add(lblPReview);
-        
-        JLabel lblIfYouCannot = new JLabel("If you cannot find your request below it means it was rejected by the host!");
-        lblIfYouCannot.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-        panel_1.add(lblIfYouCannot);
-        
-        JButton btnLogOut = new JButton("LOGOUT");
-        btnLogOut.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		LoginPage newFrame = new LoginPage();
-				newFrame.getFrame().setVisible(true);
-				newFrame.getFrame().pack();
-				newFrame.getFrame().setLocationRelativeTo(null);
-				frame.dispose();
-        	}
-        });
-        btnLogOut.setFont(new Font("Tahoma", Font.PLAIN, 22));
-        btnLogOut.setBackground(Color.LIGHT_GRAY);
-        btnLogOut.setBounds(985, 832, 165, 57);
-        contentPane.add(btnLogOut);
-        
-        JButton btnSearch = new JButton("SEARCH PROPERTIES");
-        btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				HomePage newFrame = new HomePage(personLoggedIn);
-				newFrame.getFrame().setVisible(true);
-				newFrame.getFrame().pack();
-				newFrame.getFrame().setLocationRelativeTo(null);
-				frame.dispose();
-			}
-        });
-        btnSearch.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        btnSearch.setBackground(Color.LIGHT_GRAY);
-        btnSearch.setBounds(40, 832, 180, 57);
-        contentPane.add(btnSearch);
-
-
-        
-        frame.pack();
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setVisible(true);
-		
-		
+		setLayout(groupLayout);
 	}
 
-	private void showAllReservations(JPanel panel, Pair<ArrayList<Reservation>, ArrayList<ArrayList<String>>> allResrvations, Person p) {
+	private void showAllReservations(JFrame frame,Pair<ArrayList<Reservation>, ArrayList<ArrayList<String>>> allResrvations, Person p) {
 		
 		int numOfReservations = allResrvations.left.size();
 		ArrayList<Reservation> reservations = allResrvations.left;
@@ -245,7 +225,7 @@ public class GuestProfilePage {
 				if (reservation.getAccepted()) {
 					textFieldHostEmail.setText(person.getEmail());
 				} else {
-					textFieldHostEmail.setText("Request needs to be accepted to see this field");
+					textFieldHostEmail.setText("Request needs to be accepted to see contentPane field");
 				}
 				
 				textFieldHostEmail.setEditable(false);
@@ -258,17 +238,19 @@ public class GuestProfilePage {
 				if (reservation.getAccepted()) {
 					textFieldContact.setText(person.getPhoneNumber());
 				} else {
-					textFieldContact.setText("Request needs to be accepted to see this field");
+					textFieldContact.setText("Request needs to be accepted to see contentPane field");
 				}
 				textFieldContact.setEditable(false);
             
 				JButton btnViewProperty = new JButton("More Details");
 				btnViewProperty.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						ViewPropertyPage newFrame = new ViewPropertyPage(property, p, host, propertyID, reservation.getAccepted());
-						newFrame.getFrame().setVisible(true);
-						newFrame.getFrame().pack();
-						newFrame.getFrame().setLocationRelativeTo(null);
+						ViewPropertyPage newFrame = new ViewPropertyPage(frame, getPanel(), property, p, host, propertyID, reservation.getAccepted());
+						frame.getContentPane().removeAll();
+						frame.getContentPane().invalidate();
+						frame.getContentPane().add(newFrame);
+						frame.revalidate();
+						frame.repaint();
 					}
 				});
 				btnViewProperty.setBackground(Color.LIGHT_GRAY);
@@ -299,8 +281,7 @@ public class GuestProfilePage {
 							GuestWriteReviewPage newFrame = new GuestWriteReviewPage(reservations.get(0).getUserID(), reservations.get(0).getPropertyID());
 							newFrame.getFrame().setVisible(true);
 							newFrame.getFrame().pack();
-							newFrame.getFrame().setLocationRelativeTo(null);
-							frame.dispose();     				
+							newFrame.getFrame().setLocationRelativeTo(null);   				
 						}
 					});
 					btnAddReview.setBackground(Color.LIGHT_GRAY);
@@ -310,7 +291,7 @@ public class GuestProfilePage {
 				}
                        
 				allReservationsPanel.add(singleReservationPanel);
-				panel.add(allReservationsPanel); 
+				reviewsPanel.add(allReservationsPanel); 
 			}
 		}
 	}

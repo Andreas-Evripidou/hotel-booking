@@ -84,9 +84,4 @@ public class AddressController {
 			}
 		return null;
 	}
-	
-	public static void main (String [] args) {
-		AddressController aController = new AddressController();
-		System.out.println(aController.getAddressByUserID("moisis@gmaail.com").getPlaceName());
-	}
 }

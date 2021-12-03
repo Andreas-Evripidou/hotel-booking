@@ -198,22 +198,4 @@ public class ReviewsController {
 			db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
 		}	
 	}
-	
-	
-	public static void main (String [] args) {
-		ReviewsController rc = new ReviewsController();
-		Review r = new Review("Skata!",5,5,5,5,5,5);
-		
-		if(!rc.alreadyExcistsReview("existing1@gmail.com", 1)) {
-			rc.writeReview("existing1@gmail.com", 1, r);
-			System.out.println("The review is successfully added");
-		}
-		else System.out.println("A user cannot review the same property more than once");
-		
-		System.out.println(rc.allowedToWriteReview("amatoli@email.com", 33, "2021-11-26"));
-//		System.out.println(rc.getAverageReviewScores(33).get("total"));
-		System.out.println(rc.getSuperhostStatus("amatoli@email.com"));
-		rc.updateSuperHostStatus(33);
-		
-	}
 }

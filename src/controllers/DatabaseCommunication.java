@@ -18,45 +18,6 @@ public class DatabaseCommunication {
 	private PreparedStatement pstmt = null;
 	private ResultSet res = null;
 	
-
-	public static void main(String [] args) {
-		DatabaseCommunication db = new DatabaseCommunication();
-//		try {
-//			ResultSet results = db.openConnectionForQuery("SELECT * FROM team023.Guest;");
-//			while (results.next()) {
-//				String userID = results.getString(1);
-//				System.out.println(userID);
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		finally {
-//			db.closeAll(db.res, db.stmt, db.pstmt, db.con);
-//		}
-		
-		Validation v = new Validation();
-//		System.out.println(v.validateUser("a", "a", "Host"));
-//		db.closeAll(db.res, db.stmt, db.pstmt, db.con);
-		
-		Person m = new Person("a", "am", "am", "123", "envlakas", "99324899", 1, 0, "am");
-		Address a = new Address("mddd", "am", "am", "am");
-		
-//		if (!v.alreadyExcistsPerson(m.getEmail())) {
-//			v.validateUserRegistration(m, a);
-//			System.out.println("added user");
-//		} else {
-//			System.out.println("already excists");
-//		}
-		
-//		if (!v.alreadyExcistsAddress("eimastepalavoi", a.getPostCode())) {
-//			System.out.println("added user");
-//		} else {
-//			System.out.println("already excists");
-//		}
-		
-		Person res = v.getUserById("asdf@gmail.com");
-		
-	}
 	
 	public Connection getConnection() {
 		return con;

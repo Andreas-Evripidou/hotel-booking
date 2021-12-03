@@ -35,22 +35,6 @@ public class GuestWriteReviewPage {
 	private JTextField textFieldValue;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GuestWriteReviewPage window = new GuestWriteReviewPage("amatoli@email.com", 1);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public GuestWriteReviewPage(String userID, int propertyID) {
@@ -194,12 +178,13 @@ public class GuestWriteReviewPage {
 
 					    	BookingsController bController = new BookingsController();
 							Person p = new Person();
-							GuestProfilePage newFrame = new GuestProfilePage(bController.getAllReservations(userID), p);
-
-							newFrame.getFrame().setVisible(true);
-							newFrame.getFrame().pack();
-							newFrame.getFrame().setLocationRelativeTo(null);
-							frame.dispose();
+							GuestProfilePage newFrame = new GuestProfilePage(frame, p);
+							frame.getContentPane().removeAll();
+							frame.getContentPane().invalidate();
+							frame.getContentPane().add(newFrame);
+							frame.revalidate();
+							frame.repaint();
+							
 					    } else {
 					    	JOptionPane.showMessageDialog(null, "You cannot add a review for the same property more than once!", "Errors!", JOptionPane.WARNING_MESSAGE);
 					    }
@@ -220,12 +205,13 @@ public class GuestWriteReviewPage {
 				BookingsController bController = new BookingsController();
 				Person p = new Person();
 
-				GuestProfilePage newFrame = new GuestProfilePage(guest);
+				GuestProfilePage newFrame = new GuestProfilePage(frame, guest);
 
-				newFrame.getFrame().setVisible(true);
-				newFrame.getFrame().pack();
-				newFrame.getFrame().setLocationRelativeTo(null);
-				frame.dispose();
+				frame.getContentPane().removeAll();
+				frame.getContentPane().invalidate();
+				frame.getContentPane().add(newFrame);
+				frame.revalidate();
+				frame.repaint();
 			}
 		});
 		btnCancel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));

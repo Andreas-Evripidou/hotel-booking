@@ -1,111 +1,47 @@
 package views;
-import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JLabel;
-import javax.swing.SpringLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import controllers.BookingsController;
-import controllers.DatabaseCommunication;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import controllers.PersonController;
 import controllers.Validation;
 import model.Person;
 
-import com.jgoodies.forms.layout.FormSpecs;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Component;
-import java.awt.Dimension;
+public class LoginPage extends JPanel {
+	
 
-import javax.swing.DropMode;
-import java.awt.Frame;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.Point;
-
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import java.awt.Font;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class LoginPage {
-
-	private JFrame frmLogInPage;
 	private JTextField userIDField;
 	private JPasswordField passwordField;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginPage window = new LoginPage();
-					Toolkit toolkit = Toolkit.getDefaultToolkit();
-					Dimension screenDimensions = toolkit.getScreenSize();
-					window.frmLogInPage.setLocationRelativeTo(null);
-//					window.frmLogInPage.setLocation(new Point((screenDimensions.width - 510)/4, (screenDimensions.height - 350)/4));
-					window.frmLogInPage.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public LoginPage() {
-		initialize();
-	}
-	
-	public JFrame getFrame() {
-		return frmLogInPage;
-	}
-	
 	
 	/**
-	 * Initialize the contents of the frame.
+	 * Create the panel.
 	 */
-	private void initialize() {
-		frmLogInPage = new JFrame();
-		frmLogInPage.setResizable(false);
-		frmLogInPage.getContentPane().setBackground(Color.LIGHT_GRAY);
-		frmLogInPage.setBackground(Color.LIGHT_GRAY);
-		frmLogInPage.setMinimumSize(new Dimension(1200, 850));
-		frmLogInPage.setTitle("Log In Page");
-		frmLogInPage.setBounds(100, 100, 1200, 850);
-		frmLogInPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
+	public LoginPage(JFrame frame) {
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.LIGHT_GRAY);
-		frmLogInPage.getContentPane().add(panel, BorderLayout.CENTER);
+		
+		this.setBackground(Color.LIGHT_GRAY);
 		
 		JPanel userIDPanel = new JPanel();
 		userIDPanel.setBackground(Color.LIGHT_GRAY);
@@ -145,11 +81,13 @@ public class LoginPage {
 		backToHomeScreen.setBackground(Color.LIGHT_GRAY);
 		backToHomeScreen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SearchPage window = new SearchPage(null,null,null,null);
-				window.getFrame().setVisible(true);
-				window.getFrame().pack();
-				window.getFrame().setLocationRelativeTo(null);
-				frmLogInPage.dispose();
+				HomePage newFrame = new HomePage(frame, null);
+				frame.getContentPane().removeAll();
+				frame.getContentPane().invalidate();
+				frame.getContentPane().add(newFrame);
+				frame.setLocationRelativeTo(null);
+				frame.revalidate();
+				frame.repaint();
 			}
 		});
 		backToHomeScreen.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
@@ -163,7 +101,7 @@ public class LoginPage {
 		titleLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		titleLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
 		logInTitlePanel.add(titleLabel);
-		GroupLayout gl_panel = new GroupLayout(panel);
+		GroupLayout gl_panel = new GroupLayout(this);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
@@ -211,7 +149,7 @@ public class LoginPage {
 		btnLogIn.setBackground(Color.LIGHT_GRAY);
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String textFielduserID = userIDField.getText();
+				String textFielduserID = userIDField.getText().toLowerCase();
 				String textFieldpassword = passwordField.getText();
 				String userType = null;
 				
@@ -228,20 +166,27 @@ public class LoginPage {
 						JOptionPane.showMessageDialog(null, "Try again! Something you provided is incorrect!", "Errors", JOptionPane.WARNING_MESSAGE);
 					}
 					else {
-						Person p = v.getUserById(textFielduserID);
+						PersonController pc = new PersonController();
+						Person p = pc.getPersonByUserID(textFielduserID);
 						if (userType=="Host") {
-							HostProfilePage window = new HostProfilePage(p);
-							window.getFrame().setLocationRelativeTo(null);
-							window.getFrame().setVisible(true);
-							frmLogInPage.dispose();
+							HostProfilePage newFrame = new HostProfilePage(frame, p);
+							frame.getContentPane().removeAll();
+							frame.getContentPane().invalidate();
+							frame.getContentPane().add(newFrame);
+							frame.setLocationRelativeTo(null);
+							frame.revalidate();
+							frame.repaint();
+							
 						}
 						else {
 							
-							GuestProfilePage window = new GuestProfilePage(p);
-							window.getFrame().setVisible(true);
-							window.getFrame().pack();
-							window.getFrame().setLocationRelativeTo(null);
-							frmLogInPage.dispose();
+							GuestProfilePage newFrame = new GuestProfilePage(frame,p);
+							frame.getContentPane().removeAll();
+							frame.getContentPane().invalidate();
+							frame.getContentPane().add(newFrame);
+							frame.revalidate();
+							frame.repaint();
+							
 						}
 						
 					}
@@ -258,11 +203,14 @@ public class LoginPage {
 		JButton btnSignUp = new JButton("Sign Up");
 		btnSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrationPage window = new RegistrationPage();
-				window.getFrame().setVisible(true);
-				window.getFrame().pack();
-				window.getFrame().setLocationRelativeTo(null);
-				frmLogInPage.dispose();
+				RegistrationPage newFrame = new RegistrationPage(frame);
+				frame.getContentPane().removeAll();
+				frame.getContentPane().invalidate();
+				frame.getContentPane().add(newFrame);
+				frame.revalidate();
+				frame.repaint();
+				
+				
 			}
 		});
 		btnSignUp.setBackground(Color.LIGHT_GRAY);
@@ -287,6 +235,7 @@ public class LoginPage {
 		passwordField.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		passwordField.setColumns(24);
 		passwordPanel.add(passwordField);
-		panel.setLayout(gl_panel);
+		this.setLayout(gl_panel);
 	}
 }
+

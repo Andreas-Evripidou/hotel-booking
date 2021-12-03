@@ -7,10 +7,13 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.text.AttributeSet.ColorAttribute;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -27,10 +30,11 @@ import controllers.DatabaseCommunication;
 import controllers.PersonController;
 import model.Person;
 import model.Property;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
-public class HomePage {
+public class HomePage extends JPanel {
 
-	private JFrame frame;
 	/**
 	 * @wbp.nonvisual location=91,-31
 	 */
@@ -43,119 +47,111 @@ public class HomePage {
 	private JTextField endYearField;
 	public Person personToUse;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					//HomePage window = new HomePage();
-					//window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public HomePage(Person person) {
+	public HomePage(JFrame frame, Person person) {
+		setBackground(Color.LIGHT_GRAY);
 		this.setPerson(person);
-		initialize();
+		initialize(frame);
 	}
-	public JFrame getFrame() {
-		frame.setBounds(100, 100, 1200, 850);
-		return frame;
-	}
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	
 	public void setPerson(Person person) {
 		this.personToUse = person;
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 450, Short.MAX_VALUE)
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 300, Short.MAX_VALUE)
+		);
+		setLayout(groupLayout);
 	}
 	public Person getPerson() {
 		return(this.personToUse);
 	}
 	
-	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
-		frame.getContentPane().setLayout(null);
-
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 10, 10);
-		frame.getContentPane().add(panel);
+	private void initialize(JFrame frame) {
 
 		JLabel lblNewLabel = new JLabel("Location");
 		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 29));
 		lblNewLabel.setBounds(109, 204, 151, 65);
-		frame.getContentPane().add(lblNewLabel);
+		this.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Check in");
 		lblNewLabel_1.setFont(new Font("Dialog", Font.PLAIN, 29));
 		lblNewLabel_1.setBounds(435, 217, 113, 38);
-		frame.getContentPane().add(lblNewLabel_1);
+		this.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_1_1 = new JLabel("Check out");
 		lblNewLabel_1_1.setFont(new Font("Dialog", Font.PLAIN, 29));
 		lblNewLabel_1_1.setBounds(738, 217, 141, 38);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		this.add(lblNewLabel_1_1);
 
 		startDayField = new JTextField();
 		startDayField.setColumns(10);
 		startDayField.setBounds(556, 225, 45, 30);
-		frame.getContentPane().add(startDayField);
+		this.add(startDayField);
 
 		JLabel lblNewLabel_2 = new JLabel("Find a Property");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 35));
 		lblNewLabel_2.setBounds(462, 128, 241, 86);
-		frame.getContentPane().add(lblNewLabel_2);
+		this.add(lblNewLabel_2);
 
 		if(personToUse == null) {
 			JButton btnNewButton = new JButton("LOGIN");
-		
+			btnNewButton.setBackground(Color.LIGHT_GRAY);
+			
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(personToUse == null) {
-						LoginPage newFrame = new LoginPage();
-						newFrame.getFrame().setVisible(true);
-						newFrame.getFrame().pack();
-						newFrame.getFrame().setLocationRelativeTo(null);
-						frame.dispose();
+						LoginPage newPanel = new LoginPage(frame);
+						frame.getContentPane().removeAll();
+						frame.getContentPane().invalidate();
+						frame.getContentPane().add(newPanel);
+						frame.revalidate();
+						frame.repaint();
 					}
 				}
 				});
 			
 			btnNewButton.setBounds(908, 21, 89, 23);
-			frame.getContentPane().add(btnNewButton);
+			this.add(btnNewButton);
 		}
 		
-		JButton btnNewButton_1 = new JButton("REGISTER");
+		JButton btnRegister = new JButton("REGISTER");
+		btnRegister.setBackground(Color.LIGHT_GRAY);
+		
 		if (personToUse != null)
-			btnNewButton_1.setText("Back");
-		btnNewButton_1.addActionListener(new ActionListener() {
+			btnRegister.setText("Back");
+		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(personToUse == null) {
-					RegistrationPage newFrame = new RegistrationPage();
-					newFrame.getFrame().setVisible(true);
-					newFrame.getFrame().pack();
-					newFrame.getFrame().setLocationRelativeTo(null);
-					frame.dispose();
+					RegistrationPage newFrame = new RegistrationPage(frame);
+					frame.getContentPane().removeAll();
+					frame.getContentPane().invalidate();
+					frame.getContentPane().add(newFrame);
+					frame.revalidate();
+					frame.repaint();
 				}else {
-					GuestProfilePage newFrame = new GuestProfilePage(personToUse);
-					newFrame.getFrame().setVisible(true);
-					newFrame.getFrame().pack();
-					newFrame.getFrame().setLocationRelativeTo(null);
-					frame.dispose();
+					GuestProfilePage newFrame = new GuestProfilePage(frame, personToUse);
+					frame.getContentPane().removeAll();
+					frame.getContentPane().invalidate();
+					frame.getContentPane().add(newFrame);
+					frame.revalidate();
+					frame.repaint();;
 				}
 			}
 			});
-		btnNewButton_1.setBounds(1002, 21, 124, 23);
-		frame.getContentPane().add(btnNewButton_1);
+		btnRegister.setBounds(1002, 21, 124, 23);
+		this.add(btnRegister);
 
 		// database stuff
 
@@ -185,9 +181,10 @@ public class HomePage {
 		}
 		JComboBox comboBox = new JComboBox(noDuplicatesLocations.toArray());
 		comboBox.setBounds(231, 224, 179, 30);
-		frame.getContentPane().add(comboBox);
+		this.add(comboBox);
 
 		JButton btnSearchProperties = new JButton("Search Properties");
+		btnSearchProperties.setBackground(Color.LIGHT_GRAY);
 		btnSearchProperties.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String locationToUse = (String) comboBox.getSelectedItem();
@@ -232,11 +229,12 @@ public class HomePage {
 				if (validDates) {
 					System.out.println(personToUse);
 
-					SearchPage newFrame = new SearchPage(locationToUse, startDateToUse, endDateToUse, personToUse);
-					newFrame.getFrame().setVisible(true);
-					newFrame.getFrame().pack();
-					newFrame.getFrame().setLocationRelativeTo(null);
-					frame.dispose();
+					SearchPage newFrame = new SearchPage(frame,locationToUse, startDateToUse, endDateToUse, personToUse);
+					frame.getContentPane().removeAll();
+					frame.getContentPane().invalidate();
+					frame.getContentPane().add(newFrame);
+					frame.revalidate();
+					frame.repaint();
 				} else {
 					JOptionPane.showMessageDialog(frame,
 							"Ensure a date in the future formatted DD/MM/YYYY is entered in both sections");
@@ -246,59 +244,57 @@ public class HomePage {
 			}
 		});
 
-		frame.getContentPane().add(btnSearchProperties);
+		this.add(btnSearchProperties);
 		btnSearchProperties.setBounds(462, 269, 241, 75);
-		frame.getContentPane().add(btnSearchProperties);
+		this.add(btnSearchProperties);
 
 		startMonthField = new JTextField();
 		startMonthField.setColumns(10);
 		startMonthField.setBounds(611, 225, 45, 30);
-		frame.getContentPane().add(startMonthField);
+		this.add(startMonthField);
 
 		startYearField = new JTextField();
 		startYearField.setColumns(10);
 		startYearField.setBounds(666, 225, 62, 30);
-		frame.getContentPane().add(startYearField);
+		this.add(startYearField);
 
 		endDayField = new JTextField();
 		endDayField.setColumns(10);
 		endDayField.setBounds(889, 225, 45, 30);
-		frame.getContentPane().add(endDayField);
+		this.add(endDayField);
 
 		endMonthField = new JTextField();
 		endMonthField.setColumns(10);
 		endMonthField.setBounds(944, 225, 45, 30);
-		frame.getContentPane().add(endMonthField);
+		this.add(endMonthField);
 
 		endYearField = new JTextField();
 		endYearField.setColumns(10);
 		endYearField.setBounds(1002, 225, 62, 30);
-		frame.getContentPane().add(endYearField);
+		this.add(endYearField);
 		JLabel lblNewLabel_3 = new JLabel("DD");
 		lblNewLabel_3.setBounds(555, 210, 46, 14);
-		frame.getContentPane().add(lblNewLabel_3);
+		this.add(lblNewLabel_3);
 
 		JLabel lblNewLabel_4 = new JLabel("MM");
 		lblNewLabel_4.setBounds(610, 210, 46, 14);
-		frame.getContentPane().add(lblNewLabel_4);
+		this.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("YYYY");
 		lblNewLabel_5.setBounds(670, 210, 46, 14);
-		frame.getContentPane().add(lblNewLabel_5);
+		this.add(lblNewLabel_5);
 
 		JLabel lblNewLabel_6 = new JLabel("DD");
 		lblNewLabel_6.setBounds(888, 210, 46, 14);
-		frame.getContentPane().add(lblNewLabel_6);
+		this.add(lblNewLabel_6);
 
 		JLabel lblNewLabel_7 = new JLabel("MM");
 		lblNewLabel_7.setBounds(944, 210, 46, 14);
-		frame.getContentPane().add(lblNewLabel_7);
+		this.add(lblNewLabel_7);
 
 		JLabel lblNewLabel_8 = new JLabel("YYYY");
 		lblNewLabel_8.setBounds(1002, 210, 46, 14);
-		frame.getContentPane().add(lblNewLabel_8);
-		frame.setBounds(100, 100, 1200, 850);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.add(lblNewLabel_8);
 
 	}
 }

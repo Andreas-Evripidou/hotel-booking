@@ -32,73 +32,142 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.FlowLayout;
 
-public class RegistrationPage {
+public class RegistrationPage extends JPanel{
 
 	private JFrame frame;
+	private JTextField textFieldForename;
+	private JTextField textFieldSurname;
+	private JTextField textFieldUsername;
+	private JTextField textFieldContact;
+	private JTextField textFieldEmail;
+	private JPasswordField textFieldPassword;
 	private JTextField textFieldPostcode;
 	private JTextField textFieldStreetName;
 	private JTextField textFieldPlaceName;
 	private JTextField textFieldHouseNumber;
-	private JPasswordField textFieldPassword;
-	private JTextField textFieldEmail;
-	private JTextField textFieldContact;
-	private JTextField textFieldForename;
-	private JTextField textFieldSurname;
-	private JTextField textFieldUsername;
+	
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RegistrationPage window = new RegistrationPage();
-					window.frame.setVisible(true);
-					window.frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public RegistrationPage() {
-		initialize();
+	public RegistrationPage(JFrame frame) {
+		initialize(frame);
 	}
 	
-	public JFrame getFrame() {
-		return frame;
-	}
 	
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 1203, 850);
-		frame.setMinimumSize(new Dimension(1200, 800));
-		frame.setTitle("Registration Page");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	private void initialize(JFrame frame) {
 		
-		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setMaximumSize(new Dimension(1200, 850));
-		panel_1.setBackground(Color.LIGHT_GRAY);
-		panel.add(panel_1);
+		JPanel titlePanel = new JPanel();
+		titlePanel.setMaximumSize(new Dimension(1200, 850));
+		titlePanel.setBackground(Color.LIGHT_GRAY);
+		this.add(titlePanel);
 		
 		JLabel lblPageTitle = new JLabel("Registration Page");
 		lblPageTitle.setBackground(Color.LIGHT_GRAY);
 		lblPageTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPageTitle.setFont(new Font("Tahoma", Font.BOLD, 32));
+		
+		JPanel PersonalInforamtionPanel = new JPanel();
+		PersonalInforamtionPanel.setBackground(Color.LIGHT_GRAY);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
+		
+		JPanel panelRegister = new JPanel();
+		panelRegister.setBackground(Color.LIGHT_GRAY);
+		
+		JButton btnRegister = new JButton("Register");
+		btnRegister.setPreferredSize(new Dimension(100, 40));
+		btnRegister.setMinimumSize(new Dimension(100, 40));
+		btnRegister.setMaximumSize(new Dimension(100, 40));
+		btnRegister.setBackground(Color.LIGHT_GRAY);
+		panelRegister.add(btnRegister);
+		
+		JButton btnRedirectToLogin = new JButton("Log in");
+		btnRedirectToLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoginPage newFrame = new LoginPage(frame);
+				frame.getContentPane().removeAll();
+				frame.getContentPane().invalidate();
+				frame.getContentPane().add(newFrame);
+				frame.revalidate();
+				frame.repaint();
+
+			}
+		});
+		btnRedirectToLogin.setPreferredSize(new Dimension(100, 40));
+		btnRedirectToLogin.setMinimumSize(new Dimension(100, 40));
+		btnRedirectToLogin.setMaximumSize(new Dimension(100, 40));
+		btnRedirectToLogin.setHideActionText(true);
+		btnRedirectToLogin.setBackground(Color.LIGHT_GRAY);
+		panelRegister.add(btnRedirectToLogin);
+		
+		JButton btnRedirectToHome = new JButton("Home");
+		btnRedirectToHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HomePage newFrame = new HomePage(frame, null);
+				frame.getContentPane().removeAll();
+				frame.getContentPane().invalidate();
+				frame.getContentPane().add(newFrame);
+				frame.revalidate();
+				frame.repaint();
+
+			}
+		});
+		btnRedirectToHome.setPreferredSize(new Dimension(100, 40));
+		btnRedirectToHome.setMinimumSize(new Dimension(100, 40));
+		btnRedirectToHome.setMaximumSize(new Dimension(100, 40));
+		btnRedirectToHome.setHideActionText(true);
+		btnRedirectToHome.setBackground(Color.LIGHT_GRAY);
+		panelRegister.add(btnRedirectToHome);
+		
+		
+		GroupLayout gl_titlePanel = new GroupLayout(titlePanel);
+		gl_titlePanel.setHorizontalGroup(
+			gl_titlePanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_titlePanel.createSequentialGroup()
+					.addGap(21)
+					.addComponent(lblPageTitle, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
+					.addGap(20))
+				.addGroup(gl_titlePanel.createSequentialGroup()
+					.addGap(63)
+					.addComponent(PersonalInforamtionPanel, GroupLayout.PREFERRED_SIZE, 481, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 488, GroupLayout.PREFERRED_SIZE)
+					.addGap(74))
+				.addGroup(gl_titlePanel.createSequentialGroup()
+					.addGap(404)
+					.addComponent(panelRegister, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(476, Short.MAX_VALUE))
+		);
+		gl_titlePanel.setVerticalGroup(
+			gl_titlePanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_titlePanel.createSequentialGroup()
+					.addGap(9)
+					.addComponent(lblPageTitle, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_titlePanel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(PersonalInforamtionPanel, GroupLayout.PREFERRED_SIZE, 608, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(58)
+					.addComponent(panelRegister, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(75, Short.MAX_VALUE))
+		);
+		
+		JPanel panelAddress = new JPanel();
+		panelAddress.setBackground(Color.LIGHT_GRAY);
+		
+		JLabel lblAddress = new JLabel("Address");
+		lblAddress.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 25));
+		panelAddress.add(lblAddress);
 		
 		JPanel panelPostcode = new JPanel();
 		panelPostcode.setBackground(Color.LIGHT_GRAY);
@@ -147,81 +216,47 @@ public class RegistrationPage {
 		textFieldHouseNumber.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textFieldHouseNumber.setColumns(10);
 		panelHouse.add(textFieldHouseNumber);
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(48)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(panelAddress, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(panelHouse, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(panelPlaceName, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(panelStreetNumber, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(panelPostcode, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(48, Short.MAX_VALUE))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panelAddress, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(38)
+					.addComponent(panelHouse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(panelPlaceName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(panelStreetNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(5)
+					.addComponent(panelPostcode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(335, Short.MAX_VALUE))
+		);
+		panel.setLayout(gl_panel);
 		
-		JPanel panelAddress = new JPanel();
-		panelAddress.setBackground(Color.LIGHT_GRAY);
-		
-		JLabel lblAddress = new JLabel("Address");
-		lblAddress.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		panelAddress.add(lblAddress);
-		
-		JPanel panelRole = new JPanel();
-		panelRole.setBackground(Color.LIGHT_GRAY);
-		
-		JLabel lblRole = new JLabel("Role: ");
-		lblRole.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		panelRole.add(lblRole);
-		
-		JCheckBox chckbxGuest = new JCheckBox("Guest");
-		chckbxGuest.setHorizontalAlignment(SwingConstants.TRAILING);
-		chckbxGuest.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		chckbxGuest.setBackground(Color.LIGHT_GRAY);
-		panelRole.add(chckbxGuest);
-		
-		JCheckBox chckbxHost = new JCheckBox("Host");
-		chckbxHost.setHorizontalAlignment(SwingConstants.TRAILING);
-		chckbxHost.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		chckbxHost.setBackground(Color.LIGHT_GRAY);
-		panelRole.add(chckbxHost);
-		
-		JPanel panelPassword = new JPanel();
-		panelPassword.setBackground(Color.LIGHT_GRAY);
-		
-		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		panelPassword.add(lblPassword);
-		
-		textFieldPassword = new JPasswordField();
-		textFieldPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textFieldPassword.setColumns(15);
-		panelPassword.add(textFieldPassword);
-		
-		JPanel panelEmail = new JPanel();
-		panelEmail.setBackground(Color.LIGHT_GRAY);
-		
-		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		panelEmail.add(lblEmail);
-		
-		textFieldEmail = new JTextField();
-		textFieldEmail.setToolTipText("");
-		textFieldEmail.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textFieldEmail.setColumns(21);
-		panelEmail.add(textFieldEmail);
-		
-		JPanel panelMobileNumber = new JPanel();
-		panelMobileNumber.setBackground(Color.LIGHT_GRAY);
-		
-		JLabel lblContact = new JLabel("Mobile Number:");
-		lblContact.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		panelMobileNumber.add(lblContact);
-		
-		textFieldContact = new JTextField();
-		textFieldContact.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textFieldContact.setColumns(15);
-		panelMobileNumber.add(textFieldContact);
-		
-		JPanel panelTitle = new JPanel();
-		panelTitle.setBackground(Color.LIGHT_GRAY);
+		JPanel panelPersonTitle = new JPanel();
+		panelPersonTitle.setBackground(Color.LIGHT_GRAY);
 		
 		JLabel lblTitle = new JLabel("Title:");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		panelTitle.add(lblTitle);
+		panelPersonTitle.add(lblTitle);
 		
 		JComboBox comboBoxTitle = new JComboBox();
 		comboBoxTitle.setModel(new DefaultComboBoxModel(new String[] {"Mr.", "Mrs.", "Ms.", "Prof.", "Sr.", "Dr."}));
 		comboBoxTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		panelTitle.add(comboBoxTitle);
+		panelPersonTitle.add(comboBoxTitle);
 		
 		JPanel panelForename = new JPanel();
 		panelForename.setBackground(Color.LIGHT_GRAY);
@@ -247,12 +282,75 @@ public class RegistrationPage {
 		textFieldSurname.setColumns(15);
 		panelSurname.add(textFieldSurname);
 		
+		JPanel panelUsername = new JPanel();
+		panelUsername.setBackground(Color.LIGHT_GRAY);
 		
-		JPanel panelRegister = new JPanel();
-		panelRegister.setBackground(Color.LIGHT_GRAY);
+		JLabel lblUsername = new JLabel("Username:");
+		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		panelUsername.add(lblUsername);
 		
-		JButton btnRegister = new JButton("Register");
-		btnRegister.setBackground(Color.LIGHT_GRAY);
+		textFieldUsername = new JTextField();
+		textFieldUsername.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textFieldUsername.setColumns(15);
+		panelUsername.add(textFieldUsername);
+		
+		JPanel panelRole = new JPanel();
+		panelRole.setBackground(Color.LIGHT_GRAY);
+		
+		JLabel lblRole = new JLabel("Role: ");
+		lblRole.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		panelRole.add(lblRole);
+		
+		JCheckBox chckbxGuest = new JCheckBox("Guest");
+		chckbxGuest.setHorizontalAlignment(SwingConstants.TRAILING);
+		chckbxGuest.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		chckbxGuest.setBackground(Color.LIGHT_GRAY);
+		panelRole.add(chckbxGuest);
+		
+		JCheckBox chckbxHost = new JCheckBox("Host");
+		chckbxHost.setHorizontalAlignment(SwingConstants.TRAILING);
+		chckbxHost.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		chckbxHost.setBackground(Color.LIGHT_GRAY);
+		panelRole.add(chckbxHost);
+		
+		JPanel panelMobileNumber = new JPanel();
+		panelMobileNumber.setBackground(Color.LIGHT_GRAY);
+		
+		JLabel lblContact = new JLabel("Mobile Number:");
+		lblContact.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		panelMobileNumber.add(lblContact);
+		
+		textFieldContact = new JTextField();
+		textFieldContact.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textFieldContact.setColumns(15);
+		panelMobileNumber.add(textFieldContact);
+		
+		JPanel panelEmail = new JPanel();
+		panelEmail.setBackground(Color.LIGHT_GRAY);
+		
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		panelEmail.add(lblEmail);
+		
+		textFieldEmail = new JTextField();
+		textFieldEmail.setToolTipText("");
+		textFieldEmail.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textFieldEmail.setColumns(21);
+		panelEmail.add(textFieldEmail);
+		
+		JPanel panelPassword = new JPanel();
+		panelPassword.setBackground(Color.LIGHT_GRAY);
+		
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		panelPassword.add(lblPassword);
+		
+		textFieldPassword = new JPasswordField();
+		textFieldPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		textFieldPassword.setColumns(15);
+		panelPassword.add(textFieldPassword);
+		
+		
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -317,11 +415,12 @@ public class RegistrationPage {
 						
 					else if (!v.alreadyExcistsPerson(m.getEmail()) && !v.alreadyExcistsAddress(a.getHouse(), a.getPostCode())) {
 						v.validateUserRegistration(m, a);
-						LoginPage window = new LoginPage();
-						window.getFrame().setVisible(true);
-						window.getFrame().pack();
-						window.getFrame().setLocationRelativeTo(null);
-						frame.dispose();
+						LoginPage newFrame = new LoginPage(frame);
+						frame.getContentPane().removeAll();
+						frame.getContentPane().invalidate();
+						frame.getContentPane().add(newFrame);
+						frame.revalidate();
+						frame.repaint();
 					}
 					else {
 						System.out.println("already exists");
@@ -332,124 +431,56 @@ public class RegistrationPage {
 				}
 				
 			}
+
 		});
-		btnRegister.setPreferredSize(new Dimension(100, 40));
-		btnRegister.setMinimumSize(new Dimension(100, 40));
-		btnRegister.setMaximumSize(new Dimension(100, 40));
-		panelRegister.add(btnRegister);
 		
-		JButton btnRedirectToLogin = new JButton("Log in");
-		btnRedirectToLogin.setBackground(Color.LIGHT_GRAY);
-		btnRedirectToLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				LoginPage window = new LoginPage();
-				window.getFrame().setVisible(true);
-				window.getFrame().pack();
-				window.getFrame().setLocationRelativeTo(null);
-				frame.dispose();
-			}
-		});
-		btnRedirectToLogin.setPreferredSize(new Dimension(100, 40));
-		btnRedirectToLogin.setMinimumSize(new Dimension(100, 40));
-		btnRedirectToLogin.setMaximumSize(new Dimension(100, 40));
-		btnRedirectToLogin.setHideActionText(true);
-		panelRegister.add(btnRedirectToLogin);
+		JPanel panelPersonalInforation = new JPanel();
+		panelPersonalInforation.setBackground(Color.LIGHT_GRAY);
 		
-		JPanel panelUsername = new JPanel();
-		panelUsername.setBackground(Color.LIGHT_GRAY);
-		
-		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		panelUsername.add(lblUsername);
-		
-		textFieldUsername = new JTextField();
-		textFieldUsername.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textFieldUsername.setColumns(15);
-		panelUsername.add(textFieldUsername);
-		
-		
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(21)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblPageTitle, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
-						.addComponent(panelTitle, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
-						.addComponent(panelForename, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
-						.addComponent(panelSurname, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE))
-					.addGap(20))
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panelUsername, GroupLayout.PREFERRED_SIZE, 1174, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(20, Short.MAX_VALUE))
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(panelRole, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
-						.addComponent(panelMobileNumber, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
-						.addComponent(panelEmail, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
-						.addComponent(panelPassword, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
-						.addComponent(panelAddress, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
-						.addComponent(panelHouse, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
-						.addComponent(panelPlaceName, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
-						.addComponent(panelStreetNumber, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
-						.addComponent(panelPostcode, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)
-						.addComponent(panelRegister, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE))
-					.addGap(20))
+		JLabel lblPersonalInforation = new JLabel("Personal Inforation");
+		lblPersonalInforation.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 25));
+		panelPersonalInforation.add(lblPersonalInforation);
+		GroupLayout gl_PersonalInforamtionPanel = new GroupLayout(PersonalInforamtionPanel);
+		gl_PersonalInforamtionPanel.setHorizontalGroup(
+			gl_PersonalInforamtionPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_PersonalInforamtionPanel.createSequentialGroup()
+					.addGap(12)
+					.addGroup(gl_PersonalInforamtionPanel.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(panelPersonalInforation, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(panelRole, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(panelPassword, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(panelForename, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(panelPersonTitle, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+						.addComponent(panelUsername, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(panelEmail, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+						.addComponent(panelSurname, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(panelMobileNumber, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(12, Short.MAX_VALUE))
 		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(9)
-					.addComponent(lblPageTitle, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+		gl_PersonalInforamtionPanel.setVerticalGroup(
+			gl_PersonalInforamtionPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_PersonalInforamtionPanel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panelPersonalInforation, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+					.addGap(31)
+					.addComponent(panelPersonTitle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(panelForename, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelTitle, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
-					.addGap(1)
-					.addComponent(panelForename, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panelSurname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelSurname, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(panelUsername, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panelUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(panelEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(panelMobileNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(panelPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelMobileNumber, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelEmail, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelPassword, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addGap(1)
 					.addComponent(panelRole, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelAddress, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelHouse, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelPlaceName, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelStreetNumber, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelPostcode, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelRegister, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-					.addGap(14))
+					.addContainerGap(151, Short.MAX_VALUE))
 		);
-		
-		JButton btnRedirectToHome = new JButton("Home");
-		btnRedirectToHome.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				SearchPage window = new SearchPage(null,null,null,null);
-				window.getFrame().setVisible(true);
-				window.getFrame().pack();
-				window.getFrame().setLocationRelativeTo(null);
-				frame.dispose();
-			}
-		});
-		btnRedirectToHome.setPreferredSize(new Dimension(100, 40));
-		btnRedirectToHome.setMinimumSize(new Dimension(100, 40));
-		btnRedirectToHome.setMaximumSize(new Dimension(100, 40));
-		btnRedirectToHome.setHideActionText(true);
-		btnRedirectToHome.setBackground(Color.LIGHT_GRAY);
-		panelRegister.add(btnRedirectToHome);
-		panel_1.setLayout(gl_panel_1);
+		PersonalInforamtionPanel.setLayout(gl_PersonalInforamtionPanel);
+		titlePanel.setLayout(gl_titlePanel);
 	}
 }

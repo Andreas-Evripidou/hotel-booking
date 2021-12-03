@@ -62,12 +62,13 @@ import controllers.DatabaseCommunication;
 import controllers.FacilitiesController;
 import controllers.PersonController;
 import controllers.PropertyController;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 
 
-public class SearchPage {
+public class SearchPage extends JPanel{
 
-	private JFrame frame;
 	/**
 	 * @wbp.nonvisual location=91,-31
 	 */
@@ -86,41 +87,28 @@ public class SearchPage {
 	public Person personToUse;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SearchPage window = new SearchPage(null, null, null, null);
-					window.frame.setVisible(true);
-					window.getFrame().pack();
-					window.getFrame().setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
-	public SearchPage(String locationToUse, String startDateToUse, String endDateToUse, Person person) {
+	public SearchPage(JFrame frame, String locationToUse, String startDateToUse, String endDateToUse, Person person) {
 		this.setPropertyLocation(locationToUse);
 		this.setStartDate(startDateToUse);
 		this.setEndDate(endDateToUse);
 		this.setPerson(person);
-		initialize();
-	}
-
-	public JFrame getFrame() {
-		frame.setBounds(100, 100, 1200, 850);
-		return frame;
+		initialize(frame);
 	}
 
 	public void setPropertyLocation(String propertyLocation) {
 		this.locationToUse = propertyLocation;
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 1200, Short.MAX_VALUE)
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 850, Short.MAX_VALUE)
+		);
+		setLayout(groupLayout);
 	}
 
 	public String getPropertyLocation() {
@@ -150,84 +138,84 @@ public class SearchPage {
 	public Person getPerson() {
 		return(this.personToUse);
 	}
+	
+	public JPanel getPanel() {
+		return this;
+	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
-		frame.getContentPane().setLayout(null);
-		frame.setSize(1200, 850);
-
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 10, 10);
-		frame.getContentPane().add(panel);
+	private void initialize(JFrame frame) {
 
 		JLabel lblNewLabel = new JLabel("Location");
 		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 29));
 		lblNewLabel.setBounds(86, 137, 151, 65);
-		frame.getContentPane().add(lblNewLabel);
+		this.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Check in");
 		lblNewLabel_1.setFont(new Font("Dialog", Font.PLAIN, 29));
 		lblNewLabel_1.setBounds(407, 150, 133, 38);
-		frame.getContentPane().add(lblNewLabel_1);
+		this.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_1_1 = new JLabel("Check out");
 		lblNewLabel_1_1.setFont(new Font("Dialog", Font.PLAIN, 29));
 		lblNewLabel_1_1.setBounds(735, 150, 193, 38);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		this.add(lblNewLabel_1_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Find a Property");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 35));
 		lblNewLabel_2.setBounds(463, 68, 241, 86);
-		frame.getContentPane().add(lblNewLabel_2);
+		this.add(lblNewLabel_2);
 
 		if(personToUse == null) {
-			JButton btnNewButton = new JButton("LOGIN");
+			JButton btnLogin = new JButton("LOGIN");
+			btnLogin.setBackground(Color.LIGHT_GRAY);
 		
-			btnNewButton.addActionListener(new ActionListener() {
+			btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginPage newFrame = new LoginPage();
-				newFrame.getFrame().setVisible(true);
-				newFrame.getFrame().pack();
-				newFrame.getFrame().setLocationRelativeTo(null);
-				frame.dispose();					
+				LoginPage newFrame = new LoginPage(frame);
+				frame.getContentPane().removeAll();
+				frame.getContentPane().invalidate();
+				frame.getContentPane().add(newFrame);
+				frame.revalidate();
+				frame.repaint();					
 			}
 			});
-			btnNewButton.setBounds(908, 21, 89, 23);
-			frame.getContentPane().add(btnNewButton);
+			btnLogin.setBounds(908, 21, 89, 23);
+			this.add(btnLogin);
 		}
 
 
-		JButton btnNewButton_1 = new JButton("REGISTER");
+		JButton btnRegister = new JButton("REGISTER");
 		if (personToUse != null)
-			btnNewButton_1.setText("Back");
-		btnNewButton_1.addActionListener(new ActionListener() {
+			btnRegister.setText("Back");
+		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(personToUse == null) {
-					RegistrationPage newFrame = new RegistrationPage();
-					newFrame.getFrame().setVisible(true);
-					newFrame.getFrame().pack();
-					newFrame.getFrame().setLocationRelativeTo(null);
-					frame.dispose();
+					RegistrationPage newFrame = new RegistrationPage(frame);
+					frame.getContentPane().removeAll();
+					frame.getContentPane().invalidate();
+					frame.getContentPane().add(newFrame);
+					frame.revalidate();
+					frame.repaint();
 				} else {
-					GuestProfilePage newFrame = new GuestProfilePage(personToUse);
-					newFrame.getFrame().setVisible(true);
-					newFrame.getFrame().pack();
-					newFrame.getFrame().setLocationRelativeTo(null);
-					frame.dispose();
+					GuestProfilePage newFrame = new GuestProfilePage(frame, personToUse);
+					frame.getContentPane().removeAll();
+					frame.getContentPane().invalidate();
+					frame.getContentPane().add(newFrame);
+					frame.revalidate();
+					frame.repaint();
 				}
 			}
 			});
-		btnNewButton_1.setBackground(Color.LIGHT_GRAY);
-		btnNewButton_1.setBounds(1002, 21, 109, 23);
-		frame.getContentPane().add(btnNewButton_1);
+		btnRegister.setBackground(Color.LIGHT_GRAY);
+		btnRegister.setBounds(1002, 21, 109, 23);
+		this.add(btnRegister);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(86, 307, 983, 420);
-		frame.getContentPane().add(scrollPane);
+		this.add(scrollPane);
 
 		frame.setBounds(100, 100, 1200, 850);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -260,7 +248,7 @@ public class SearchPage {
 		}
 		JComboBox comboBox = new JComboBox(noDuplicatesLocations.toArray());
 		comboBox.setBounds(204, 161, 193, 30);
-		frame.getContentPane().add(comboBox);
+		this.add(comboBox);
 
 		JButton btnSearchProperties = new JButton("Search Properties");
 		btnSearchProperties.addActionListener(new ActionListener() {
@@ -306,11 +294,12 @@ public class SearchPage {
 					validDates = false;
 				}
 				if (validDates) {
-					SearchPage newFrame = new SearchPage(locationToUse, startDateToUse, endDateToUse, personToUse);
-					newFrame.getFrame().setVisible(true);
-					newFrame.getFrame().pack();
-					newFrame.getFrame().setLocationRelativeTo(null);
-					frame.dispose();
+					SearchPage newFrame = new SearchPage(frame, locationToUse, startDateToUse, endDateToUse, personToUse);
+					frame.getContentPane().removeAll();
+					frame.getContentPane().invalidate();
+					frame.getContentPane().add(newFrame);
+					frame.revalidate();
+					frame.repaint();
 				} else {
 					JOptionPane.showMessageDialog(frame,
 							"Ensure a date formatted DD/MM/YYYY is entered in both sections");
@@ -320,11 +309,11 @@ public class SearchPage {
 			}
 		});
 
-		frame.getContentPane().add(btnSearchProperties);
+		this.add(btnSearchProperties);
 
 		btnSearchProperties.setBackground(Color.LIGHT_GRAY);
 		btnSearchProperties.setBounds(463, 199, 241, 75);
-		frame.getContentPane().add(btnSearchProperties);
+		this.add(btnSearchProperties);
 		String nameQuery = "SELECT shortName FROM team023.Property WHERE generalLocation='" + this.getPropertyLocation()
 				+ "'";
 		DatabaseCommunication db1 = new DatabaseCommunication();
@@ -510,11 +499,13 @@ public class SearchPage {
 						Host hostToUse = personController.getHostByPropertyID(propertyIDClickedOn);
 						Property property = new Property(chargeBand, address, pController.getPropertyNameByPropertyID(Integer.parseInt(propertyIDClickedOn)), pController.getPropertyDescriptionByPropertyID(Integer.parseInt(propertyIDClickedOn)), breakfast, bathing, kitchen, living, outdoor, sleeping, utility);
 
-						ViewPropertyPage propertyPageFrame = new ViewPropertyPage(property, personToUse, hostToUse, Integer.parseInt(propertyIDClickedOn), false);
-						propertyPageFrame.getFrame().setVisible(true);
-						propertyPageFrame.getFrame().pack();
-						propertyPageFrame.getFrame().setLocationRelativeTo(null);
-//						frame.dispose();
+						ViewPropertyPage newFrame = new ViewPropertyPage(frame, getPanel(), property, personToUse, hostToUse, Integer.parseInt(propertyIDClickedOn), false);
+						frame.getContentPane().removeAll();
+						frame.getContentPane().invalidate();
+						frame.getContentPane().add(newFrame);
+						frame.revalidate();
+						frame.repaint();
+
 					} else {
 						int tableRow = Integer.valueOf( e.getActionCommand() );
 				        String propertyIDClickedOn = propertyIDS.get(tableRow);
@@ -524,12 +515,12 @@ public class SearchPage {
 				        Host hostToUse = propertyAndHost.right.right;
 						
 						
-						ViewPropertyPage propertyPageFrame = new ViewPropertyPage(property, null, hostToUse, Integer.parseInt(propertyIDClickedOn), false);
-						propertyPageFrame.getFrame().setVisible(true);
-						propertyPageFrame.getFrame().pack();
-						propertyPageFrame.getFrame().setLocationRelativeTo(null);
-//						JOptionPane.showMessageDialog(null, "You must be logged in to see more details!", "Errors",
-//								JOptionPane.WARNING_MESSAGE);
+						ViewPropertyPage newFrame = new ViewPropertyPage(frame, getPanel(), property, null, hostToUse, Integer.parseInt(propertyIDClickedOn), false);
+						frame.getContentPane().removeAll();
+						frame.getContentPane().invalidate();
+						frame.getContentPane().add(newFrame);
+						frame.revalidate();
+						frame.repaint();
 					}
 				}catch(Exception e1) {
 					JOptionPane.showMessageDialog(null, "You must be logged in to see more details!", "Errors",
@@ -545,7 +536,7 @@ public class SearchPage {
 
 		JLabel lblNewLabel_3 = new JLabel("Location searched: " + this.getPropertyLocation());
 		lblNewLabel_3.setBounds(86, 273, 221, 23);
-		frame.getContentPane().add(lblNewLabel_3);
+		this.add(lblNewLabel_3);
 
 		frame.setBounds(100, 100, 1200, 850);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -553,58 +544,56 @@ public class SearchPage {
 		startDayField = new JTextField();
 		startDayField.setColumns(10);
 		startDayField.setBounds(538, 154, 45, 30);
-		frame.getContentPane().add(startDayField);
+		this.add(startDayField);
 
 		startMonthField = new JTextField();
 		startMonthField.setColumns(10);
 		startMonthField.setBounds(611, 154, 45, 30);
-		frame.getContentPane().add(startMonthField);
+		this.add(startMonthField);
 
 		startYearField = new JTextField();
 		startYearField.setColumns(10);
 		startYearField.setBounds(666, 154, 62, 30);
-		frame.getContentPane().add(startYearField);
+		this.add(startYearField);
 
 		endDayField = new JTextField();
 		endDayField.setColumns(10);
 		endDayField.setBounds(889, 154, 45, 30);
-		frame.getContentPane().add(endDayField);
+		this.add(endDayField);
 
 		endMonthField = new JTextField();
 		endMonthField.setColumns(10);
 		endMonthField.setBounds(944, 154, 45, 30);
-		frame.getContentPane().add(endMonthField);
+		this.add(endMonthField);
 
 		endYearField = new JTextField();
 		endYearField.setColumns(10);
 		endYearField.setBounds(1002, 154, 62, 30);
-		frame.getContentPane().add(endYearField);
+		this.add(endYearField);
 
 		JLabel lblNewLabel_10 = new JLabel("DD");
 		lblNewLabel_10.setBounds(555, 135, 46, 14);
-		frame.getContentPane().add(lblNewLabel_10);
+		this.add(lblNewLabel_10);
 
 		JLabel lblNewLabel_4 = new JLabel("MM");
 		lblNewLabel_4.setBounds(610, 135, 46, 14);
-		frame.getContentPane().add(lblNewLabel_4);
+		this.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("YYYY");
 		lblNewLabel_5.setBounds(670, 135, 46, 14);
-		frame.getContentPane().add(lblNewLabel_5);
+		this.add(lblNewLabel_5);
 
 		JLabel lblNewLabel_6 = new JLabel("DD");
 		lblNewLabel_6.setBounds(888, 135, 46, 14);
-		frame.getContentPane().add(lblNewLabel_6);
+		this.add(lblNewLabel_6);
 
 		JLabel lblNewLabel_7 = new JLabel("MM");
 		lblNewLabel_7.setBounds(944, 135, 46, 14);
-		frame.getContentPane().add(lblNewLabel_7);
+		this.add(lblNewLabel_7);
 
 		JLabel lblNewLabel_8 = new JLabel("YYYY");
 		lblNewLabel_8.setBounds(1002, 135, 46, 14);
-		frame.getContentPane().add(lblNewLabel_8);
-		frame.setBounds(100, 100, 1200, 850);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.add(lblNewLabel_8);
 
 	}
 }

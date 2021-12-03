@@ -174,11 +174,4 @@ import model.Person;
 			return null;
 		}
 		
-		
-		public static void main(String [] args) {
-			PersonController pController = new PersonController();
-			System.out.println(pController.getPersonByUserID("a@gmail.com").getForename());
-			
-		}
-		
 }

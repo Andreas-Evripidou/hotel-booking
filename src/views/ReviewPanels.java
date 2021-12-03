@@ -29,22 +29,6 @@ public class ReviewPanels {
 	private JTextField textFieldOverall;
 	private ReviewsController rController = new ReviewsController();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-//					ReviewsController rc = new ReviewsController();
-					ReviewPanels window = new ReviewPanels(1);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
 	public JFrame getFrame() {
 		return frame;

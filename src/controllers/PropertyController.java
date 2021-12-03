@@ -196,10 +196,5 @@ public class PropertyController {
 		return propertyPersonHost;
 	}
 	
-//	public static void main (String [] args) {
-//		PropertyController pController = new PropertyController();
-//		System.out.println(pController.getPropertyAndHost("33").left.getAddress());
-//	}
-	
 
 }
