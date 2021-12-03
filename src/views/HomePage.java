@@ -213,11 +213,13 @@ public class HomePage extends JPanel {
 				String endMonth = (String) endMonthField.getText();
 				String endYear = (String) endYearField.getText();
 				String endDateToUse = "";
+				String endDateToParse = "";
 
 				if (endDay.matches("\\d{2}") && (Integer.valueOf(endDay) <= 31)) {
 					if (endMonth.matches("\\d{2}") && (Integer.valueOf(endMonth) <= 12)) {
 						if (endYear.matches("\\d{4}")) {
 							endDateToUse = endDay + " " + endMonth + " " + endYear;
+							endDateToParse = endYear + "-" + endMonth + "-" + endDay;
 						} else {
 							validDates = false;
 						}
@@ -230,13 +232,15 @@ public class HomePage extends JPanel {
 					validDates = false;
 				}
 				if (validDates) {
-					System.out.println(personToUse);
 					
 					LocalDate today = LocalDate.now();
 					
 					//check start date for booking is not in the past
-					if(LocalDate.parse(startDateToParse).isBefore(today)) {
-						JOptionPane.showMessageDialog(frame, "Start date entered must be from today");
+					if(LocalDate.parse(startDateToParse).isBefore(today) || LocalDate.parse(endDateToParse).isBefore(today)) {
+						JOptionPane.showMessageDialog(frame, "Start date and end date entered must be from today.");
+						validDates = true;
+					} else if (LocalDate.parse(startDateToParse).isAfter(LocalDate.parse(endDateToParse))) {
+						JOptionPane.showMessageDialog(frame, "End date must be on or after start date!.");
 						validDates = true;
 					} else {
 						//if dates are correct and in the future, perform search

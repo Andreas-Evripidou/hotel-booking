@@ -259,10 +259,12 @@ public class SearchPage extends JPanel{
 				String startYear = (String) startYearField.getText();
 				Boolean validDates = true;
 				String startDateToUse = "";
+				String startDateToParse = "";
 				if (startDay.matches("\\d{2}") && (Integer.valueOf(startDay) <= 31)) {
 					if (startMonth.matches("\\d{2}") && (Integer.valueOf(startMonth) <= 12)) {
 						if (startYear.matches("\\d{4}")) {
 							startDateToUse = startDay + " " + startMonth + " " + startYear;
+							startDateToParse = startYear + "-" + startMonth + "-" + startDay;
 						} else {
 							validDates = false;
 						}
@@ -276,13 +278,14 @@ public class SearchPage extends JPanel{
 				String endMonth = (String) endMonthField.getText();
 				String endYear = (String) endYearField.getText();
 				String endDateToUse = "";
+				String endDateToParse = "";
 
 				if (endDay.matches("\\d{2}") && (Integer.valueOf(endDay) <= 31)) {
 					if (endMonth.matches("\\d{2}") && (Integer.valueOf(endMonth) <= 12)) {
 						if (endYear.matches("\\d{4}")) {
 							endDateToUse = endDay + " " + endMonth + " " + endYear;
+							endDateToParse = endYear + "-" + endMonth + "-" + endDay;
 						} else {
-
 							validDates = false;
 						}
 					} else {
@@ -294,15 +297,28 @@ public class SearchPage extends JPanel{
 					validDates = false;
 				}
 				if (validDates) {
-					SearchPage newFrame = new SearchPage(frame, locationToUse, startDateToUse, endDateToUse, personToUse);
-					frame.getContentPane().removeAll();
-					frame.getContentPane().invalidate();
-					frame.getContentPane().add(newFrame);
-					frame.revalidate();
-					frame.repaint();
+					
+					LocalDate today = LocalDate.now();
+					
+					//check start date for booking is not in the past
+					if(LocalDate.parse(startDateToParse).isBefore(today) || LocalDate.parse(endDateToParse).isBefore(today)) {
+						JOptionPane.showMessageDialog(frame, "Start date and end date entered must be from today.");
+						validDates = true;
+					} else if (LocalDate.parse(startDateToParse).isAfter(LocalDate.parse(endDateToParse))) {
+						JOptionPane.showMessageDialog(frame, "End date must be on or after start date!.");
+						validDates = true;
+					} else {
+						//if dates are correct and in the future, perform search
+						SearchPage newFrame = new SearchPage(frame,locationToUse, startDateToUse, endDateToUse, personToUse);
+						frame.getContentPane().removeAll();
+						frame.getContentPane().invalidate();
+						frame.getContentPane().add(newFrame);
+						frame.revalidate();
+						frame.repaint();
+					}
 				} else {
 					JOptionPane.showMessageDialog(frame,
-							"Ensure a date formatted DD/MM/YYYY is entered in both sections");
+							"Ensure a date in the future formatted DD/MM/YYYY is entered in both sections");
 					validDates = true;
 				}
 
