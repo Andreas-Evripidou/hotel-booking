@@ -259,10 +259,12 @@ public class SearchPage extends JPanel{
 				String startYear = (String) startYearField.getText();
 				Boolean validDates = true;
 				String startDateToUse = "";
+				String startDateToParse = "";
 				if (startDay.matches("\\d{2}") && (Integer.valueOf(startDay) <= 31)) {
 					if (startMonth.matches("\\d{2}") && (Integer.valueOf(startMonth) <= 12)) {
 						if (startYear.matches("\\d{4}")) {
 							startDateToUse = startDay + " " + startMonth + " " + startYear;
+							startDateToParse = startYear + "-" + startMonth + "-" + startDay;
 						} else {
 							validDates = false;
 						}
@@ -282,7 +284,6 @@ public class SearchPage extends JPanel{
 						if (endYear.matches("\\d{4}")) {
 							endDateToUse = endDay + " " + endMonth + " " + endYear;
 						} else {
-
 							validDates = false;
 						}
 					} else {
@@ -294,15 +295,25 @@ public class SearchPage extends JPanel{
 					validDates = false;
 				}
 				if (validDates) {
-					SearchPage newFrame = new SearchPage(frame, locationToUse, startDateToUse, endDateToUse, personToUse);
-					frame.getContentPane().removeAll();
-					frame.getContentPane().invalidate();
-					frame.getContentPane().add(newFrame);
-					frame.revalidate();
-					frame.repaint();
+					
+					LocalDate today = LocalDate.now();
+					
+					//check start date for booking is not in the past
+					if(LocalDate.parse(startDateToParse).isBefore(today)) {
+						JOptionPane.showMessageDialog(frame, "Start date entered must be from today");
+						validDates = true;
+					} else {
+						//if dates are correct and in the future, perform search
+						SearchPage newFrame = new SearchPage(frame,locationToUse, startDateToUse, endDateToUse, personToUse);
+						frame.getContentPane().removeAll();
+						frame.getContentPane().invalidate();
+						frame.getContentPane().add(newFrame);
+						frame.revalidate();
+						frame.repaint();
+					}
 				} else {
 					JOptionPane.showMessageDialog(frame,
-							"Ensure a date formatted DD/MM/YYYY is entered in both sections");
+							"Ensure a date in the future formatted DD/MM/YYYY is entered in both sections");
 					validDates = true;
 				}
 
