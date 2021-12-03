@@ -16,6 +16,7 @@ public class ReservationController {
 		
 		PropertyController pc = new PropertyController();
 		ArrayList<String> hostIDs= pc.getAllPropertIDByHostID(hostID);
+		ArrayList<Reservation> reservations = new ArrayList<>();
 		
 		for (int i=0 ; i<hostIDs.size() ; i++) {
 			String query = "SELECT * FROM team023.Reservation WHERE propertyID='" + hostIDs.get(i) + "'";
@@ -27,7 +28,7 @@ public class ReservationController {
 			Date endDate;
 			Boolean accepted;
 			
-			ArrayList<Reservation> reservations = new ArrayList<>();
+			
 			Reservation reservation = null;
 			
 			try {
@@ -43,7 +44,7 @@ public class ReservationController {
 					reservations.add(reservation);
 					}
 				
-				return reservations;
+				
 				
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,17 +52,19 @@ public class ReservationController {
 					db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
 				}
 		}
-		return null;
+		return reservations;
 	}
 	
 	public ArrayList<Reservation> getAcceptedReservationsByHostID(String hostID) {
 			
 		PropertyController pc = new PropertyController();
 		ArrayList<String> hostIDs= pc.getAllPropertIDByHostID(hostID);
+		ArrayList<Reservation> reservations = new ArrayList<>();;
 		
 		for (int i=0 ; i<hostIDs.size() ; i++) {
 			String query = "SELECT * FROM team023.Reservation WHERE propertyID='" + hostIDs.get(i) + "' AND accepted='1'";
 			DatabaseCommunication db = new DatabaseCommunication();
+
 			
 			String userID;
 			int propertyID;
@@ -69,7 +72,7 @@ public class ReservationController {
 			Date endDate;
 			Boolean accepted;
 			
-			ArrayList<Reservation> reservations = new ArrayList<>();
+			
 			Reservation reservation = null;
 			
 			try {
@@ -84,25 +87,24 @@ public class ReservationController {
 					reservation = new Reservation(userID, propertyID, startDate, endDate, accepted);		
 					reservations.add(reservation);
 					}
-				
-				return reservations;
-				
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
 					db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
 				}
 		}
-		return null;
+
+		return reservations;
 	}
 	
 	public ArrayList<Reservation> getNotAcceptedReservationsByHostID(String hostID) {
 			
 		PropertyController pc = new PropertyController();
-		ArrayList<String> hostIDs= pc.getAllPropertIDByHostID(hostID);
+		ArrayList<String> propertiesIDs= pc.getAllPropertIDByHostID(hostID);
+		ArrayList<Reservation> reservations = new ArrayList<>();
 		
-		for (int i=0 ; i<hostIDs.size() ; i++) {
-			String query = "SELECT * FROM team023.Reservation WHERE propertyID='" + hostIDs.get(i) + "' AND accepted='0'";
+		for (int i = 0 ; i < propertiesIDs.size(); i++) {
+			String query = "SELECT * FROM team023.Reservation WHERE propertyID='" + propertiesIDs.get(i) + "' AND accepted='0'";
 			DatabaseCommunication db = new DatabaseCommunication();
 			
 			String userID;
@@ -111,7 +113,7 @@ public class ReservationController {
 			Date endDate;
 			Boolean accepted;
 			
-			ArrayList<Reservation> reservations = new ArrayList<>();
+			
 			Reservation reservation = null;
 			
 			try {
@@ -122,20 +124,21 @@ public class ReservationController {
 					startDate = results.getDate(3);
 					endDate = results.getDate(4);
 					accepted = results.getBoolean(5);
-					
 					reservation = new Reservation(userID, propertyID, startDate, endDate, accepted);		
 					reservations.add(reservation);
 					}
 				
-				return reservations;
+				
 				
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
 					db.closeAll(db.getResultSet(), db.getStatement(), db.getPreparedStatement(), db.getConnection());
 				}
+			
 		}
-		return null;
+		
+		return reservations;
 	}
 	
 	public ArrayList<Reservation> getReservationsByPropertyID(int propertyID) {

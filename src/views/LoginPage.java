@@ -179,7 +179,6 @@ public class LoginPage extends JPanel {
 							
 						}
 						else {
-							
 							GuestProfilePage newFrame = new GuestProfilePage(frame,p);
 							frame.getContentPane().removeAll();
 							frame.getContentPane().invalidate();

@@ -60,10 +60,11 @@ public class HostProfilePage extends JPanel{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(JFrame frame, Person p) {
+		setLayout(new BorderLayout(0, 0));
 				
 		JPanel hostProfilePanel = new JPanel();
 		hostProfilePanel.setBackground(Color.LIGHT_GRAY);
-		this.add(hostProfilePanel, BorderLayout.CENTER);
+		this.add(hostProfilePanel);
 		
 		JLabel lblReservationRequest = new JLabel("Reservation Requests");
 		lblReservationRequest.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -118,6 +119,9 @@ public class HostProfilePage extends JPanel{
 		reservationRequestPanel.setLayout(new BoxLayout(reservationRequestPanel, BoxLayout.X_AXIS));
 		acceptedReservationsPanel.setLayout(new BoxLayout(acceptedReservationsPanel, BoxLayout.X_AXIS));
 		
+		JLabel lblNewLabel = new JLabel("Host Console");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 26));
+		
 		GroupLayout gl_hostProfilePanel = new GroupLayout(hostProfilePanel);
 		gl_hostProfilePanel.setHorizontalGroup(
 			gl_hostProfilePanel.createParallelGroup(Alignment.LEADING)
@@ -140,11 +144,17 @@ public class HostProfilePage extends JPanel{
 								.addComponent(lblReservationRequest, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addGap(996))))
 					.addGap(20))
+				.addGroup(gl_hostProfilePanel.createSequentialGroup()
+					.addGap(511)
+					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(511, Short.MAX_VALUE))
 		);
 		gl_hostProfilePanel.setVerticalGroup(
 			gl_hostProfilePanel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_hostProfilePanel.createSequentialGroup()
-					.addContainerGap(58, Short.MAX_VALUE)
+					.addGap(18)
+					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+					.addGap(11)
 					.addComponent(lblReservationRequest)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(reservationRequestPanel, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE)

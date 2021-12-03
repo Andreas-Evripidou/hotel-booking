@@ -182,6 +182,8 @@ public class ViewPropertyPage extends JPanel {
 							Date.valueOf(r.txtbxStartDate.getText()), Date.valueOf(r.txtbxEndDate.getText()), false);
 					RequestController req = new RequestController(reservation);
 					req.makeRequest();
+					JOptionPane.showMessageDialog(null, "Your request has succesfully made, you can see your request the next time you login.", "Comfirmation", JOptionPane.OK_OPTION);
+					
 				}
 			}
 		});
