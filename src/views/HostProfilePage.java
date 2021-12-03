@@ -199,7 +199,7 @@ public class HostProfilePage extends JPanel{
 		        bc.acceptBooking(acceptUserID, acceptPropertyID, acceptStartDate, acceptEndDate); 
 		        
 		        showAcceptedReservations(frame ,p);
-//		        showAcceptedReservations(p);
+		        showRequestedReservations(frame,p);
 		        ((DefaultTableModel)table.getModel()).removeRow(modelRow);
 		        
 		    }
@@ -216,7 +216,7 @@ public class HostProfilePage extends JPanel{
 		        String deleteStartDate = requestedReservations.get(modelRow).getStartDate().toString();
 		        String deleteEndDate = requestedReservations.get(modelRow).getEndDate().toString();
 		        bc.rejectBooking(deleteUserID, deletePropertyID, deleteStartDate, deleteEndDate);
-		        
+		        showRequestedReservations(frame,p);
 		        ((DefaultTableModel)table.getModel()).removeRow(modelRow);
 		       
 		    }
@@ -230,7 +230,11 @@ public class HostProfilePage extends JPanel{
 		JScrollPane reservationRequestsScrollPanel = new JScrollPane();
 		reservationRequestsScrollPanel.setViewportView(reservationRequestTable);
 		
+		reservationRequestPanel.removeAll();
 		reservationRequestPanel.add(reservationRequestsScrollPanel);
+		
+		frame.revalidate();
+        frame.repaint();
 	}
 	
 	

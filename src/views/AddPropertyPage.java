@@ -507,14 +507,17 @@ public class AddPropertyPage extends JPanel {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//display the window to add the charge band
 				AddChargeBand a = new AddChargeBand(chargeBands);
 				a.setVisible(true);
 				a.setSize(new Dimension(450, 200));
 				a.setPreferredSize(new Dimension(450, a.getPreferredSize().height));
+				//result variable tracks whether the user has confirmed their selection for inputs
 				int result = JOptionPane.showConfirmDialog(null, a, "Add Charge Band", 
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 				if(result == JOptionPane.OK_OPTION) {
 					ChargeBandController cbc = new ChargeBandController();
+					//check there are inputs for the prices 
 					if(a.serviceChargeTxt.getText().length() <= 1) {
 						JOptionPane.showMessageDialog(null, "Invalid inputs. Please try again.", "Error", JOptionPane.WARNING_MESSAGE);
 					}
@@ -527,16 +530,20 @@ public class AddPropertyPage extends JPanel {
 					else if(LocalDate.parse(a.startDateTxt.getText()).isAfter(LocalDate.parse(a.endDateTxt.getText()))){
 						JOptionPane.showMessageDialog(null, "Invalid inputs. Please try again.", "Error", JOptionPane.WARNING_MESSAGE);
 					} else {
+						//Create instance of charge band, getting values from the window
 						ChargeBand cb = new ChargeBand(a.startDateTxt.getText(),
 								a.endDateTxt.getText(), 
 								Double.parseDouble(a.serviceChargeTxt.getText().substring(1)),
 								Double.parseDouble(a.cleaningChargeTxt.getText().substring(1)),
 								Double.parseDouble(a.pppTxt.getText().substring(1)));
+						//check the charge bands do not overlap each other
 						if(cbc.chargeBandsOverlap(chargeBands, cb)) {
 							JOptionPane.showMessageDialog(null, "Charge band overlaps with"
 									+ "existing charge bands. Please try again.", "Error", JOptionPane.WARNING_MESSAGE);
 						} else {
+							//if not, the charge band is valid and can be added to the property
 							chargeBands.add(cb);
+							//now with new charge band, check completeness and allow user to add the property if true
 							if(cbc.allDatesCovered(chargeBands)) {
 								lblChargeBandStatus.setText("Charge bands complete.");
 								btnNewButton_1.setEnabled(false);
