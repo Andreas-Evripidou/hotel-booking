@@ -1,23 +1,19 @@
 package views;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import controllers.*;
 import model.Address;
 import model.Person;
-import model.Property;
 import model.Reservation;
 
 import javax.swing.JScrollPane;
@@ -28,9 +24,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.JTable;
 

@@ -3,11 +3,7 @@ package controllers;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 
-import model.Bathing;
-import model.Bathroom;
-import model.Property;
 import model.Reservation;
 
 public class ReservationController {

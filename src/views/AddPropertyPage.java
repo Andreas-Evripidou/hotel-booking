@@ -1,13 +1,11 @@
 package views;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import controllers.ChargeBandController;
 import controllers.Validation;
@@ -16,16 +14,12 @@ import model.*;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.awt.GridLayout;
 import javax.swing.BoxLayout;
-import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;

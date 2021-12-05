@@ -1,37 +1,24 @@
 package views;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import controllers.DatabaseCommunication;
-import controllers.PropertyController;
 import controllers.RequestController;
-import controllers.ReviewsController;
-import model.Address;
-import model.Bathing;
-import model.Bathroom;
-import model.Bed;
-import model.Bedroom;
-import model.ChargeBand;
 import model.Host;
-import model.Kitchen;
-import model.Living;
-import model.Outdoor;
+
 import model.Person;
 import model.Property;
 import model.Reservation;
-import model.Sleeping;
-import model.Utility;
+
 
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
@@ -182,8 +169,6 @@ public class ViewPropertyPage extends JPanel {
 							Date.valueOf(r.txtbxStartDate.getText()), Date.valueOf(r.txtbxEndDate.getText()), false);
 					RequestController req = new RequestController(reservation);
 					req.makeRequest();
-					JOptionPane.showMessageDialog(null, "Your request has succesfully made, you can see your request the next time you login.", "Comfirmation", JOptionPane.OK_OPTION);
-					
 				}
 			}
 		});

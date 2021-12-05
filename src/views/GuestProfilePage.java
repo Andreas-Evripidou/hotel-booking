@@ -27,11 +27,7 @@ import model.Host;
 import model.Person;
 import model.Property;
 import model.Reservation;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.Component;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.LayoutStyle.ComponentPlacement;
+
 
 public class GuestProfilePage extends JPanel {
 	

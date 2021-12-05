@@ -376,8 +376,6 @@ public class RegistrationPage extends JPanel{
 					
 					Validation v = new Validation();
 					PasswordHash ph = new PasswordHash();
-//					System.out.println(v.validateUser("malakas@email.com", "123456", "Host"));
-//					db.closeAll(db.res, db.stmt, db.pstmt, db.con);
 					
 					
 					Person m = new Person(title, forename, surname, username, userId, contact, isHost, isGuest, ph.hashPassword(password));

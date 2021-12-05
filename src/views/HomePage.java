@@ -1,23 +1,16 @@
 package views;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import javax.swing.JTextField;
-import javax.swing.JToolBar;
-import javax.swing.text.AttributeSet.ColorAttribute;
-import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 
 import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JScrollBar;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -25,12 +18,9 @@ import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import controllers.DatabaseCommunication;
-import controllers.PersonController;
 import model.Person;
-import model.Property;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 

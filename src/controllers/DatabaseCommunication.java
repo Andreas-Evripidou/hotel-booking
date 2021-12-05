@@ -4,9 +4,6 @@ import java.sql.*;
 
 import model.*;
 
-import controllers.*;
-import views.AddPropertyPage;
-
 public class DatabaseCommunication {
 	
 	public String SERVER = "jdbc:mysql://stusql.dcs.shef.ac.uk/team023";

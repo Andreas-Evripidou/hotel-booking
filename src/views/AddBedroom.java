@@ -5,7 +5,6 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 
 public class AddBedroom extends JPanel {
 	public JComboBox cmbBed1;

@@ -25,7 +25,7 @@ public class Bedroom {
 		if(bed2 == Bed.SINGLE) {
 			count++;
 		} else if(bed2 == null){
-			count = count;
+			count = count + 0;
 		} else {
 			count = count + 2;
 		}

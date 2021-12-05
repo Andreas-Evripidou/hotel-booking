@@ -1,15 +1,10 @@
 package controllers;
 
-import java.sql.Date;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.ZoneId;
 
 import javax.swing.JOptionPane;
 
-import model.Host;
-import model.Person;
-import model.Property;
 import model.Reservation;
 
 public class RequestController {
@@ -36,6 +31,7 @@ public class RequestController {
 				+ "VALUES (?, ?, ?, ?, ?);";
 		if(checkPropertyIsAvailable()) {
 			db.addReservationInDatabase(reservation, statement);
+			JOptionPane.showMessageDialog(null, "Your request has succesfully made, you can see your request the next time you login.", "Comfirmation", JOptionPane.OK_OPTION);
 		} else {
 			JOptionPane.showMessageDialog(null, "Property unavailable for selected dates.", "Error", JOptionPane.WARNING_MESSAGE);
 		}

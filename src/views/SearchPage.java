@@ -1,48 +1,25 @@
 package views;
 
-import java.awt.EventQueue;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import javax.swing.JTextField;
-import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
 
 import com.mysql.cj.conf.ConnectionUrlParser.Pair;
 
 import controllers.PropertyController;
-import controllers.RequestController;
-import controllers.ReviewsController;
-import model.Address;
-import model.Bathing;
-import model.Bathroom;
-import model.Bed;
-import model.Bedroom;
-import model.ChargeBand;
-import model.Host;
-import model.Kitchen;
-import model.Living;
-import model.Outdoor;
-import model.Person;
-import model.Property;
-import model.Reservation;
-import model.Sleeping;
-import model.Utility;
+import model.*;
 
-import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.Point;
 
-import javax.swing.JScrollBar;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -61,7 +38,6 @@ import controllers.ChargeBandController;
 import controllers.DatabaseCommunication;
 import controllers.FacilitiesController;
 import controllers.PersonController;
-import controllers.PropertyController;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
@@ -216,10 +192,7 @@ public class SearchPage extends JPanel{
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(86, 307, 983, 420);
 		this.add(scrollPane);
-
-		frame.setBounds(100, 100, 1200, 850);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
 		String query = "SELECT generalLocation FROM team023.Property";
 		DatabaseCommunication db = new DatabaseCommunication();
 		ArrayList<String> locations = new ArrayList<String>();
@@ -554,8 +527,6 @@ public class SearchPage extends JPanel{
 		lblNewLabel_3.setBounds(86, 273, 221, 23);
 		this.add(lblNewLabel_3);
 
-		frame.setBounds(100, 100, 1200, 850);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		startDayField = new JTextField();
 		startDayField.setColumns(10);

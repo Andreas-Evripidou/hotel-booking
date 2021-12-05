@@ -3,17 +3,12 @@ package views;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-
-import javax.swing.JTextField;
-
 import controllers.ChargeBandController;
 import model.Property;
-
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -69,7 +64,7 @@ public class RequestPropertyPanel extends JPanel {
 					double totalCost = cbc.getTotalCost(property.getChargeBands(),
 							LocalDate.parse(txtbxStartDate.getText()),
 							LocalDate.parse(txtbxEndDate.getText()));
-					lblTotalCost.setText("£" + String.valueOf(totalCost));
+					lblTotalCost.setText("Â£" + String.valueOf(totalCost));
 					} catch(Exception ex) {
 						JOptionPane.showMessageDialog(null, "Dates out of range for property charge bands", "Error", JOptionPane.WARNING_MESSAGE);
 					}

@@ -4,17 +4,12 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.mysql.cj.conf.ConnectionUrlParser.Pair;
 
-import model.Bathing;
-import model.Kitchen;
-import model.Living;
-import model.Outdoor;
+
 import model.Reservation;
-import model.Sleeping;
-import model.Utility;
+
 
 public class BookingsController {
 
